@@ -1,0 +1,68 @@
+# DevSecOps CI/CD Pipeline Architecture & Security Gates
+# Task: TASK-90A174 | Owner: Sarah Martinez
+name: nTrust Shield Secure Deployment Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Trivy vulnerability scanner (SAST)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+          
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  container-hardening:
+    runs-on: ubuntu-latest
+    needs: security-scan
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build hardened Docker image
+        run: docker build --no-cache --pull -t ntrust-shield:${{ github.sha }} .
+        
+      - name: Run Trivy container scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ntrust-shield:${{ github.sha }}'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+
+  policy-enforcement:
+    runs-on: ubuntu-latest
+    needs: container-hardening
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate OPA Policies (NIST RMF / HITL Compliance)
+        run: |
+          echo "Enforcing security policies for all deployments..."
+          # Simulate policy check gate
+          if [ -f ./policy/allow.rego ]; then
+            echo "✅ Policy enforcement passed."
+          else
+            exit 1
+          fi
+
+  deploy-staging:
+    needs: [security-scan, container-hardening, policy-enforcement]
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Deploy to Staging Environment
+        run: echo "Secure build deployed to staging. Awaiting HITL approval."

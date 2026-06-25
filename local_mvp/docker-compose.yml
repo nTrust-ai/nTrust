@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  ntrust-api:
+    build: ./src/api
+    ports:
+       - "8000:8000"
+    environment:
+       - ENVIRONMENT=local-dev
+       - LOG_LEVEL=debug
+       - DATABASE_URL=sqlite:///./ntrust_shield.db
+    volumes:
+       - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  ntrust-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: shield_user
+      POSTGRES_PASSWORD: secure_dev_pass_2026
+      POSTGRES_DB: ntrust_shield
+    ports:
+       - "5432:5432"
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shield_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ntrust-nginx:
+    image: nginx:alpine
+    ports:
+       - "443:8443"
+       - "80:8080"
+    volumes:
+       - ./nginx/conf.d:/etc/nginx/conf.d
+       - ./certs:/etc/nginx/certs
+    depends_on:
+      ntrust-api:
+        condition: service_healthy
+
+volumes:
+  pgdata:

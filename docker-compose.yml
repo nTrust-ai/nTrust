@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  ntrust-shield:
+    build: ./app
+    ports:
+       - "8000:8000"
+    volumes:
+       - ./logs:/app/logs
+       - ./config:/app/config
+    environment:
+       - ENV=local-sandbox
+       - LOG_LEVEL=INFO
+       - DB_PATH=/app/data/shield.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+       - "ntrust.phase=local-pilot"
+       - "ntrust.architect=alex-chen"
+
+volumes:
+  ntrust-data:
+    driver: local

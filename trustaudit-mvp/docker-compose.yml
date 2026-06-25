@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  trustaudit-engine:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=local-dev
+      - LOG_LEVEL=info
+      - SERVICE_NAME=trustaudit-engine
+    volumes:
+      - ./data:/app/data
+    networks:
+      - shield-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  shield-net:
+    driver: bridge

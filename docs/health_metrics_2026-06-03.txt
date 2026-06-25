@@ -1,0 +1,16 @@
+=== Infrastructure Health Report ===
+Wed Jun  3 14:41:20 UTC 2026
+
+ 14:41:20 up 8 days,  6:59,  0 users,  load average: 2.87, 2.82, 2.96
+               total        used        free      shared  buff/cache   available
+Mem:           32044        8891        1993         431       21967       23152
+Swap:           4095           1        4094
+Filesystem            Size  Used Avail Use% Mounted on
+overlay               197G   76G  112G  41% /
+tmpfs                  64M     0   64M   0% /dev
+shm                    64M     0   64M   0% /dev/shm
+/run/host_mark/Users  1.9T  1.2T  657G  65% /app/data
+/dev/vda1             197G   76G  112G  41% /etc/hosts
+tmpfs                  16G     0   16G   0% /proc/scsi
+tmpfs                  16G     0   16G   0% /sys/firmware
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES

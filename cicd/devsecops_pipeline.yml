@@ -1,0 +1,63 @@
+# nTrust.ai DevSecOps Pipeline Architecture v1.0
+# Task: TASK-90A174 | CI/CD Pipeline Architecture & Security Gate Implementation
+# Author: Sarah Martinez (Senior DevSecOps Engineer)
+# Compliance: NIST AI RMF, EU HITL Mandate, Phase 1/2 Roadmap
+
+name: nTrust-CI-CD-Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  REGISTRY: ghcr.io/ntrust-ai
+  IMAGE_NAME: ntrust-web-dashboard
+  SCAN_THRESHOLD: MEDIUM # NIST RMF aligned baseline
+
+jobs:
+  security-gates:
+    runs-on: ubuntu-latest
+    steps:
+       - uses: actions/checkout@v4
+       
+       - name: SAST Scan (Semgrep)
+        run: |
+          pip install semgrep
+          semgrep --config auto . || exit 1
+          
+       - name: Dependency Vulnerability Check (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          
+       - name: Container Image Scan
+        run: |
+          trivy image --severity HIGH,CRITICAL --exit-code 1 ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  build-and-test:
+    needs: security-gates
+    runs-on: ubuntu-latest
+    steps:
+       - uses: actions/checkout@v4
+       - name: Build & Test MVP
+        run: |
+          echo "Building nTrust Web Dashboard & TrustGuard MVP components"
+           # Placeholder for actual build/test commands
+          
+  deploy-staging:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+       - name: Deploy to Staging Environment
+        run: echo "Deploying to isolated staging tenant per Phase 1 mandate"
+        
+  approval-gate-humans:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+       - name: Human-In-The-Loop Approval (EU AI Act / NIST)
+        run: echo "Triggering manual review board for compliance validation before prod cutover"

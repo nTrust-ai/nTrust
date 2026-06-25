@@ -1,0 +1,38 @@
+# nTrust.ai Phase 2 MVP Infrastructure Orchestration
+# Purpose: Local sandbox provisioning for Pilot Launch & Traction Tracking
+version: '3.8'
+
+services:
+   # Core API Gateway (FastAPI)
+  api-gateway:
+    build: ./api
+    ports:
+       - "8000:8000"
+    environment:
+       - ENV=staging
+       - LOG_LEVEL=debug
+    volumes:
+       - ./logs:/var/log/api
+    
+   # Pilot Onboarding Service (Django/Python)
+  pilot-service:
+    build: ./pilot
+    ports:
+       - "8001:8000"
+    depends_on:
+       - api-gateway
+    environment:
+       - DB_HOST=db
+       - REDIS_HOST=redis
+    
+   # Database & Cache
+  db:
+    image: postgres:15-alpine
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+    
+  redis:
+    image: redis:7-alpine
+
+volumes:
+  pgdata:

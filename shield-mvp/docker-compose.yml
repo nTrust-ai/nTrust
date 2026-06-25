@@ -1,0 +1,49 @@
+# nTrust Shield MVP: Docker Compose Orchestration v2
+# Target: Local Development & Validation of TrustAudit Engine Stack
+networks:
+  shield-net:
+    driver: bridge
+
+services:
+  trustaudit-api:
+    build: .
+    container_name: trustaudit-engine
+    ports:
+       - "8000:8000"
+    environment:
+       - ENVIRONMENT=local-dev
+       - LOG_LEVEL=debug
+       - DATABASE_URL=postgresql://ntrust:ntrust_pass@trustaudit-db:5432/shield_mvp
+       - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:8000
+    volumes:
+       - ./app:/app/app
+       - ./data:/app/data
+    depends_on:
+      trustaudit-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+       - shield-net
+
+  trustaudit-db:
+    image: postgres:15-alpine
+    container_name: trustaudit-db
+    environment:
+       - POSTGRES_USER=ntrust
+       - POSTGRES_PASSWORD=ntrust_pass
+       - POSTGRES_DB=shield_mvp
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+    ports:
+       - "5432:5432" # Internal only in prod, exposed for local DB client access
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ntrust -d shield_mvp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+       - shield-net
+
+volumes:
+  pgdata:
+    driver: local
