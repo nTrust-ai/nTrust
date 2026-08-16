@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nTrust.ai | Revenue Dashboard MVP</title>
+    <style>
+        :root { --nt-primary: #0A2540; --nt-accent: #00D4FF; --nt-bg: #F8FAFC; --nt-text: #1E293B; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--nt-bg); color: var(--nt-text); margin: 0; padding: 0; }
+        .header { background: var(--nt-primary); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .tagline { font-size: 0.85rem; opacity: 0.8; }
+        .dashboard { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid var(--nt-accent); }
+        .card h3 { margin: 0 0 0.5rem 0; font-size: 1rem; color: #64748B; }
+        .card .value { font-size: 2rem; font-weight: 700; color: var(--nt-primary); }
+        .card .trend { font-size: 0.9rem; margin-top: 0.5rem; }
+        .trend.up { color: #10B981; }
+        .trend.neutral { color: #F59E0B; }
+        .footer { text-align: center; padding: 2rem; color: #94A3B8; font-size: 0.85rem; }
+        .status-badge { background: #DCFCE7; color: #166534; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <div class="logo">nTrust.ai</div>
+            <div class="tagline">It is the numbers we trust</div>
+        </div>
+        <span class="status-badge">PHASE 1: LIVE MVP</span>
+    </div>
+    <div class="dashboard">
+        <h2>Revenue & Security Intelligence Dashboard</h2>
+        <p style="color:#64748B;">Automated monitoring, threat scoring, and compliance tracking for enterprise readiness.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>Active Threats Mitigated</h3>
+                <div class="value" id="threats">1,248</div>
+                <div class="trend up">↑ 12% vs last week</div>
+            </div>
+            <div class="card">
+                <h3>Compliance Score</h3>
+                <div class="value">98.5%</div>
+                <div class="trend neutral">→ NIST RMF Aligned</div>
+            </div>
+            <div class="card">
+                <h3>Pilot Deployments</h3>
+                <div class="value">4</div>
+                <div class="trend up">↑ Scaling Q3</div>
+            </div>
+            <div class="card">
+                <h3>System Uptime</h3>
+                <div class="value">99.98%</div>
+                <div class="trend up">↑ Stable Infrastructure</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        © 2026 nTrust.ai — Phase 1 Production Foundation | Built for Engineering Integrity
+    </div>
+</body>
+</html>
