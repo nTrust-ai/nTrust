@@ -1,0 +1,17 @@
+nTrust.ai — LOCAL DEPLOYMENT VERIFICATION REPORT
+Timestamp (UTC): 2026-09-01 16:50:16
+Sandbox IP: 172.18.0.23
+
+[PASS] 8085 public site (root): HTTP 200 | CT=text/html | 509 bytes
+[PASS] 55127 revenue dashboard (root): HTTP 200 | CT=text/html | 3108 bytes
+[PASS] 55127 SPA deep-route /dashboard: HTTP 200 | CT=text/html | 3108 bytes
+[PASS] 55127 SPA deep-route /revenue: HTTP 200 | CT=text/html | 3108 bytes
+[PASS] 55127 SPA deep-route /pricing: HTTP 200 | CT=text/html | 3108 bytes
+[PASS] 55127 health endpoint: HTTP 200 | CT=application/json | 64 bytes
+
+Server binding (from /proc/net/tcp):
+  0.0.0.0:8085  (0x1F95)  — LISTEN  [public website]
+  0.0.0.0:55127 (0xD757)  — LISTEN  [revenue ops dashboard]
+
+Headless browser (host-perspective, host.docker.internal) renders BOTH apps successfully.
+Screenshots: b46b6eef.png (8085), 5fd1e2ce.png (55127) — captured and saved to org artifacts.
