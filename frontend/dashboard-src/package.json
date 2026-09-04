@@ -1,0 +1,24 @@
+{
+  "name": "ntrust-customer-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "description": "nTrust.ai customer dashboard — zero-trust, WCAG 2.2 AA, sanitized React module bundle (Weaver 2026-09-04).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
