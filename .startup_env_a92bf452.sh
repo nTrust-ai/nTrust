@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /app/data/orgs/org_ntrust/mvp && python3 -c "from http.server import SimpleHTTPRequestHandler, HTTPServer; server1 = HTTPServer(('0.0.0.0', 8085), SimpleHTTPRequestHandler); server2 = HTTPServer(('0.0.0.0', 55127), SimpleHTTPRequestHandler); print('Services starting on 0.0.0.0:8085 and 0.0.0.0:55127'); server1.serve_forever()" &

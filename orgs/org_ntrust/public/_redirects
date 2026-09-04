@@ -1,0 +1,17 @@
+# Redirect Mapping for nTrust.ai
+# Clean public site redirect configuration
+
+/* Redirect legacy or staging paths to canonical URLs */
+/coming-soon /
+/legacy /
+/staging /
+/dev /
+/test /
+/mvp /
+/phase1 /
+/phase2 /
+/api-test /
+/dashboard-test /
+
+/* Preserve www subdomain redirects if needed */
+/www:https://ntrust.ai/* /$1 301

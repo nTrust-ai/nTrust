@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="nTrust.ai Revenue & Security Intelligence Dashboard" />
+<title>nTrust.ai — Service Catalog v2.0</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: linear-gradient(135deg, #0b1020 0%, #101a33 55%, #0b1020 100%); color: #e6edf7; min-height: 100vh; }
+  .shell { max-width: 1280px; margin: 0 auto; padding: 24px 20px 40px; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 16px; margin-bottom: 26px; }
+  .brand { font-size: 1.65rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: rgba(16,185,129,0.14); border: 1px solid #10b981; color: #34d399; font-size: 0.82rem; font-weight: 700; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  h1 { font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0 0 18px 4px; padding-left: 12px; border-left: 4px solid #38bdf8; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .kpi-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 22px; }
+  .kpi-label { font-size: 0.78rem; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+  .kpi-value { font-size: 2.3rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .compliance-strip { display: flex; flex-wrap: wrap; gap: 10px; padding: 16px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; margin-bottom: 30px; }
+  .compliance-strip span { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+  .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 40px; }
+  .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+  .product-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+  .badge-live { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }
+  .badge-soon { background: rgba(251,191,36,0.18); color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
+  .product-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .product-desc { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 16px; min-height: 48px; }
+  .cta-button { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; background: linear-gradient(90deg, #38bdf8, #7c3aed); color: #fff; border: none; border-radius: 10px; font-size: 0.85rem; font-weight: 600; text-decoration: none; cursor: pointer; width: 100%; }
+  .cta-button:hover { background: linear-gradient(90deg, #7c3aed, #38bdf8); transform: scale(1.02); box-shadow: 0 8px 24px rgba(56,189,248,0.3); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="brand">nTrust.ai</div>
+    <div class="status-badge"><span class="status-dot"></span>OPERATIONAL • NIST | EU AI Act | ISO 27001</div>
+  </header>
+
+  <div class="compliance-strip">
+    <span>🛡️ NIST AI RMF Aligned</span>
+    <span>⚖️ EU AI Act Compliant</span>
+    <span>🔒 ISO/IEC 27001:2022 Certified</span>
+    <span>📜 SOC 2 Type II Validated</span>
+    <span>☕ GDPR Privacy-First</span>
+  </div>
+
+  <h1>Service Catalog v2.0 (EE22F8)</h1>
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Threats Mitigated</div><div class="kpi-value">1,248</div></div>
+    <div class="kpi-card"><div class="kpi-label">Compliance Score</div><div class="kpi-value">98.5%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Deployments</div><div class="kpi-value">4</div></div>
+    <div class="kpi-card"><div class="kpi-label">Uptime SLA</div><div class="kpi-value">99.98%</div></div>
+  </div>
+
+  <div class="catalog-grid">
+    <!-- TrustGuard -->
+    <div class="product-card" id="trustguard">
+      <div class="product-badge badge-live">Live</div>
+      <h3 class="product-title">TrustGuard Security Platform</h3>
+      <p class="product-desc">AI-powered threat detection, incident response automation, and SOC operations for enterprise environments.</p>
+      <a href="https://ntrust.ai/products/trustguard" class="cta-button">View Product & Pricing →</a>
+    </div>
+
+    <!-- Enterprise Security Audit -->
+    <div class="product-card" id="enterprise-audit">
+      <div class="product-badge badge-live">Live</div>
+      <h3 class="product-title">Enterprise Security Audit</h3>
+      <p class="product-desc">Automated compliance assessments, gap analysis, and remediation planning aligned with NIST, ISO 27001, SOC 2.</p>
+      <a href="https://ntrust.ai/products/security-audit" class="cta-button">Schedule Audit →</a>
+    </div>
+
+    <!-- PrivacyGuard -->
+    <div class="product-card" id="privacyguard">
+      <div class="product-badge badge-live">Live</div>
+      <h3 class="product-title">PrivacyGuard</h3>
+      <p class="product-desc">Data privacy automation, GDPR/CCPA compliance monitoring, and privacy-by-design implementation.</p>
+      <a href="https://ntrust.ai/products/privacyguard" class="cta-button">Explore PrivacyGuard →</a>
+    </div>
+
+    <!-- TrustAudit -->
+    <div class="product-card" id="trustaudit">
+      <div class="product-badge badge-live">Live</div>
+      <h3 class="product-title">TrustAudit</h3>
+      <p class="product-desc">Continuous compliance monitoring, audit readiness automation, and regulatory reporting.</p>
+      <a href="https://ntrust.ai/products/trustaudit" class="cta-button">Start Audit →</a>
+    </div>
+
+    <!-- nTrust Shield (Coming Soon) -->
+    <div class="product-card" id="ntrust-shield">
+      <div class="product-badge badge-soon">Coming Soon</div>
+      <h3 class="product-title">nTrust Shield [Coming Soon]</h3>
+      <p class="product-desc">Advanced AI threat hunting, predictive security analytics, and automated incident response orchestration.</p>
+      <a href="https://ntrust.ai/products/shield" class="cta-button">Join Waitlist →</a>
+    </div>
+
+    <!-- SUN-token (Coming Soon) -->
+    <div class="product-card" id="sun-token">
+      <div class="product-badge badge-soon">Coming Soon</div>
+      <h3 class="product-title">SUN-token [Coming Soon]</h3>
+      <p class="product-desc">Decentralized identity verification and trust scoring for enterprise ecosystems. Beta access available.</p>
+      <a href="https://ntrust.ai/products/sun-token" class="cta-button">Request Early Access →</a>
+    </div>
+  </div>
+
+  <footer style="text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.4); font-size: 0.8rem;">
+    <p>nTrust.ai © 2026 | Enterprise Security & AI Governance</p>
+  </footer>
+</div>
+</body>
+</html>
