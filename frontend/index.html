@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nTrust.ai Dashboard MVP</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --accent: #38bdf8;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    
+    .app-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-right: 1px solid #334155;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-item {
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+    }
+    
+    .nav-item:hover, .nav-item.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+      font-weight: 600;
+    }
+    
+    .main-content {
+      padding: 2rem;
+    }
+    
+    .dashboard-header {
+      margin-bottom: 2rem;
+    }
+    
+    .dashboard-header h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .metric-card {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid #334155;
+    }
+    
+    .metric-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    
+    .metric-trend {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-up { color: var(--success); }
+    .trend-down { color: var(--danger); }
+    
+    .audit-log-section {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid #334155;
+    }
+    
+    .audit-log-section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+    
+    .log-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .log-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #334155;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+    }
+    
+    .log-time {
+      color: var(--text-secondary);
+      margin-right: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>

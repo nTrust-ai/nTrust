@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nTrust.ai Dashboard MVP</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --accent: #38bdf8;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --success: #22c55e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+    .app-container { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+    .sidebar { background: var(--bg-secondary); padding: 1.5rem; border-right: 1px solid #334155; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-item { padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; color: var(--text-secondary); }
+    .nav-item:hover, .nav-item.active { background: var(--accent); color: var(--bg-primary); font-weight: 600; }
+    .main-content { padding: 2rem; }
+    .dashboard-header { margin-bottom: 2rem; }
+    .dashboard-header h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .metric-card { background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #334155; }
+    .metric-label { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    .metric-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .metric-trend { font-size: 0.875rem; margin-top: 0.5rem; }
+    .trend-up { color: var(--success); }
+    .audit-log-section { background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #334155; margin-top: 2rem; }
+    .audit-log-section h2 { margin-bottom: 1rem; font-size: 1.25rem; }
+    .log-list { max-height: 300px; overflow-y: auto; }
+    .log-item { padding: 0.75rem; border-bottom: 1px solid #334155; font-family: 'Courier New', monospace; font-size: 0.875rem; }
+    .log-time { color: var(--text-secondary); margin-right: 0.5rem; }
+    @media (max-width: 768px) { .app-container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="app-container">
+      <aside class="sidebar">
+        <div class="logo">🛡️ nTrust.ai</div>
+        <nav>
+          <div class="nav-item active">Dashboard</div>
+          <div class="nav-item">Threats</div>
+          <div class="nav-item">Compliance</div>
+          <div class="nav-item">Audit Logs</div>
+          <div class="nav-item">Settings</div>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <header class="dashboard-header">
+          <h1>Dashboard MVP</h1>
+          <p style="color: var(--text-secondary)">Enterprise Security Automation & Compliance Monitoring</p>
+        </header>
+        <section class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Active Threats</div>
+            <div class="metric-value" id="threat-count">12</div>
+            <div class="metric-trend trend-up">+2 this hour</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">System Uptime</div>
+            <div class="metric-value" id="uptime">99.97%</div>
+            <div class="metric-trend trend-up">SLA: 99.9%</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Compliance Score</div>
+            <div class="metric-value" id="compliance">98%</div>
+            <div class="metric-trend trend-up">NIST/EU AI Act</div>
+          </div>
+        </section>
+        <section class="audit-log-section">
+          <h2>Recent Audit Events</h2>
+          <div class="log-list" id="audit-logs">
+            <div class="log-item"><span class="log-time"></span><span>Dashboard initialized</span><span style="margin-left:auto;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.75rem;">✅</span></div>
+            <div class="log-item"><span class="log-time"></span><span>Compliance check passed</span><span style="margin-left:auto;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.75rem;">✅</span></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script>
+    // Simulate real-time updates
+    setInterval(() => {
+      const threats = document.getElementById('threat-count');
+      const current = parseInt(threats.textContent);
+      if (current > 0) threats.textContent = Math.max(0, current + Math.floor(Math.random() * 3) - 1);
+    }, 5000);
+  </script>
+</body>
+</html>

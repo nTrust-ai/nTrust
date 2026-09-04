@@ -1,0 +1,255 @@
+{
+  "ts_utc": "2026-09-04T07:18:10Z",
+  "verifier": "Developer (Full-Stack Web Engineer)",
+  "env": "env_685ee66a (container 0498cbe7f2cf, python:3.11-slim)",
+  "vantage": "docker gateway 172.18.0.1 (host-published port vantage)",
+  "target": {
+    "port": 8085,
+    "base": "http://172.18.0.1:8085"
+  },
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 12770,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "bytes": 12770,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/contact.html",
+      "status": 200,
+      "bytes": 8242,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/spine.html",
+      "status": 200,
+      "bytes": 6804,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "bytes": 63,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/plain"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "bytes": 988,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/xml"
+    },
+    {
+      "path": "/404.html",
+      "status": 200,
+      "bytes": 3588,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/healthz",
+      "status": 200,
+      "bytes": 165,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/products/appsoc.html",
+      "status": 200,
+      "bytes": 7693,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/aspm.html",
+      "status": 200,
+      "bytes": 7809,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/enterprise-security-audit.html",
+      "status": 200,
+      "bytes": 7995,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/ntrust-core.html",
+      "status": 200,
+      "bytes": 7772,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/ntrust-shield.html",
+      "status": 200,
+      "bytes": 7741,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/portal.html",
+      "status": 200,
+      "bytes": 7691,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/privacyguard.html",
+      "status": 200,
+      "bytes": 7747,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/sun-token.html",
+      "status": 200,
+      "bytes": 7514,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/trustaudit.html",
+      "status": 200,
+      "bytes": 7724,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/trustguard.html",
+      "status": 200,
+      "bytes": 10320,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html"
+    },
+    {
+      "path": "/products/nonexistent-page.html",
+      "status": 404,
+      "bytes": 0,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": ""
+    },
+    {
+      "path": "/.env",
+      "status": 404,
+      "bytes": 0,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": ""
+    },
+    {
+      "path": "/api/health",
+      "status": 404,
+      "bytes": 0,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": ""
+    },
+    {
+      "path": "/products",
+      "status": 200,
+      "bytes": 767,
+      "server": "SimpleHTTP/0.6 Python/3.11.15",
+      "ct": "text/html; charset=utf-8"
+    }
+  ],
+  "post_contact": {
+    "status": 200,
+    "body": "{\"ok\": true, \"id\": \"inq_0005391d5b75\", \"stored\": \"/app/data/orgs/org_ntrust/api/contact_inquiries.jsonl\"}"
+  },
+  "sanitization": [
+    {
+      "path": "/",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/index.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/contact.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/spine.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/404.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/appsoc.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/aspm.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/enterprise-security-audit.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/ntrust-core.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/ntrust-shield.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/portal.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/privacyguard.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/sun-token.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/trustaudit.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products/trustguard.html",
+      "forbidden_hits": []
+    },
+    {
+      "path": "/products",
+      "forbidden_hits": []
+    }
+  ],
+  "fleet": {
+    "Dashboard": {
+      "port": 55127,
+      "status": 200,
+      "bytes": 13253,
+      "server": "SimpleHTTP/0.6 Python/3.11.15"
+    },
+    "Shield MVP": {
+      "port": 7790,
+      "status": 200,
+      "bytes": 2281,
+      "server": "SimpleHTTP/0.6 Python/3.11.15"
+    },
+    "Catalog": {
+      "port": 9090,
+      "status": "DOWN",
+      "err": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    }
+  }
+}
