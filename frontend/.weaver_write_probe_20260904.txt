@@ -1,0 +1,1 @@
+Weaver write-capability probe 2026-09-04 01:55 UTC — if this file persists, code_manager WRITE is available for component execution.
