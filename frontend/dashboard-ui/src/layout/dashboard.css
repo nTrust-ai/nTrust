@@ -1,0 +1,310 @@
+/**
+ * dashboard.css — Design tokens + responsive layout for the nTrust.ai dashboard shell.
+ * Weaver deliverable 2026-09-04 · Supports TASK-20F3CC / TASK-42642E / TASK-8389EF
+ * WCAG 2.2 AA: contrast >= 4.5:1 text, visible focus rings, 44px touch targets.
+ */
+:root {
+  --ntrust-bg: #0b1220;
+  --ntrust-surface: #101a2e;
+  --ntrust-surface-2: #16233c;
+  --ntrust-border: #24334f;
+  --ntrust-text: #e7edf7;
+  --ntrust-text-muted: #9fb0c8;
+  --ntrust-accent: #2f81f7;
+  --ntrust-accent-ink: #ffffff;
+  --ntrust-ok: #2ecc8f;
+  --ntrust-warn: #f0a93b;
+  --ntrust-danger: #e5533d;
+  --ntrust-focus: #7ab7ff;
+  --ntrust-radius: 10px;
+  --ntrust-space-1: 4px;
+  --ntrust-space-2: 8px;
+  --ntrust-space-3: 12px;
+  --ntrust-space-4: 16px;
+  --ntrust-space-5: 24px;
+  --ntrust-space-6: 32px;
+  --ntrust-topbar-h: 60px;
+  --ntrust-nav-w: 248px;
+  --ntrust-font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.ntrust-shell {
+  min-height: 100vh;
+  background: var(--ntrust-bg);
+  color: var(--ntrust-text);
+  font-family: var(--ntrust-font);
+  display: flex;
+  flex-direction: column;
+}
+
+.ntrust-skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--ntrust-accent);
+  color: var(--ntrust-accent-ink);
+  padding: var(--ntrust-space-3) var(--ntrust-space-4);
+  border-radius: 0 0 var(--ntrust-radius) 0;
+  z-index: 2000;
+}
+.ntrust-skip-link:focus {
+  left: 0;
+}
+
+/* Topbar */
+.ntrust-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--ntrust-topbar-h);
+  display: flex;
+  align-items: center;
+  gap: var(--ntrust-space-4);
+  padding: 0 var(--ntrust-space-4);
+  background: var(--ntrust-surface);
+  border-bottom: 1px solid var(--ntrust-border);
+}
+.ntrust-brand {
+  color: var(--ntrust-text);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+.ntrust-brand:hover {
+  color: var(--ntrust-accent);
+}
+.ntrust-topbar__spacer {
+  flex: 1;
+}
+
+/* Menu toggle (mobile) */
+.ntrust-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--ntrust-border);
+  border-radius: var(--ntrust-radius);
+  cursor: pointer;
+}
+.ntrust-menu-toggle__bar {
+  height: 2px;
+  width: 100%;
+  background: var(--ntrust-text);
+  border-radius: 2px;
+}
+.ntrust-menu-toggle:hover .ntrust-menu-toggle__bar {
+  background: var(--ntrust-accent);
+}
+
+/* Session chip */
+.ntrust-session-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ntrust-space-2);
+  font-size: 0.82rem;
+  color: var(--ntrust-text-muted);
+  border: 1px solid var(--ntrust-border);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ntrust-surface-2);
+}
+.ntrust-session-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ntrust-text-muted);
+}
+.ntrust-session-chip__dot--authenticated {
+  background: var(--ntrust-ok);
+}
+.ntrust-session-chip__dot--anonymous {
+  background: var(--ntrust-warn);
+}
+.ntrust-session-chip__dot--checking {
+  background: var(--ntrust-accent);
+}
+
+/* User block */
+.ntrust-user {
+  display: flex;
+  align-items: center;
+  gap: var(--ntrust-space-3);
+}
+.ntrust-user__name {
+  font-size: 0.9rem;
+  color: var(--ntrust-text);
+}
+
+/* Body + nav */
+.ntrust-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.ntrust-nav {
+  width: var(--ntrust-nav-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--ntrust-space-4) var(--ntrust-space-3);
+  background: var(--ntrust-surface);
+  border-right: 1px solid var(--ntrust-border);
+}
+.ntrust-nav__link {
+  display: block;
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: 8px;
+  color: var(--ntrust-text-muted);
+  text-decoration: none;
+  font-size: 0.93rem;
+  border: 1px solid transparent;
+}
+.ntrust-nav__link:hover {
+  color: var(--ntrust-text);
+  background: var(--ntrust-surface-2);
+}
+.ntrust-nav__link--active {
+  color: var(--ntrust-text);
+  background: var(--ntrust-surface-2);
+  border-color: var(--ntrust-border);
+  font-weight: 600;
+}
+.ntrust-nav__link:focus-visible,
+.ntrust-btn:focus-visible,
+.ntrust-menu-toggle:focus-visible,
+.ntrust-main:focus-visible {
+  outline: 2px solid var(--ntrust-focus);
+  outline-offset: 2px;
+}
+
+/* Main content */
+.ntrust-main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--ntrust-space-5);
+  background: var(--ntrust-bg);
+}
+.ntrust-footer {
+  padding: var(--ntrust-space-4) var(--ntrust-space-5);
+  border-top: 1px solid var(--ntrust-border);
+  color: var(--ntrust-text-muted);
+  font-size: 0.85rem;
+  background: var(--ntrust-surface);
+}
+
+/* Buttons */
+.ntrust-btn {
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.ntrust-btn--ghost {
+  background: transparent;
+  border-color: var(--ntrust-border);
+  color: var(--ntrust-text);
+}
+.ntrust-btn--ghost:hover {
+  border-color: var(--ntrust-accent);
+  color: var(--ntrust-accent);
+}
+
+/* Mobile drawer + backdrop */
+.ntrust-drawer {
+  display: none;
+}
+.ntrust-drawer-backdrop {
+  display: none;
+}
+
+/* ===== Responsive: < 960px ===== */
+@media (max-width: 959.98px) {
+  .ntrust-nav {
+    display: none;
+  }
+  .ntrust-menu-toggle {
+    display: flex;
+  }
+  .ntrust-user__name {
+    display: none;
+  }
+  .ntrust-session-chip {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+  .ntrust-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 10, 20, 0.6);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .ntrust-shell--nav-open .ntrust-drawer-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .ntrust-drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: fixed;
+    top: var(--ntrust-topbar-h);
+    bottom: 0;
+    left: 0;
+    width: min(300px, 84vw);
+    background: var(--ntrust-surface);
+    border-right: 1px solid var(--ntrust-border);
+    padding: var(--ntrust-space-4) var(--ntrust-space-3);
+    transform: translateX(-102%);
+    transition: transform 0.18s ease;
+    z-index: 160;
+    overflow-y: auto;
+  }
+  .ntrust-drawer--open {
+    transform: translateX(0);
+  }
+  .ntrust-drawer__brand {
+    font-weight: 700;
+    margin-bottom: var(--ntrust-space-3);
+    color: var(--ntrust-text);
+  }
+  .ntrust-main {
+    padding: var(--ntrust-space-4);
+  }
+}
+
+/* ===== Small phones: < 560px ===== */
+@media (max-width: 559.98px) {
+  .ntrust-topbar {
+    gap: var(--ntrust-space-2);
+    padding: 0 var(--ntrust-space-2);
+  }
+  .ntrust-session-chip {
+    display: none; /* declutter; status still visible via auth flows */
+  }
+  .ntrust-main {
+    padding: var(--ntrust-space-3);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ntrust-drawer,
+  .ntrust-drawer-backdrop {
+    transition: none;
+  }
+}

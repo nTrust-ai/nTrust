@@ -1,0 +1,139 @@
+/* Widget styles for nTrust dashboard UI (Weaver 2026-09-04) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* SUN-token NFC panel */
+.sun-token-panel {
+  background: var(--ntrust-surface, #101a2e);
+  border: 1px solid var(--ntrust-border, #24334f);
+  border-radius: var(--ntrust-radius, 10px);
+  padding: var(--ntrust-space-5, 24px);
+}
+.sun-token-panel__title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+.sun-token-panel__intro {
+  margin: 0 0 var(--ntrust-space-4, 16px);
+  color: var(--ntrust-text-muted, #9fb0c8);
+}
+.sun-token-card {
+  display: flex;
+  align-items: center;
+  gap: var(--ntrust-space-4, 16px);
+  padding: var(--ntrust-space-4, 16px);
+  background: var(--ntrust-surface-2, #16233c);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+.sun-token-card__visual {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #2f81f7, #1b4d94);
+  display: grid;
+  place-items: center;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+}
+.sun-token-card__nfc {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.08em;
+}
+.sun-token-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 180px;
+}
+.sun-token-card__status {
+  color: var(--ntrust-text-muted, #9fb0c8);
+  font-size: 0.85rem;
+}
+.sun-token-card__error {
+  color: var(--ntrust-danger, #e5533d);
+  font-size: 0.82rem;
+}
+.sun-token-panel__notes {
+  margin: var(--ntrust-space-4, 16px) 0 0;
+  padding-left: 18px;
+  color: var(--ntrust-text-muted, #9fb0c8);
+  font-size: 0.85rem;
+  display: grid;
+  gap: 6px;
+}
+
+/* Executive report */
+.exec-report {
+  background: var(--ntrust-surface, #101a2e);
+  border: 1px solid var(--ntrust-border, #24334f);
+  border-radius: var(--ntrust-radius, 10px);
+  padding: var(--ntrust-space-5, 24px);
+}
+.exec-report__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ntrust-space-3, 12px);
+  flex-wrap: wrap;
+  margin-bottom: var(--ntrust-space-4, 16px);
+}
+.exec-report__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.exec-report__time {
+  color: var(--ntrust-text-muted, #9fb0c8);
+  font-size: 0.8rem;
+}
+.exec-report__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--ntrust-space-3, 12px);
+}
+.exec-report__card {
+  background: var(--ntrust-surface-2, #16233c);
+  border-radius: 8px;
+  padding: var(--ntrust-space-4, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.exec-report__label {
+  color: var(--ntrust-text-muted, #9fb0c8);
+  font-size: 0.82rem;
+}
+.exec-report__value {
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.delta-badge {
+  font-size: 0.8rem;
+  align-self: flex-start;
+}
+.delta-badge--up {
+  color: var(--ntrust-ok, #2ecc8f);
+}
+.delta-badge--down {
+  color: var(--ntrust-danger, #e5533d);
+}
+.exec-report__table {
+  width: 100%;
+  margin-top: var(--ntrust-space-4, 16px);
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.exec-report__table th,
+.exec-report__table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ntrust-border, #24334f);
+}
