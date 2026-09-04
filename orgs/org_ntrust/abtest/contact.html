@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | nTrust.ai</title>
+<meta name="description" content="Contact nTrust.ai to schedule a security audit, request a demo, or discuss deployment of TrustGuard, PrivacyGuard, TrustAudit and nTrust Shield.">
+<link rel="stylesheet" href="/assets/site.css">
+
+
+<meta property="og:site_name" content="nTrust.ai">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ntrust.ai/contact.html">
+<meta property="og:title" content="Contact Us | nTrust.ai">
+<meta property="og:description" content="Contact nTrust.ai to schedule a security audit, request a demo, or discuss deployment of TrustGuard, PrivacyGuard, TrustAudit and nTrust Shield.">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://ntrust.ai/contact.html">
+<meta name="robots" content="index, follow">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="/" aria-label="nTrust.ai home"><span class="logo-mark">&#128737;</span>nTrust.ai</a>
+    <nav class="links" aria-label="Primary">
+      <a href="/#products">Products &amp; Services</a>
+      <a href="/spine.html">Open Source</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#about">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <a class="nav-cta" href="/contact.html">Start a Security Review</a>
+  </div>
+</header>
+<main>
+
+  <div class="container"><div class="breadcrumb"><a href="/">Home</a> / Contact</div></div>
+  <section class="hero left">
+    <div class="container">
+      <span class="badge">&#128172; Contact</span>
+      <h1>Talk to an nTrust Security Specialist</h1>
+      <p class="sub">Tell us about your environment and objectives. Our team reviews every inquiry and responds within two business days.</p>
+    </div>
+  </section>
+  <section style="padding-top:0;">
+    <div class="container form-grid">
+      <div class="info-card">
+        <div class="form-ok" id="formOk">&#10003; Thank you &mdash; your message has been received. Our team will respond within two business days.</div>
+        <div class="form-err" id="formErr">We could not submit the form right now. Please email sales@ntrust.ai and we will get back to you shortly.</div>
+        <form id="contactForm" novalidate>
+          <div class="field"><label for="fname">Full name *</label><input id="fname" name="name" type="text" required autocomplete="name" placeholder="Jane Smith"></div>
+          <div class="field"><label for="femail">Work email *</label><input id="femail" name="email" type="email" required autocomplete="email" placeholder="jane@company.com"></div>
+          <div class="field"><label for="fcompany">Company *</label><input id="fcompany" name="company" type="text" required placeholder="Company Inc."></div>
+          <div class="field"><label for="finterest">I&rsquo;m interested in</label>
+            <select id="finterest" name="interest">
+              <option value="General inquiry">General inquiry</option>
+              <option value="TrustGuard Security Platform">TrustGuard Security Platform</option>
+              <option value="Enterprise Security Audit">Enterprise Security Audit</option>
+              <option value="PrivacyGuard Suite">PrivacyGuard Suite</option>
+              <option value="TrustAudit Engine">TrustAudit Engine</option>
+              <option value="nTrust Shield">nTrust Shield</option>
+              <option value="SUN-token Security Module">SUN-token Security Module</option>
+              <option value="nTrust Core Platform">nTrust Core Platform</option>
+              <option value="Customer Portal access">Customer Portal access</option>
+              <option value="Spine Engine (Open Source)">Spine Engine (Open Source)</option>
+            </select>
+          </div>
+          <div class="field"><label for="fmsg">How can we help? *</label><textarea id="fmsg" name="message" required placeholder="Describe your environment, timelines, or questions..."></textarea><div class="hint">All information you share is treated as confidential. We can sign an NDA on request.</div></div>
+          <div class="field check-field"><input id="fconsent" name="consent" type="checkbox" required><label for="fconsent" style="font-weight:400;color:var(--muted);">I agree to be contacted about my inquiry and accept the nTrust.ai privacy policy. *</label></div>
+          <button class="btn btn-primary btn-lg" type="submit" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom:20px;">
+          <h3>Direct contact</h3>
+          <p style="margin-bottom:6px;"><strong style="color:#fff;">Email:</strong> sales@ntrust.ai</p>
+          <p style="margin-bottom:6px;"><strong style="color:#fff;">Response time:</strong> within two business days</p>
+          <p><strong style="color:#fff;">Availability:</strong> North America &amp; EU</p>
+        </div>
+        <div class="info-card" style="margin-bottom:20px;">
+          <h3>Open Source</h3>
+          <p style="margin-bottom:10px;">Looking for the Spine Engine? Download and documentation live on its own site.</p>
+          <a class="btn btn-ghost" href="https://spine.ntrust.ai" rel="noopener">Visit spine.ntrust.ai</a>
+        </div>
+        <div class="info-card">
+          <h3>Prefer chat?</h3>
+          <p style="margin-bottom:6px;">An AI assistant is on the way to answer questions instantly. Until then, our specialists are one message away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var form=document.getElementById('contactForm');
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var ok=document.getElementById('formOk'), err=document.getElementById('formErr');
+      ok.style.display='none'; err.style.display='none';
+      var body=new URLSearchParams(new FormData(form)).toString();
+      fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body})
+        .then(function(r){if(!r.ok)throw new Error('bad');return r.json();})
+        .then(function(d){if(d.ok){ok.style.display='block';form.reset();}else throw new Error('nok');})
+        .catch(function(){err.style.display='block';});
+    });
+  })();
+  </script>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <a class="logo" href="/" aria-label="nTrust.ai home"><span class="logo-mark">&#128737;</span>nTrust.ai</a>
+        <p style="margin-top:12px;">Autonomous Security &amp; Compliance. Built for organizations that cannot afford downtime, breaches, or audit surprises.</p>
+      </div>
+      <div>
+        <h4>Products &amp; Services</h4>
+        <div class="flinks">
+          <a href="/products/trustguard.html">TrustGuard Security Platform</a>
+          <a href="/products/enterprise-security-audit.html">Enterprise Security Audit</a>
+          <a href="/products/privacyguard.html">PrivacyGuard Suite</a>
+          <a href="/products/trustaudit.html">TrustAudit Engine</a>
+          <a href="/products/ntrust-shield.html">nTrust Shield</a>
+          <a href="/products/sun-token.html">SUN-token Security Module</a>
+          <a href="/products/aspm.html">nTrust ASPM</a>
+          <a href="/products/appsoc.html">nTrust AppSOC</a>
+        </div>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <div class="flinks">
+          <a href="/products/ntrust-core.html">nTrust Core Platform</a>
+          <a href="/products/portal.html">Customer Portal</a>
+          <a href="/spine.html">Spine Engine (Open Source)</a>
+          <a href="https://spine.ntrust.ai" rel="noopener">spine.ntrust.ai</a>
+        </div>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <div class="flinks">
+          <a href="/#about">About Us</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/#pricing">Pricing</a>
+        </div>
+        <p style="margin-top:10px;">sales@ntrust.ai</p>
+      </div>
+    </div>
+    <div class="copy">© 2026 nTrust.ai — Autonomous Security &amp; Compliance. All rights reserved.</div>
+  </div>
+</footer>
+</body>
+</html>
