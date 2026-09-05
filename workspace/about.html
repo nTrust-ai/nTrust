@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — nTrust.ai</title>
+  <meta name="description" content="About nTrust.ai: a cybersecurity startup delivering AI security, compliance, and managed application security with zero-trust governance." />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/" aria-label="nTrust.ai home">
+        <span class="brand__mark" aria-hidden="true">N</span>
+        <span>nTrust.ai<span class="brand__tagline" style="display:block">It's the numbers we trust</span></span>
+      </a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">☰</button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a class="nav__link" href="/">Home</a>
+        <a class="nav__link" href="/services.html">Services</a>
+        <a class="nav__link" href="/pricing.html">Pricing</a>
+        <a class="nav__link" href="/about.html" aria-current="page">About</a>
+        <a class="nav__cta" href="/about.html#contact">Book a briefing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" style="padding-block:var(--nt-space-8)">
+      <div class="container">
+        <p class="section__eyebrow">About</p>
+        <h1 class="hero__title">Security is a numbers game.<br />We play it to win.</h1>
+        <p class="hero__lede">
+          nTrust.ai is a cybersecurity company focused on AI security and
+          architectural hardening for mid-market enterprises across North America.
+          We replace guesswork with measurement, and manual overhead with durable
+          automation.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="trust">
+      <div class="container">
+        <h2 class="section__title">Our operating principles</h2>
+        <div class="grid grid--2">
+          <article class="card">
+            <h3 class="card__title">Zero compromise on privacy &amp; security</h3>
+            <p class="card__body">Enterprise-grade security architecture and full compliance with applicable regulations and standards — for our customers and for ourselves.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Zero-trust collaboration</h3>
+            <p class="card__body">Trust nothing by default. Always verify. This governs how we build, how we operate, and how we advise.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Grounded governance</h3>
+            <p class="card__body">Data-driven decisions, documented in a company registry, with human oversight on high-risk actions.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Cutting-edge innovation</h3>
+            <p class="card__body">AI-driven cybersecurity solutions, continuously iterated to meet market demand.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section__title">Book a briefing</h2>
+        <p class="section__lede">
+          Tell us about your security and compliance goals. Our team responds within
+          one business day.
+        </p>
+        <form class="form" data-contact-form novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="interest">Area of interest</label>
+            <select id="interest" name="interest">
+              <option>TrustGuard — Cybersecurity &amp; Compliance</option>
+              <option>PrivacyGuard Suite</option>
+              <option>TrustAudit Engine</option>
+              <option>nTrust Shield</option>
+              <option>Enterprise Security Audit (NIST AI RMF)</option>
+              <option>Managed AppSec (Coming Soon)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+          <button class="btn btn--primary" type="submit">Submit</button>
+          <p data-form-status role="status" aria-live="polite" style="min-height:1.5em;color:var(--nt-success)"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <a class="brand" href="/" aria-label="nTrust.ai home">
+          <span class="brand__mark" aria-hidden="true">N</span>
+          <span>nTrust.ai</span>
+        </a>
+        <p style="color:var(--nt-text-muted);margin-top:1rem;font-size:0.9rem">
+          AI security, compliance, and application security posture management for
+          mid-market enterprises across North America.
+        </p>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Services</h2>
+        <ul class="footer-links">
+          <li><a href="/services.html">Service catalog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/services.html#trustguard">TrustGuard</a></li>
+          <li><a href="/services.html#appsec">Managed AppSec</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Company</h2>
+        <ul class="footer-links">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/about.html#contact">Contact</a></li>
+          <li><a href="/about.html#trust">Trust &amp; compliance</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__legal">
+        <span>© <span data-year>2026</span> nTrust.ai. All rights reserved.</span>
+        <span>It's the numbers we trust.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

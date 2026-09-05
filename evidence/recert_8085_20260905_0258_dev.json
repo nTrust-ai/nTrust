@@ -1,0 +1,158 @@
+{
+ "ts_utc": "2026-09-05T02:59:11.760300Z",
+ "base": "http://127.0.0.1:8085",
+ "routes": {
+  "/": {
+   "http": 200,
+   "bytes": 12786,
+   "sha256": "b31a05220b36b2c1",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/index.html": {
+   "http": 200,
+   "bytes": 12786,
+   "sha256": "b31a05220b36b2c1",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/healthz": {
+   "http": 200,
+   "bytes": 165,
+   "sha256": "6226147a36c046cf",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/contact.html": {
+   "http": 200,
+   "bytes": 8258,
+   "sha256": "3bdd91e3f49fd2fa",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/spine.html": {
+   "http": 200,
+   "bytes": 6820,
+   "sha256": "2792c7ed2f23b6d9",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/about.html": {
+   "http": 200,
+   "bytes": 3513,
+   "sha256": "577071d4bd11d49a",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/pricing.html": {
+   "http": 200,
+   "bytes": 4981,
+   "sha256": "c9851af78377c97c",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/health.html": {
+   "http": 200,
+   "bytes": 491,
+   "sha256": "99368f7042f11b2b",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/404.html": {
+   "http": 200,
+   "bytes": 3604,
+   "sha256": "7eaec2b6de183ff5",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/robots.txt": {
+   "http": 200,
+   "bytes": 63,
+   "sha256": "9e41c0df071d05cd",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/sitemap.xml": {
+   "http": 200,
+   "bytes": 1097,
+   "sha256": "e4ac86ad6693cc12",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/assets/site.css": {
+   "http": 200,
+   "bytes": 10995,
+   "sha256": "81978b3ad3764afe",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/index.html": {
+   "http": 200,
+   "bytes": 6931,
+   "sha256": "4e24b135f047f46e",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/trustguard.html": {
+   "http": 200,
+   "bytes": 10340,
+   "sha256": "05acc736a3888aa8",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/privacyguard.html": {
+   "http": 200,
+   "bytes": 7767,
+   "sha256": "80f2f63945502437",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/ntrust-shield.html": {
+   "http": 200,
+   "bytes": 7761,
+   "sha256": "e7dbd3a327f3aaa8",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/trustaudit.html": {
+   "http": 200,
+   "bytes": 7744,
+   "sha256": "5d817ed522c39e23",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/ntrust-core.html": {
+   "http": 200,
+   "bytes": 7792,
+   "sha256": "204b15d6cd3aee23",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/enterprise-security-audit.html": {
+   "http": 200,
+   "bytes": 8015,
+   "sha256": "bfc123d9012d1192",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/portal.html": {
+   "http": 200,
+   "bytes": 7711,
+   "sha256": "36fe36a50ee9d94a",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/appsoc.html": {
+   "http": 200,
+   "bytes": 7713,
+   "sha256": "068f0de660dc2e15",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/aspm.html": {
+   "http": 200,
+   "bytes": 7829,
+   "sha256": "c7eb63f16b7a77f4",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  },
+  "/products/sun-token.html": {
+   "http": 200,
+   "bytes": 7534,
+   "sha256": "c6208c30c67fc214",
+   "server": "SimpleHTTP/0.6 Python/3.11.15"
+  }
+ },
+ "checks": {
+  "forbidden_tokens": {
+   "Coming Soon": 12
+  },
+  "mailto_count": 0,
+  "has_founder_bio": true,
+  "routes_200": "23/23",
+  "post_api_contact": {
+   "http": 200,
+   "body": "{\"ok\": true, \"id\": \"inq_8ccba303c5c2\", \"stored\": \"/app/data/orgs/org_ntrust/api/contact_inquiries.jsonl\"}"
+  },
+  "persistence_ok": true,
+  "healthz_body": "{\"status\": \"healthy\", \"service\": \"ntrust-corporate-site\", \"port\": 8085, \"compliance_framework\": \"NIST AI RMF / EU AI Act"
+ }
+}
