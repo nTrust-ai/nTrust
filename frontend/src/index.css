@@ -22,8 +22,9 @@ body {
   min-height: 100vh;
 }
 
+/* Mount point: .app-container (rendered by App.jsx) owns the two-column
+   layout grid. #root must NOT also be a grid, otherwise the dashboard
+   renders as a nested 250px column (blank/narrow layout bug). */
 #root {
-  display: grid;
-  grid-template-columns: 250px 1fr;
   min-height: 100vh;
 }
