@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ntrust.ai/404.html</loc></url>
-  <url><loc>https://ntrust.ai/contact.html</loc></url>
   <url><loc>https://ntrust.ai/</loc></url>
+  <url><loc>https://ntrust.ai/products/</loc></url>
+  <url><loc>https://ntrust.ai/pricing.html</loc></url>
+  <url><loc>https://ntrust.ai/about.html</loc></url>
+  <url><loc>https://ntrust.ai/contact.html</loc></url>
   <url><loc>https://ntrust.ai/spine.html</loc></url>
   <url><loc>https://ntrust.ai/products/appsoc.html</loc></url>
   <url><loc>https://ntrust.ai/products/aspm.html</loc></url>
