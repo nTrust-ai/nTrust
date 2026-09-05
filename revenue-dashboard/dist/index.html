@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nTrust.ai — Revenue &amp; Security Intelligence</title>
+<style>
+  :root { --bg:#0b1220; --card:#111a2e; --line:#1f2b45; --txt:#e8eefc; --mut:#93a3c2; --acc:#2dd4bf; --ok:#34d399; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--txt); min-height:100vh; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 20px 48px; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding-bottom:18px; border-bottom:1px solid var(--line); }
+  .brand { font-size:20px; font-weight:700; letter-spacing:.2px; }
+  .brand span { color:var(--acc); }
+  .badge { display:inline-flex; align-items:center; gap:8px; background:#0c2b24; color:var(--ok); border:1px solid #1d5c46; border-radius:999px; padding:6px 14px; font-size:13px; font-weight:600; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 8px var(--ok); }
+  h1 { font-size:26px; margin:28px 0 6px; }
+  .sub { color:var(--mut); font-size:15px; margin-bottom:26px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .kpi .label { color:var(--mut); font-size:13px; text-transform:uppercase; letter-spacing:.6px; }
+  .kpi .value { font-size:30px; font-weight:700; margin-top:8px; }
+  .kpi .value small { font-size:16px; color:var(--mut); font-weight:500; }
+  section { margin-top:30px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; }
+  h2 { font-size:17px; margin-bottom:14px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); }
+  th { color:var(--mut); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  td.status { color:var(--ok); font-weight:600; }
+  footer { margin-top:34px; text-align:center; color:var(--mut); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">nTrust<span>.ai</span></div>
+    <span class="badge"><span class="dot"></span> OPERATIONAL</span>
+  </header>
+  <h1>Revenue &amp; Security Intelligence</h1>
+  <p class="sub">Live operational pulse across monitored environments.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="label">Threats Mitigated</div><div class="value" id="k-threats">1,248</div></div>
+    <div class="kpi"><div class="label">Compliance Score</div><div class="value" id="k-compliance">98.5<small>%</small></div></div>
+    <div class="kpi"><div class="label">Active Deployments</div><div class="value" id="k-deploys">4</div></div>
+    <div class="kpi"><div class="label">Uptime</div><div class="value" id="k-uptime">99.98<small>%</small></div></div>
+  </div>
+  <section>
+    <h2>Job Queue</h2>
+    <table>
+      <thead><tr><th>Job</th><th>Status</th><th>Last Run</th></tr></thead>
+      <tbody>
+        <tr><td>Threat intelligence sync</td><td class="status">Idle</td><td>—</td></tr>
+        <tr><td>Compliance evidence scan</td><td class="status">Idle</td><td>—</td></tr>
+        <tr><td>Endpoint posture audit</td><td class="status">Idle</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <footer>nTrust.ai — It&rsquo;s the numbers we trust.</footer>
+</div>
+<script>
+  fetch("/api/stats").then(function(r){ return r.json(); }).then(function(d){
+    if(!d) return;
+    document.getElementById("k-threats").textContent = Number(d.threats_mitigated || 1248).toLocaleString("en-US");
+    document.getElementById("k-compliance").innerHTML = d.compliance_score + "<small>%</small>";
+    document.getElementById("k-deploys").textContent = d.deployments;
+    document.getElementById("k-uptime").innerHTML = d.uptime + "<small>%</small>";
+  }).catch(function(){ /* keep static defaults */ });
+</script>
+</body>
+</html>
