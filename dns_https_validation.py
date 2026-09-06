@@ -23,9 +23,9 @@ def validate_https_endpoint(url="https://ntrust.ai"):
     try:
         response = requests.get(url, timeout=5, verify=True)
         if response.status_code == 200:
-             return f"✅ HTTPS Valid: {url} (Status: {response.status_code})"
-         else:
-             return f"⚠️ HTTPS Active but Non-200: {url} (Status: {response.status_code})"
+            return f"✅ HTTPS Valid: {url} (Status: {response.status_code})"
+        else:
+            return f"⚠️ HTTPS Active but Non-200: {url} (Status: {response.status_code})"
     except requests.exceptions.SSLError as e:
         return f"❌ TLS Certificate Issue: {e}"
     except Exception as e:

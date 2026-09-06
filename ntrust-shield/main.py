@@ -8,6 +8,7 @@ import platform
 import time
 from datetime import datetime, timezone
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 import structlog
 
@@ -43,13 +44,13 @@ async def process_requests(request: Request, call_next):
         endpoint=request.url.path,
         status=response.status_code
     ).inc()
-    
+
     # Security Headers (NIST/AWS WAF baseline)
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-    
+
     return response
 
 @app.get("/health")
@@ -78,5 +79,5 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-     # Run on 0.0.0.0:8000 for local Docker mapping
+    # Run on 0.0.0.0:8000 for local Docker mapping
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

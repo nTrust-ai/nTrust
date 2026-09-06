@@ -36,10 +36,10 @@ async def add_security_headers(request: Request, call_next):
 async def audit_logging_middleware(request: Request, call_next):
     request_id = str(uuid.uuid4())
     start_time = datetime.utcnow()
-    
-     # Log incoming request
+
+    # Log incoming request
     audit_logger.info(f"INBOUND | ID:{request_id} | {request.method} {request.url.path}")
-    
+
     try:
         response = await call_next(request)
         audit_logger.info(f"OUTBOUND | ID:{request_id} | Status:{response.status_code} | Latency:{(datetime.utcnow() - start_time).total_seconds()}s")
@@ -50,17 +50,17 @@ async def audit_logging_middleware(request: Request, call_next):
 
 @app.get("/health", tags=["System"])
 async def health_check():
-     """Public health endpoint for local pilot readiness validation."""
+    """Public health endpoint for local pilot readiness validation."""
     return JSONResponse(
         status_code=200,
         content={
-             "status": "healthy",
-             "service": "nTrust Shield MVP",
-             "environment": "local-sandbox",
-             "timestamp": datetime.utcnow().isoformat(),
-             "compliance_mode": "NIST-RMF / HITL-Compliant"
-         }
-     )
+            "status": "healthy",
+            "service": "nTrust Shield MVP",
+            "environment": "local-sandbox",
+            "timestamp": datetime.utcnow().isoformat(),
+            "compliance_mode": "NIST-RMF / HITL-Compliant"
+        }
+    )
 
 @app.get("/", tags=["Root"])
 async def root():
