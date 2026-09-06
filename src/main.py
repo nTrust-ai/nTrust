@@ -1,4 +1,5 @@
 """nTrust Shield MVP Core API — FastAPI Skeleton & Audit Logging"""
+
 import time
 from fastapi import FastAPI, Request
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
@@ -6,8 +7,20 @@ from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_
 app = FastAPI(title="nTrust Shield MVP", version="0.1.0-staging")
 
 # Prometheus Metrics Registry
-REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP requests', ['method', 'endpoint'])
-REQUEST_LATENCY = Histogram('http_request_duration_seconds', 'HTTP request latency')
+REQUEST_COUNT = Counter(
+    "http_requests_total", "Total HTTP requests", ["method", "endpoint"]
+)
+REQUEST_LATENCY = Histogram("http_request_duration_seconds", "HTTP request latency")
+
+
+@app.middleware("http")
+async def security_headers_middleware(request: Request, call_next):
+    """Enforce baseline security headers on all responses (zero-trust default)."""
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    return response
+
 
 @app.middleware("http")
 async def audit_and_track_metrics(request: Request, call_next):
@@ -18,23 +31,28 @@ async def audit_and_track_metrics(request: Request, call_next):
     REQUEST_LATENCY.observe(duration)
     return response
 
+
 @app.get("/health")
 async def health_check():
     return {
-         "status": "healthy",
-         "service": "ntrust-shield-v1",
-         "environment": "staging",
-         "uptime_check": "pass"
-     }
+        "status": "healthy",
+        "service": "ntrust-shield-v1",
+        "environment": "staging",
+        "uptime_check": "pass",
+    }
+
 
 @app.get("/metrics")
 async def metrics_endpoint():
     return generate_latest(), 200, {"Content-Type": CONTENT_TYPE_LATEST}
 
+
 @app.get("/")
 async def root():
     return {"message": "nTrust Shield MVP initialized. Phase 1: Production Foundation."}
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
