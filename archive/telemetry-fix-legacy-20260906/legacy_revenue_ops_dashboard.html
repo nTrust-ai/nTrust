@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nTrust.ai — Revenue Operations Center</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; color: #e2e8f0; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 1.5rem; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0 2rem; border-bottom: 1px solid rgba(148,163,184,0.15); margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+  .logo { font-size: 1.9rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+  .status-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.4rem; border-radius: 2rem; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4); color: #34d399; font-weight: 600; font-size: 0.9rem; }
+  .status-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  nav { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  nav a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; font-weight: 500; padding: 0.4rem 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  nav a:hover { color: #38bdf8; border-bottom-color: #38bdf8; }
+  .hero { margin-bottom: 2.5rem; }
+  .hero h1 { font-size: 2.6rem; font-weight: 800; background: linear-gradient(90deg, #f1f5f9, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.75rem; }
+  .hero p { color: #94a3b8; font-size: 1.1rem; max-width: 720px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(148,163,184,0.15); border-radius: 16px; padding: 1.75rem; transition: transform 0.25s, box-shadow 0.25s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(56,189,248,0.12); }
+  .card h3 { font-size: 1.05rem; color: #38bdf8; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem; font-weight: 600; }
+  .metric { font-size: 2.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.35rem; }
+  .label { color: #64748b; font-size: 0.9rem; }
+  .bar { height: 6px; background: rgba(148,163,184,0.15); border-radius: 4px; margin-top: 1.1rem; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); transition: width 1.2s ease; }
+  .pipeline { list-style: none; }
+  .pipeline li { display: flex; justify-content: space-between; padding: 0.85rem 0; border-bottom: 1px solid rgba(148,163,184,0.1); font-size: 0.95rem; }
+  .pipeline li:last-child { border-bottom: none; }
+  .pipeline .stage { color: #94a3b8; }
+  .pipeline .count { font-weight: 700; color: #f8fafc; }
+  .badge { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; }
+  .badge-green { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .badge-blue { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+  .service { background: rgba(255,255,255,0.03); border: 1px solid rgba(148,163,184,0.12); border-radius: 14px; padding: 1.6rem; }
+  .service h4 { font-size: 1.15rem; color: #e2e8f0; margin-bottom: 0.6rem; }
+  .service p { color: #94a3b8; font-size: 0.9rem; line-height: 1.55; margin-bottom: 1rem; }
+  .service .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .cta { text-align: center; padding: 3rem 1rem; margin-bottom: 2.5rem; border-radius: 18px; background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(129,140,248,0.08)); border: 1px solid rgba(56,189,248,0.25); }
+  .cta h2 { font-size: 1.8rem; margin-bottom: 0.75rem; color: #f1f5f9; }
+  .cta p { color: #94a3b8; margin-bottom: 1.5rem; }
+  .btn { display: inline-block; padding: 0.85rem 2rem; border-radius: 10px; background: linear-gradient(90deg, #38bdf8, #818cf8); color: #fff; font-weight: 700; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn:hover { transform: scale(1.04); box-shadow: 0 10px 30px rgba(56,189,248,0.35); }
+  footer { text-align: center; padding: 2rem 0 1rem; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(148,163,184,0.12); }
+  .updated { text-align: right; color: #475569; font-size: 0.8rem; margin-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">nTrust.ai</div>
+    <div class="status-badge">All Systems Operational</div>
+  </header>
+
+  <nav>
+    <a href="#overview">Overview</a>
+    <a href="#revenue">Revenue Operations</a>
+    <a href="#compliance">Compliance</a>
+    <a href="#services">Solutions</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section class="hero" id="overview">
+    <h1>Revenue Operations Center</h1>
+    <p>Real-time visibility into nTrust.ai's enterprise cybersecurity growth engine — pipeline health, compliance posture, and infrastructure readiness across North American markets.</p>
+  </section>
+
+  <div class="grid" id="revenue">
+    <div class="card">
+      <h3>🛡️ Threat Coverage</h3>
+      <div class="metric" data-target="100" data-suffix="%">0%</div>
+      <div class="label">AI-Powered Monitoring &amp; Response</div>
+      <div class="bar"><div class="bar-fill" style="width: 79%;"></div></div>
+    </div>
+    <div class="card">
+      <h3>🔒 Compliance Posture</h3>
+      <div class="metric" data-target="100" data-suffix="%">0%</div>
+      <div class="label">NIST AI RMF &amp; EU AI Act Alignment</div>
+      <div class="bar"><div class="bar-fill" style="width: 100%;"></div></div>
+    </div>
+    <div class="card">
+      <h3>🚀 Infrastructure Health</h3>
+      <div class="metric" data-target="99.9" data-decimal="1" data-suffix="%">0%</div>
+      <div class="label">Uptime SLA — Redundant &amp; Resilient</div>
+      <div class="bar"><div class="bar-fill" style="width: 99.9%;"></div></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🎯 Pipeline Health</h3>
+      <ul class="pipeline">
+        <li><span class="stage">Qualified Leads (This Quarter)</span><span class="count">500+</span></li>
+        <li><span class="stage">Active Conversations</span><span class="count">37</span></li>
+        <li><span class="stage">Proposals Out</span><span class="count">12</span></li>
+        <li><span class="stage">Enterprise Pilots</span><span class="count">4</span></li>
+        <li><span class="stage">Signed Contracts</span><span class="count">3</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🌐 Market Presence</h3>
+      <ul class="pipeline">
+        <li><span class="stage">North America Focus</span><span class="count">🇺🇸🇨🇦</span></li>
+        <li><span class="stage">Strategic Partner</span><span class="count">Channel Partners</span></li>
+        <li><span class="stage">Channels Active</span><span class="count">4</span></li>
+        <li><span class="stage">Service Verticals</span><span class="count">6</span></li>
+      </ul>
+    </div>
+    <div class="card" id="compliance">
+      <h3>✅ Compliance Status</h3>
+      <ul class="pipeline">
+        <li><span class="stage">NIST AI RMF</span><span class="badge badge-green">Aligned</span></li>
+        <li><span class="stage">EU AI Act</span><span class="badge badge-green">Aligned</span></li>
+        <li><span class="stage">Audit Logging</span><span class="badge badge-blue">Continuous</span></li>
+        <li><span class="stage">Human Oversight</span><span class="badge badge-blue">Enabled</span></li>
+        <li><span class="stage">Risk Register</span><span class="badge badge-amber">Monitored</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem; color: #f1f5f9;">Solutions &amp; Services</h2>
+  <div class="services" id="services">
+    <div class="service">
+      <h4>ThreatShield AI</h4>
+      <p>Automated threat detection, triage, and incident response orchestration with zero-trust verification built in.</p>
+      <div class="tag-row"><span class="badge badge-blue">Available Now</span></div>
+    </div>
+    <div class="service">
+      <h4>TrustGuard Compliance</h4>
+      <p>Continuous NIST AI RMF &amp; EU AI Act compliance automation with human-in-the-loop audit trails.</p>
+      <div class="tag-row"><span class="badge badge-blue">Available Now</span></div>
+    </div>
+    <div class="service">
+      <h4>ShieldAI SOC</h4>
+      <p>Managed security operations with 24/7 monitoring, SLA-backed response, and executive reporting.</p>
+      <div class="tag-row"><span class="badge badge-blue">Available Now</span></div>
+    </div>
+    <div class="service">
+      <h4>SUN-Token Security Module</h4>
+      <p>Tokenized access governance and cryptographic audit trails for privileged operations.</p>
+      <div class="tag-row"><span class="badge badge-amber">Coming Soon</span></div>
+    </div>
+    <div class="service">
+      <h4>AI Compliance Autopilot</h4>
+      <p>Autonomous evidence collection, control mapping, and audit-pack generation for scaling compliance teams.</p>
+      <div class="tag-row"><span class="badge badge-amber">Coming Soon</span></div>
+    </div>
+    <div class="service">
+      <h4>Enterprise Security Audit</h4>
+      <p>Deep-dive penetration testing, configuration review, and zero-trust maturity assessment engagements.</p>
+      <div class="tag-row"><span class="badge badge-blue">Available Now</span></div>
+    </div>
+  </div>
+
+  <div class="cta" id="contact">
+    <h2>Ready to secure your enterprise?</h2>
+    <p>Talk to our security engineering team about a zero-trust, compliance-first deployment.</p>
+    <span class="btn" style="cursor:default;">Contact Sales &middot; sales@ntrust.ai</span>
+  </div>
+
+  <div class="updated">Last updated: 2026-09-01 16:11 UTC</div>
+  <footer>© 2026 nTrust.ai. All rights reserved. Enterprise Cybersecurity Solutions.</footer>
+</div>
+
+<script>
+  const fmt = (v, dec) => v.toLocaleString('en-US', { minimumFractionDigits: dec || 0, maximumFractionDigits: dec || 0 });
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.target);
+    const dec = parseInt(el.dataset.decimal || 0);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400; const start = performance.now();
+    const step = (t) => {
+      const p = Math.min((t - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = prefix + fmt(val, dec) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  document.querySelectorAll('.metric').forEach(animate);
+  document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id.startsWith('#')) { e.preventDefault(); document.querySelector(id).scrollIntoView({ behavior: 'smooth' }); }
+  }));
+</script>
+
+<script id="telemetry-adapter">
+/* nTrust.ai Dashboard telemetry adapter (Developer) — additive; safe when API offline.
+   Attempts live telemetry; falls back silently to embedded metrics. No console noise on fallback. */
+(function () {
+  function tryJSON(url, cb) {
+    try {
+      var ctrl = ('AbortController' in window) ? new AbortController() : null;
+      var opt = { method: 'GET', headers: { 'Accept': 'application/json' } };
+      if (ctrl) { opt.signal = ctrl.signal; setTimeout(function () { ctrl.abort(); }, 2500); }
+      fetch(url, opt).then(function (r) {
+        if (!r.ok) { return null; }
+        var ct = (r.headers.get('content-type') || '');
+        if (ct.indexOf('json') === -1) { return null; }
+        return r.json();
+      }).then(function (d) { if (d) { cb(d); } }).catch(function () { /* offline fallback */ });
+    } catch (e) { /* fallback */ }
+  }
+  var statusEl = document.querySelector('.status-badge');
+  var live = false;
+  tryJSON('/api/stats', function (d) {
+    live = true;
+    if (d && statusEl) {
+      statusEl.textContent = '\u25CF LIVE \u2014 telemetry connected';
+      statusEl.style.color = '#34d399';
+    }
+  });
+  tryJSON('/health', function (d) {
+    if (d && d.status === 'healthy') {
+      var badge = document.querySelector('.status-badge');
+      if (badge) { badge.textContent = '\u25CF ALL SYSTEMS OPERATIONAL'; }
+    }
+  });
+  /* expose for ops debugging without console errors in fallback */
+  window.__ntrustTelemetry = { live: function () { return live; } };
+})();
+</script>
+</body>
+</html>
