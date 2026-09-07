@@ -2,3 +2,8 @@
 *.jsonl
 __pycache__/
 *.log
+
+# CI / test artifacts
+.coverage
+coverage.xml
+.pytest_cache/
