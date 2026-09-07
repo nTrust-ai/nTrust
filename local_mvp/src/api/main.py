@@ -2,10 +2,12 @@
 nTrust Shield MVP — FastAPI Skeleton & Health Endpoint
 Local Dev Deployment per NIST RMF & MVP Local First Protocol
 """
+
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,11 +15,9 @@ async def lifespan(app: FastAPI):
     yield
     print("[nTrust Shield] Shutting down local MVP gracefully.")
 
-app = FastAPI(
-    title="nTrust Shield MVP",
-    version="0.1.0-local",
-    lifespan=lifespan
-)
+
+app = FastAPI(title="nTrust Shield MVP", version="0.1.0-local", lifespan=lifespan)
+
 
 @app.get("/health", tags=["Operations"])
 async def health_check():
@@ -32,14 +32,17 @@ async def health_check():
             "status": "healthy",
             "environment": os.getenv("ENVIRONMENT", "local-dev"),
             "security_baseline": "enforced",
-            "audit_logging": "active"
-        }
+            "audit_logging": "active",
+        },
     )
+
 
 @app.get("/", tags=["Core"])
 async def root():
     return {"message": "nTrust Shield MVP Local Pilot Active"}
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

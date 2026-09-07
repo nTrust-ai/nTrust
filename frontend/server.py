@@ -10,15 +10,17 @@ import socketserver
 import os
 
 PORT = 8085
-DIRECTORY = '/app/data/orgs/org_ntrust/frontend'
+DIRECTORY = "/app/data/orgs/org_ntrust/frontend"
+
 
 class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
-    
+
     def log_message(self, format, *args):
         # Suppress default logging for cleaner output
         pass
+
 
 if __name__ == "__main__":
     with socketserver.TCPServer(("", PORT), SimpleHTTPRequestHandler) as httpd:

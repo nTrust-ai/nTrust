@@ -10,8 +10,8 @@ logging.basicConfig(
     format='{"timestamp": "%(asctime)s", "level": "%(levelname)s", "message": "%(message)s"}',
     handlers=[
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler('/app/logs/app.log')
-    ]
+        logging.FileHandler("/app/logs/app.log"),
+    ],
 )
 
 logger = logging.getLogger(__name__)
@@ -19,8 +19,9 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="nTrust Shield MVP",
     description="AI-driven Incident Response Automation Platform",
-    version="0.1.0"
+    version="0.1.0",
 )
+
 
 @app.get("/health")
 async def health_check():
@@ -31,16 +32,18 @@ async def health_check():
             "status": "healthy",
             "service": "nTrust Shield MVP",
             "version": "0.1.0",
-            "timestamp": "2026-06-24T21:40:37Z"
+            "timestamp": "2026-06-24T21:40:37Z",
         },
-        status_code=200
+        status_code=200,
     )
+
 
 @app.get("/metrics")
 async def metrics():
     """Prometheus metrics endpoint"""
     logger.info("Metrics endpoint requested")
     return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
 
 @app.get("/")
 async def root():
@@ -50,13 +53,12 @@ async def root():
         content={
             "service": "nTrust Shield MVP",
             "status": "running",
-            "endpoints": {
-                "health": "/health",
-                "metrics": "/metrics"
-            }
+            "endpoints": {"health": "/health", "metrics": "/metrics"},
         }
     )
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

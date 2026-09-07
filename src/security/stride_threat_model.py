@@ -40,7 +40,7 @@ class STRIDEModel:
         coverage = {cat.value: 0 for cat in ThreatCategory}
         for t in self.threats:
             coverage[t.category.value] += 1
-        
+
         total_severity = sum(t.severity_score for t in self.threats)
         avg_severity = total_severity / len(self.threats) if self.threats else 0
 
@@ -50,67 +50,79 @@ class STRIDEModel:
             "coverage_matrix": coverage,
             "avg_severity_score": round(avg_severity, 2),
             "hitl_compliance_flag": True,  # Requires board/manager review before Phase 2 pilot
-            "status": "VALIDATED_FOR_REVIEW"
+            "status": "VALIDATED_FOR_REVIEW",
         }
 
 
 def instantiate_threatshield_model() -> STRIDEModel:
     """Instantiates the initial STRIDE model for ThreatShield AI."""
     model = STRIDEModel("ThreatShield_AI_MVP")
-    
+
     # SPOOFING
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.SPOOFING,
-        component="API Gateway / LLM Endpoint",
-        description="Unauthorized API keys or compromised service accounts spoofing legitimate inference requests.",
-        mitigation="Enforce strict OAuth2/OIDC token validation, rate limiting, and mutual TLS for internal services.",
-        severity_score=7
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.SPOOFING,
+            component="API Gateway / LLM Endpoint",
+            description="Unauthorized API keys or compromised service accounts spoofing legitimate inference requests.",
+            mitigation="Enforce strict OAuth2/OIDC token validation, rate limiting, and mutual TLS for internal services.",
+            severity_score=7,
+        )
+    )
 
     # TAMPERING
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.TAMPERING,
-        component="Model Weights & Prompt Cache",
-        description="Adversarial tampering of cached prompts or fine-tuned weights leading to degraded/injected outputs.",
-        mitigation="Implement cryptographic hashing (SHA-256) for model artifacts. Use signed inference pipelines.",
-        severity_score=8
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.TAMPERING,
+            component="Model Weights & Prompt Cache",
+            description="Adversarial tampering of cached prompts or fine-tuned weights leading to degraded/injected outputs.",
+            mitigation="Implement cryptographic hashing (SHA-256) for model artifacts. Use signed inference pipelines.",
+            severity_score=8,
+        )
+    )
 
     # REPUDIATION
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.REPUDIATION,
-        component="Audit Logging Service",
-        description="Attackers modifying or deleting LLM request logs to evade compliance auditing and incident response.",
-        mitigation="Append-only immutable logging storage. Enable WORM (Write-Once Read-Many) disk policies.",
-        severity_score=6
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.REPUDIATION,
+            component="Audit Logging Service",
+            description="Attackers modifying or deleting LLM request logs to evade compliance auditing and incident response.",
+            mitigation="Append-only immutable logging storage. Enable WORM (Write-Once Read-Many) disk policies.",
+            severity_score=6,
+        )
+    )
 
     # INFORMATION_DISCLOSURE
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.INFORMATION_DISCLOSURE,
-        component="Training Data Pipeline",
-        description="Exfiltration of PII or proprietary datasets via model inversion or membership inference attacks.",
-        mitigation="Deploy differential privacy noise injection. Enforce strict data masking at ingestion layer.",
-        severity_score=9
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.INFORMATION_DISCLOSURE,
+            component="Training Data Pipeline",
+            description="Exfiltration of PII or proprietary datasets via model inversion or membership inference attacks.",
+            mitigation="Deploy differential privacy noise injection. Enforce strict data masking at ingestion layer.",
+            severity_score=9,
+        )
+    )
 
     # DENIAL_OF_SERVICE
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.DENIAL_OF_SERVICE,
-        component="Compute Inference Cluster",
-        description="Resource exhaustion via adversarial prompt loops or heavy token generation requests.",
-        mitigation="Implement graceful degradation circuit breakers. Enforce max token limits and queue-based scheduling.",
-        severity_score=7
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.DENIAL_OF_SERVICE,
+            component="Compute Inference Cluster",
+            description="Resource exhaustion via adversarial prompt loops or heavy token generation requests.",
+            mitigation="Implement graceful degradation circuit breakers. Enforce max token limits and queue-based scheduling.",
+            severity_score=7,
+        )
+    )
 
     # ELEVATION_OF_PRIVILEGE
-    model.add_threat(ThreatScenario(
-        category=ThreatCategory.ELEVATION_OF_PRIVILEGE,
-        component="Agent Execution Environment",
-        description="Prompt injection escaping sandbox boundaries to access internal metadata or adjacent services.",
-        mitigation="Strict least-privilege IAM roles. Network segmentation (VPC peering disabled by default). Input sanitization gates.",
-        severity_score=8
-    ))
+    model.add_threat(
+        ThreatScenario(
+            category=ThreatCategory.ELEVATION_OF_PRIVILEGE,
+            component="Agent Execution Environment",
+            description="Prompt injection escaping sandbox boundaries to access internal metadata or adjacent services.",
+            mitigation="Strict least-privilege IAM roles. Network segmentation (VPC peering disabled by default). Input sanitization gates.",
+            severity_score=8,
+        )
+    )
 
     return model
 

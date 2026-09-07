@@ -11,14 +11,15 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 import datetime
 
+
 class ShieldHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/health' or self.path == '/':
+        if self.path == "/health" or self.path == "/":
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            
+
             response = {
                 "status": "ok",
                 "service": "nTrust Shield MVP",
@@ -29,39 +30,40 @@ class ShieldHandler(BaseHTTPRequestHandler):
                 "compliance": {
                     "nist_ai_rmf": True,
                     "eu_ai_act_hitl": True,
-                    "gdpr_active": True
+                    "gdpr_active": True,
                 },
                 "features": {
                     "security_monitoring": True,
                     "audit_logging": True,
-                    "threat_detection": True
+                    "threat_detection": True,
                 },
-                "message": "Shield MVP is operational and ready for Board verification"
+                "message": "Shield MVP is operational and ready for Board verification",
             }
             self.wfile.write(json.dumps(response, indent=2).encode())
-        elif self.path == '/status':
+        elif self.path == "/status":
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header("Content-Type", "application/json")
             self.end_headers()
             status = {
                 "task_id": "TASK-FABAEE",
                 "task_title": "nTrust Shield MVP Staging Deployment & Security Validation Sprint",
                 "status": "operational",
-                "progress": "99%"
+                "progress": "99%",
             }
             self.wfile.write(json.dumps(status, indent=2).encode())
         else:
             self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode())
-    
+
     def log_message(self, format, *args):
         print(f"[{datetime.datetime.now()}] {args[0]}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     PORT = 9000
-    server_address = ('0.0.0.0', PORT)
+    server_address = ("0.0.0.0", PORT)
     httpd = HTTPServer(server_address, ShieldHandler)
     print(f"🚀 nTrust Shield MVP running on http://0.0.0.0:{PORT}")
     print(f"🛡️  Health endpoint: http://localhost:{PORT}/health")

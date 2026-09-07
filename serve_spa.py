@@ -9,6 +9,7 @@ nTrust.ai MVP static SPA server (port 8085).
 
 P0 directive: CEO Nedo / TASK-09986B / apr_3b6d06a9.
 """
+
 import os
 import sys
 import posixpath
@@ -22,9 +23,25 @@ HOST = "0.0.0.0"
 
 # File extensions that we treat as static assets (must exist or -> 404).
 STATIC_EXT = {
-    ".html", ".css", ".js", ".map", ".json", ".png", ".jpg", ".jpeg",
-    ".gif", ".svg", ".ico", ".webp", ".woff", ".woff2", ".ttf", ".txt",
-    ".xml", ".pdf", ".webmanifest",
+    ".html",
+    ".css",
+    ".js",
+    ".map",
+    ".json",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".svg",
+    ".ico",
+    ".webp",
+    ".woff",
+    ".woff2",
+    ".ttf",
+    ".txt",
+    ".xml",
+    ".pdf",
+    ".webmanifest",
 }
 
 MIME = {
@@ -128,6 +145,8 @@ class SPAHandler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     os.chdir(ROOT)
     srv = ThreadingHTTPServer((HOST, PORT), SPAHandler)
-    sys.stderr.write("nTrust MVP SPA server listening on %s:%d root=%s\n" % (HOST, PORT, ROOT))
+    sys.stderr.write(
+        "nTrust MVP SPA server listening on %s:%d root=%s\n" % (HOST, PORT, ROOT)
+    )
     sys.stderr.flush()
     srv.serve_forever()

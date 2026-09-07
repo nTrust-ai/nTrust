@@ -4,6 +4,7 @@ Owner: GovernanceOfficer. Scope: all 9 organizational products.
 Compliance: NIST AI RMF mapping + EU AI Act Art.12 traceability + Art.14 HITL chain.
 Lifecycle: NEW -> TRIAS -> ACCEPTED -> DEVELOPMENT -> TESTING -> RELEASED | REJECTED
 """
+
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 import hashlib, json, uuid
@@ -22,16 +23,17 @@ PRODUCT_REGISTRY = {
 
 STATES = ["NEW", "TRIAS", "ACCEPTED", "DEVELOPMENT", "TESTING", "RELEASED", "REJECTED"]
 
+
 @dataclass
 class FeatureRequest:
     title: str
     description: str
     product_id: str
-    priority: str = "P2"            # P0..P3
+    priority: str = "P2"  # P0..P3
     expected_impact: str = ""
     timeline: str = ""
-    nist_category: str = "GOVERN"   # NIST AI RMF function
-    eu_ai_risk: str = "MINIMAL"     # EU AI Act risk class
+    nist_category: str = "GOVERN"  # NIST AI RMF function
+    eu_ai_risk: str = "MINIMAL"  # EU AI Act risk class
     state: str = "NEW"
     requester: str = ""
     fr_id: str = field(default_factory=lambda: f"FR-{uuid.uuid4().hex[:8].upper()}")
@@ -42,19 +44,38 @@ class FeatureRequest:
         if self.state not in STATES:
             raise ValueError(f"Invalid state: {self.state}")
 
+
 class ComplianceLogger:
     """SHA256 event registry with HITL chain (EU AI Act Art.12/14 traceability)."""
+
     def __init__(self):
         self.events = []
 
     def log(self, entity_id, actor, action, detail=""):
         ts = datetime.now(timezone.utc).isoformat()
-        payload = json.dumps({"id": entity_id, "actor": actor, "action": action,
-                              "detail": detail, "ts": ts}, sort_keys=True)
+        payload = json.dumps(
+            {
+                "id": entity_id,
+                "actor": actor,
+                "action": action,
+                "detail": detail,
+                "ts": ts,
+            },
+            sort_keys=True,
+        )
         digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
-        self.events.append({"actor": actor, "action": action, "detail": detail,
-                            "ts": ts, "sha256": digest, "event_id": f"EVT-{uuid.uuid4().hex[:10].upper()}"})
+        self.events.append(
+            {
+                "actor": actor,
+                "action": action,
+                "detail": detail,
+                "ts": ts,
+                "sha256": digest,
+                "event_id": f"EVT-{uuid.uuid4().hex[:10].upper()}",
+            }
+        )
         return self.events[-1]
+
 
 class FRTS:
     def __init__(self):
@@ -73,7 +94,9 @@ class FRTS:
         if new_state not in STATES:
             raise ValueError(f"Invalid state: {new_state}")
         fr.state = new_state
-        self.audit.log(fr_id, actor, "TRANSITION", f"state={new_state} rationale={rationale}")
+        self.audit.log(
+            fr_id, actor, "TRANSITION", f"state={new_state} rationale={rationale}"
+        )
         return fr
 
     def snapshot(self):

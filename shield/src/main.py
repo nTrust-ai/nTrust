@@ -13,22 +13,23 @@ import logging
 import os
 
 # Configure Logging for Audit Trail
-os.makedirs('/app/data/orgs/org_ntrust/logs', exist_ok=True)
+os.makedirs("/app/data/orgs/org_ntrust/logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler('/app/data/orgs/org_ntrust/logs/audit.log'),
-        logging.StreamHandler()
-    ]
+        logging.FileHandler("/app/data/orgs/org_ntrust/logs/audit.log"),
+        logging.StreamHandler(),
+    ],
 )
 logger = logging.getLogger("ntrust_shield")
 
 app = FastAPI(
     title="nTrust Shield MVP",
     description="Automated intelligence and cybersecurity service layer.",
-    version="0.1.0"
+    version="0.1.0",
 )
+
 
 # Security Headers Middleware
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -37,10 +38,14 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-XSS-Protection"] = "1; mode=block"
-        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains"
+        )
         return response
 
+
 app.add_middleware(SecurityHeadersMiddleware)
+
 
 # Health Check Endpoint
 @app.get("/health")
@@ -50,7 +55,10 @@ async def health_check():
     Returns 200 OK if the service is running.
     """
     logger.info("Health check requested")
-    return JSONResponse(content={"status": "healthy", "service": "ntrust-shield", "version": "0.1.0"})
+    return JSONResponse(
+        content={"status": "healthy", "service": "ntrust-shield", "version": "0.1.0"}
+    )
+
 
 # Metrics Endpoint (Prometheus format placeholder)
 @app.get("/metrics")
@@ -68,12 +76,15 @@ ntrust_shield_uptime_seconds {time.time()}
 """
     return PlainTextResponse(content=metrics_data, media_type="text/plain")
 
+
 # Root Endpoint
 @app.get("/")
 async def root():
     logger.info("Root endpoint accessed")
     return {"message": "nTrust Shield MVP - Operational", "status": "active"}
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

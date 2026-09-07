@@ -14,12 +14,13 @@ import os
 # Database path relative to workspace
 DB_PATH = os.getenv("SHIELD_DB_PATH", "/app/data/orgs/org_ntrust/shield/data/shield.db")
 
+
 def init_database() -> None:
     """Initialize the SQLite database with core security tables."""
     # Ensure data directory exists
     data_dir = os.path.dirname(DB_PATH)
     os.makedirs(data_dir, exist_ok=True)
-    
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
@@ -74,53 +75,68 @@ def init_database() -> None:
         ("system_name", "nTrust Shield MVP"),
         ("version", "0.1.0"),
         ("security_level", "high"),
-        ("audit_enabled", "true")
+        ("audit_enabled", "true"),
     ]
-    cursor.executemany("INSERT OR IGNORE INTO config (key, value) VALUES (?, ?)", default_configs)
+    cursor.executemany(
+        "INSERT OR IGNORE INTO config (key, value) VALUES (?, ?)", default_configs
+    )
 
     conn.commit()
     conn.close()
     print(f"✅ Database initialized at {DB_PATH}")
 
+
 def get_incidents(severity: Optional[str] = None, status: str = "open") -> List[Dict]:
     """Retrieve incidents with optional filtering."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
+
     query = "SELECT * FROM incidents WHERE 1=1"
     params = []
-    
+
     if severity:
         query += " AND severity = ?"
         params.append(severity)
-    
+
     if status:
         query += " AND status = ?"
         params.append(status)
-    
+
     query += " ORDER BY created_at DESC"
-    
+
     cursor.execute(query, params)
     columns = [desc[0] for desc in cursor.description]
     incidents = [dict(zip(columns, row)) for row in cursor.fetchall()]
-    
+
     conn.close()
     return incidents
 
-def log_audit(user_id: str, action: str, resource_type: str, resource_id: str, ip_address: str, status: str) -> None:
+
+def log_audit(
+    user_id: str,
+    action: str,
+    resource_type: str,
+    resource_id: str,
+    ip_address: str,
+    status: str,
+) -> None:
     """Log an audit event."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("""
+    cursor.execute(
+        """
     INSERT INTO audit_logs (user_id, action, resource_type, resource_id, ip_address, status)
     VALUES (?, ?, ?, ?, ?, ?)
-    """, (user_id, action, resource_type, resource_id, ip_address, status))
+    """,
+        (user_id, action, resource_type, resource_id, ip_address, status),
+    )
     conn.commit()
     conn.close()
 
+
 if __name__ == "__main__":
     init_database()
-    
+
     # Test log
     log_audit("admin", "init", "system", "shield_db", "127.0.0.1", "success")
     print("✅ Audit log test successful.")

@@ -4,8 +4,11 @@ import time
 
 app = FastAPI(title="nTrust Shield MVP", version="0.1.0")
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger("shield_mvp_audit")
+
 
 @app.middleware("http")
 async def audit_logging_middleware(request: Request, call_next):
@@ -18,18 +21,26 @@ async def audit_logging_middleware(request: Request, call_next):
     )
     return response
 
+
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "service": "shield_mvp", "compliance": "phase1_baseline"}
+    return {
+        "status": "healthy",
+        "service": "shield_mvp",
+        "compliance": "phase1_baseline",
+    }
+
 
 @app.get("/monitoring/metrics")
 def system_metrics():
     return {
         "uptime_seconds": time.time(),
         "audit_log_path": "/app/logs/shield_audit.log",
-        "security_headers": ["X-Frame-Options", "HSTS", "CSP"]
+        "security_headers": ["X-Frame-Options", "HSTS", "CSP"],
     }
+
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
