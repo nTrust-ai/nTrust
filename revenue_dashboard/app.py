@@ -27,29 +27,32 @@ REVENUE_METRICS = {
     "pilot_conversion_rate": 0.67,
     "subscription_recurring_revenue": 89500.00,
     "enterprise_sow_count": 47,
-    "ubaz_venture_arrr": 60000.00
+    "ubaz_venture_arrr": 60000.00,
 }
 
 PRODUCT_PRICING = {
     "TrustGuard_Small": {"price": 49.00, "tier": "starter"},
     "TrustGuard_Medium": {"price": 199.00, "tier": "professional"},
     "TrustGuard_Enterprise": {"price": 599.00, "tier": "enterprise"},
-    "Custom_Engagement_SOW": {"min_price": 15000.00, "max_price": 50000.00}
+    "Custom_Engagement_SOW": {"min_price": 15000.00, "max_price": 50000.00},
 }
 
 PIPELINE_STAGES = ["Lead", "Qualified", "Proposal Sent", "Negotiation", "Closed Won"]
 STAGE_VALUES = [12500, 18750, 25000, 31250, 43750]  # Average deal size per stage
 
-@app.route('/')
+
+@app.route("/")
 def dashboard():
     """Main dashboard view"""
-    
+
     # Calculate derived metrics
-    progress_to_target = (REVENUE_METRICS["current_month_revenue"] / 
-                         REVENUE_METRICS["target_monthly_revenue"]) * 100
-    
+    progress_to_target = (
+        REVENUE_METRICS["current_month_revenue"]
+        / REVENUE_METRICS["target_monthly_revenue"]
+    ) * 100
+
     pipeline_conversion = sum([stage_value for stage_value in STAGE_VALUES])
-    
+
     html = """
     <!DOCTYPE html>
     <html lang="en">
@@ -199,19 +202,23 @@ def dashboard():
     </body>
     </html>
     """
-    
+
     return render_template_string(html)
 
-@app.route('/api/metrics')
+
+@app.route("/api/metrics")
 def api_metrics():
     """REST API endpoint for dashboard data"""
-    return jsonify({
-        "timestamp": datetime.utcnow().isoformat(),
-        "metrics": REVENUE_METRICS,
-        "pricing": PRODUCT_PRICING,
-        "pipeline_stages": PIPELINE_STAGES
-    })
+    return jsonify(
+        {
+            "timestamp": datetime.utcnow().isoformat(),
+            "metrics": REVENUE_METRICS,
+            "pricing": PRODUCT_PRICING,
+            "pipeline_stages": PIPELINE_STAGES,
+        }
+    )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Production servers MUST bind to 0.0.0.0 for external access
-    app.run(host='0.0.0.0', port=55127, debug=True)
+    app.run(host="0.0.0.0", port=55127, debug=True)

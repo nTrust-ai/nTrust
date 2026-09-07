@@ -14,8 +14,9 @@ import os
 app = FastAPI(
     title="nTrust Shield MVP",
     description="Automated intelligence and cybersecurity service platform",
-    version="0.1.0"
+    version="0.1.0",
 )
+
 
 # Security Headers Middleware
 class SecurityHeadersMiddleware:
@@ -24,18 +25,26 @@ class SecurityHeadersMiddleware:
 
     async def __call__(self, scope, receive, send):
         if scope["type"] == "http":
+
             async def send_wrapper(message):
                 if message["type"] == "http.response.start":
                     headers = list(message.get("headers", []))
                     headers.append((b"X-Content-Type-Options", b"nosniff"))
                     headers.append((b"X-Frame-Options", b"DENY"))
                     headers.append((b"X-XSS-Protection", b"1; mode=block"))
-                    headers.append((b"Strict-Transport-Security", b"max-age=31536000; includeSubDomains"))
+                    headers.append(
+                        (
+                            b"Strict-Transport-Security",
+                            b"max-age=31536000; includeSubDomains",
+                        )
+                    )
                     message["headers"] = headers
                 await send(message)
+
             await self.app(scope, receive, send_wrapper)
         else:
             await self.app(scope, receive, send)
+
 
 app.add_middleware(SecurityHeadersMiddleware)
 
@@ -48,13 +57,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Audit Logging Middleware
 @app.middleware("http")
 async def audit_logging(request: Request, call_next):
     start_time = time.time()
     response = await call_next(request)
     process_time = time.time() - start_time
-    
+
     # Structured JSON log format
     log_entry = {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -63,14 +73,16 @@ async def audit_logging(request: Request, call_next):
         "status_code": response.status_code,
         "process_time_ms": round(process_time * 1000, 2),
         "client_host": request.client.host if request.client else "unknown",
-        "user_agent": request.headers.get("user-agent", "unknown")
+        "user_agent": request.headers.get("user-agent", "unknown"),
     }
-    
+
     # In MVP, log to stdout (will be redirected to file in Docker)
     import logging
+
     logging.info(f"ACCESS_LOG: {log_entry}")
-    
+
     return response
+
 
 @app.get("/health", tags=["Health"])
 async def health_check():
@@ -82,8 +94,9 @@ async def health_check():
         "status": "healthy",
         "service": "nTrust Shield MVP",
         "version": "0.1.0",
-        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
+
 
 @app.get("/metrics", tags=["Metrics"])
 async def get_metrics():
@@ -93,8 +106,8 @@ async def get_metrics():
     """
     cpu_percent = psutil.cpu_percent(interval=0.1)
     memory = psutil.virtual_memory()
-    disk = psutil.disk_usage('/')
-    
+    disk = psutil.disk_usage("/")
+
     metrics_text = f"""# HELP ntrust_cpu_percent CPU usage percentage
 # TYPE ntrust_cpu_percent gauge
 ntrust_cpu_percent {cpu_percent}
@@ -113,6 +126,7 @@ ntrust_uptime_seconds {time.time() - start_time}
 """
     return JSONResponse(content=metrics_text, media_type="text/plain")
 
+
 @app.get("/", tags=["Root"])
 async def root():
     """Root endpoint returning service information."""
@@ -121,19 +135,24 @@ async def root():
         "tagline": "It is the numbers we trust.",
         "status": "operational",
         "phase": "1 (Production Foundation)",
-        "endpoints": ["/health", "/metrics"]
+        "endpoints": ["/health", "/metrics"],
     }
+
 
 # Startup event to log initialization
 start_time = time.time()
 
+
 @app.on_event("startup")
 async def startup_event():
     import logging
+
     logging.basicConfig(level=logging.INFO)
     logging.info("nTrust Shield MVP started successfully.")
     logging.info(f"Python version: {os.sys.version}")
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

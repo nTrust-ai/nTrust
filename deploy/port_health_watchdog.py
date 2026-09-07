@@ -35,10 +35,10 @@ LOG_PATH = os.environ.get(
 )
 
 SURFACES = [
-    {"name": "corporate-site",  "port": 8085, "path": "/healthz", "expect": "healthy"},
-    {"name": "revenue-ops",     "port": 55127, "path": "/healthz", "expect": "healthy"},
-    {"name": "service-catalog", "port": 9090,  "path": "/health",  "expect": None},
-    {"name": "shield-mvp",      "port": 7790,  "path": "/health",  "expect": "healthy"},
+    {"name": "corporate-site", "port": 8085, "path": "/healthz", "expect": "healthy"},
+    {"name": "revenue-ops", "port": 55127, "path": "/healthz", "expect": "healthy"},
+    {"name": "service-catalog", "port": 9090, "path": "/health", "expect": None},
+    {"name": "shield-mvp", "port": 7790, "path": "/health", "expect": "healthy"},
 ]
 
 CONNECT_TIMEOUT = 3
@@ -58,7 +58,9 @@ def probe(surface: dict) -> dict:
 
     # 1) TCP reachability
     try:
-        sock = socket.create_connection(("127.0.0.1", surface["port"]), timeout=CONNECT_TIMEOUT)
+        sock = socket.create_connection(
+            ("127.0.0.1", surface["port"]), timeout=CONNECT_TIMEOUT
+        )
         sock.close()
         result["tcp"] = "OPEN"
     except OSError as exc:
@@ -71,7 +73,9 @@ def probe(surface: dict) -> dict:
     # 2) HTTP health check
     url = "http://127.0.0.1:{}{}".format(surface["port"], surface["path"])
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Atlas-HealthCheck/1.0"})
+        req = urllib.request.Request(
+            url, headers={"User-Agent": "Atlas-HealthCheck/1.0"}
+        )
         with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
             body = resp.read(2048)
             result["http"] = resp.status

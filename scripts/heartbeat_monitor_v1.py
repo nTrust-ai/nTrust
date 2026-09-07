@@ -17,7 +17,7 @@ from typing import Optional, Dict
 TARGET_ENDPOINTS = [
     "https://ntrust.ai",
     "https://staging.ntrust.ai",
-    "http://localhost:8000"  # Local MVP fallback
+    "http://localhost:8000",  # Local MVP fallback
 ]
 LOG_DIR = "./logs/pilot_monitoring"
 MONITOR_INTERVAL_SECONDS = 300  # 5 minutes
@@ -29,11 +29,12 @@ os.makedirs(LOG_DIR, exist_ok=True)
 logging.basicConfig(
     filename=os.path.join(LOG_DIR, "heartbeat_status.log"),
     level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
+    format="%(asctime)s | %(levelname)s | %(message)s",
 )
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 logging.getLogger().addHandler(console_handler)
+
 
 class HeartbeatMonitor:
     def __init__(self):
@@ -63,10 +64,13 @@ class HeartbeatMonitor:
         logging.info("--- 🔍 PILOT MONITORING CYCLE COMPLETE ---\n")
 
     def start_monitoring(self):
-        logging.info("🚀 Heartbeat Monitor v1.0 initialized. Starting 24/7 uptime tracking.")
+        logging.info(
+            "🚀 Heartbeat Monitor v1.0 initialized. Starting 24/7 uptime tracking."
+        )
         while True:
             self.run_cycle()
             time.sleep(MONITOR_INTERVAL_SECONDS)
+
 
 if __name__ == "__main__":
     monitor = HeartbeatMonitor()

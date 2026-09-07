@@ -7,6 +7,7 @@ nTrust.ai telemetry / stats API server (port 55127).
 
 P0 directive: CEO Nedo / TASK-09986B / apr_3b6d06a9.
 """
+
 import json
 import sys
 import time
@@ -48,7 +49,14 @@ class ApiHandler(BaseHTTPRequestHandler):
             self._json(200, stats_payload())
             return
         if path in ("/health", "/healthz", "/api/health"):
-            self._json(200, {"status": "ok", "service": "ntrust-revenue-ops-telemetry", "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
+            self._json(
+                200,
+                {
+                    "status": "ok",
+                    "service": "ntrust-revenue-ops-telemetry",
+                    "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                },
+            )
             return
         if path in ("/", ""):
             self._json(200, stats_payload())

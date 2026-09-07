@@ -12,6 +12,7 @@ EU AI Act / NIST AI RMF traceability: inquiries appended to JSONL audit store
 (org_ntrust/api/contact_inquiries.jsonl) with UTC timestamp + source IP.
 Binds 0.0.0.0 explicitly (Localhost Bind Trap compliance).
 """
+
 import http.server
 import json
 import os
@@ -21,10 +22,20 @@ import time
 from datetime import datetime, timezone
 from urllib.parse import urlparse, parse_qs
 
-PORT = int(sys.argv[2] if len(sys.argv) > 2 else os.environ.get("CORP_SITE_PORT", "8085"))
-DOCROOT = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("CORP_SITE_DOCROOT", "/app/data/frontend/dist")
-INBOX_PRIMARY = os.environ.get("CORP_INBOX_PRIMARY", "/app/data/orgs/org_ntrust/api/contact_inquiries.jsonl")
-INBOX_FALLBACK = os.environ.get("CORP_INBOX_FALLBACK", "/app/data/frontend/data/contact_inquiries.jsonl")
+PORT = int(
+    sys.argv[2] if len(sys.argv) > 2 else os.environ.get("CORP_SITE_PORT", "8085")
+)
+DOCROOT = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else os.environ.get("CORP_SITE_DOCROOT", "/app/data/frontend/dist")
+)
+INBOX_PRIMARY = os.environ.get(
+    "CORP_INBOX_PRIMARY", "/app/data/orgs/org_ntrust/api/contact_inquiries.jsonl"
+)
+INBOX_FALLBACK = os.environ.get(
+    "CORP_INBOX_FALLBACK", "/app/data/frontend/data/contact_inquiries.jsonl"
+)
 ALLOWED_FIELDS = ("name", "email", "company", "subject", "message")
 
 
@@ -56,16 +67,27 @@ class CorporateSiteHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         if parsed.path == "/healthz":
-            self._send_json(200, {
-                "status": "healthy",
-                "service": "ntrust-corporate-site",
-                "port": PORT,
-                "compliance_framework": "NIST AI RMF / EU AI Act",
-                "utc": datetime.now(timezone.utc).isoformat(),
-            })
+            self._send_json(
+                200,
+                {
+                    "status": "healthy",
+                    "service": "ntrust-corporate-site",
+                    "port": PORT,
+                    "compliance_framework": "NIST AI RMF / EU AI Act",
+                    "utc": datetime.now(timezone.utc).isoformat(),
+                },
+            )
             return
         if parsed.path == "/api/contact":
-            self._send_json(200, {"ok": True, "endpoint": "api/contact", "method": "GET", "hint": "use POST"})
+            self._send_json(
+                200,
+                {
+                    "ok": True,
+                    "endpoint": "api/contact",
+                    "method": "GET",
+                    "hint": "use POST",
+                },
+            )
             return
         try:
             super().do_GET()
@@ -130,12 +152,16 @@ class CorporateSiteHandler(http.server.SimpleHTTPRequestHandler):
         super().send_error(code, message, explain)
 
     def log_message(self, fmt, *args):
-        sys.stderr.write("[corp-8085] %s %s\n" % (self.log_date_time_string(), fmt % args))
+        sys.stderr.write(
+            "[corp-8085] %s %s\n" % (self.log_date_time_string(), fmt % args)
+        )
 
 
 def run():
     os.makedirs(os.path.dirname(INBOX_PRIMARY), exist_ok=True)
-    with http.server.ThreadingHTTPServer(("0.0.0.0", PORT), CorporateSiteHandler) as httpd:
+    with http.server.ThreadingHTTPServer(
+        ("0.0.0.0", PORT), CorporateSiteHandler
+    ) as httpd:
         sys.stderr.write("[corp-8085] serving %s on 0.0.0.0:%d\n" % (DOCROOT, PORT))
         httpd.serve_forever()
 

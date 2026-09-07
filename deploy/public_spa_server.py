@@ -4,6 +4,7 @@
 Binds 0.0.0.0:8085 (Localhost Bind Trap compliant). Serves the sanitized
 customer-facing public site with SPA deep-route fallback. Pure stdlib.
 """
+
 import os
 import socketserver
 from http.server import SimpleHTTPRequestHandler
@@ -25,7 +26,9 @@ class PublicSiteHandler(SimpleHTTPRequestHandler):
             with open(INDEX_PATH, "rb") as fh:
                 body = fh.read()
         except FileNotFoundError:
-            body = b"<html><body><h1>nTrust.ai</h1><p>Site unavailable.</p></body></html>"
+            body = (
+                b"<html><body><h1>nTrust.ai</h1><p>Site unavailable.</p></body></html>"
+            )
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
@@ -53,5 +56,9 @@ class ThreadingServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 
 if __name__ == "__main__":
-    print("nTrust.ai public site server starting on %s:%d (root=%s)" % (HOST, PORT, SITE_ROOT), flush=True)
+    print(
+        "nTrust.ai public site server starting on %s:%d (root=%s)"
+        % (HOST, PORT, SITE_ROOT),
+        flush=True,
+    )
     ThreadingServer((HOST, PORT), PublicSiteHandler).serve_forever()

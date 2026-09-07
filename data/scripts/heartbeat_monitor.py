@@ -18,10 +18,7 @@ import logging
 import os
 
 # Configuration
-MONITORED_ENDPOINTS = [
-    "https://staging.ntrust.ai",
-    "https://ntrust.ai"
-]
+MONITORED_ENDPOINTS = ["https://staging.ntrust.ai", "https://ntrust.ai"]
 LOG_FILE = "/app/data/orgs/org_ntrust/data/logs/heartbeat_log.log"
 CHECK_INTERVAL_SECONDS = 60  # Check every minute
 
@@ -29,11 +26,8 @@ CHECK_INTERVAL_SECONDS = 60  # Check every minute
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(LOG_FILE),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 
@@ -41,16 +35,18 @@ logger = logging.getLogger(__name__)
 def check_endpoint(url):
     """
     Perform HTTP health check on a given endpoint.
-    
+
     Args:
         url (str): The URL to check
-        
+
     Returns:
         tuple: (status_code, response_time_ms, error_message)
     """
     start_time = time.time()
     try:
-        request = urllib.request.Request(url, headers={'User-Agent': 'nTrust-Heartbeat/1.0'})
+        request = urllib.request.Request(
+            url, headers={"User-Agent": "nTrust-Heartbeat/1.0"}
+        )
         with urllib.request.urlopen(request, timeout=10) as response:
             status_code = response.getcode()
             response_time_ms = int((time.time() - start_time) * 1000)
@@ -72,16 +68,20 @@ def log_heartbeat():
     """
     timestamp = datetime.datetime.utcnow().isoformat()
     logger.info(f"=== Heartbeat Check Started at {timestamp} ===")
-    
+
     for endpoint in MONITORED_ENDPOINTS:
         status_code, response_time_ms, error = check_endpoint(endpoint)
-        
+
         if error:
-            logger.warning(f"CHECK FAILED: {endpoint} - {error} (Response Time: {response_time_ms}ms)")
+            logger.warning(
+                f"CHECK FAILED: {endpoint} - {error} (Response Time: {response_time_ms}ms)"
+            )
         else:
             status_level = "OK" if status_code == 200 else "WARNING"
-            logger.info(f"{status_level}: {endpoint} - Status: {status_code} (Response Time: {response_time_ms}ms)")
-    
+            logger.info(
+                f"{status_level}: {endpoint} - Status: {status_code} (Response Time: {response_time_ms}ms)"
+            )
+
     logger.info("=== Heartbeat Check Complete ===\n")
 
 
@@ -92,7 +92,7 @@ def main():
     logger.info("Starting nTrust.ai Uptime Heartbeat Monitor")
     logger.info(f"Monitoring endpoints: {', '.join(MONITORED_ENDPOINTS)}")
     logger.info(f"Check interval: {CHECK_INTERVAL_SECONDS} seconds")
-    
+
     while True:
         try:
             log_heartbeat()

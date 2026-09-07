@@ -5,6 +5,7 @@ Binds 0.0.0.0:55127 (Localhost Bind Trap compliant). Serves the sanitized
 board-verified dashboard artifact with health and stats API endpoints and
 SPA deep-route fallback. Pure stdlib, no bash required.
 """
+
 import json
 import os
 import socketserver
@@ -52,7 +53,9 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split("?")[0].rstrip("/") or "/"
         if path == "/health":
-            return self._send_json({"status": "healthy", "service": SERVICE, "port": PORT})
+            return self._send_json(
+                {"status": "healthy", "service": SERVICE, "port": PORT}
+            )
         if path == "/healthz":
             return self._send_json({"status": "healthy", "service": SERVICE})
         if path == "/api/stats":
@@ -74,5 +77,9 @@ class ThreadingServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 
 if __name__ == "__main__":
-    print("nTrust.ai dashboard server starting on %s:%d (index=%s)" % (HOST, PORT, INDEX_PATH), flush=True)
+    print(
+        "nTrust.ai dashboard server starting on %s:%d (index=%s)"
+        % (HOST, PORT, INDEX_PATH),
+        flush=True,
+    )
     ThreadingServer((HOST, PORT), DashboardHandler).serve_forever()

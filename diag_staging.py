@@ -4,8 +4,9 @@ import urllib.request
 import ssl
 import sys
 
+
 def diagnose_staging():
-    host = 'staging.ntrust.ai'
+    host = "staging.ntrust.ai"
     port = 443
     results = []
 
@@ -23,16 +24,17 @@ def diagnose_staging():
         context = ssl.create_default_context()
         context.check_hostname = False
         context.verify_mode = ssl.CERT_NONE
-        
-        req = urllib.request.Request(f'https://{host}/', method='HEAD')
+
+        req = urllib.request.Request(f"https://{host}/", method="HEAD")
         response = urllib.request.urlopen(req, context=context, timeout=10)
         results.append(f"✅ HTTPS CONNECTED: Status {response.status}")
     except urllib.error.URLError as e:
         results.append(f"❌ HTTPS FAILED: {e.reason}")
     except Exception as e:
         results.append(f"❌ ERROR: {e}")
-    
+
     print("\n".join(results))
+
 
 if __name__ == "__main__":
     diagnose_staging()

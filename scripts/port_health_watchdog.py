@@ -8,23 +8,51 @@ Exit 0 = all healthy; 1 = one or more surfaces DOWN (for cron alerting).
 Empirical baseline 2026-09-04: 55127->200(13253B) 9090->200(7597B) 7790->200 8085->200 (host.docker.internal vantage).
 Refs: RAID-C44912 (watchdog stale), RAID-382414 (directory-listing regression), TASK-646340, TASK-968B4B.
 """
+
 import json, sys, urllib.request
 
 SURFACES = [
-    {"name": "55127-dashboard", "host_candidates": ["host.docker.internal", "localhost"], "port": 55127, "path": "/"},
-    {"name": "9090-catalog",     "host_candidates": ["host.docker.internal", "localhost"], "port": 9090, "path": "/"},
-    {"name": "7790-shield",      "host_candidates": ["host.docker.internal", "localhost"], "port": 7790, "path": "/"},
-    {"name": "8085-corporate",   "host_candidates": ["host.docker.internal", "localhost"], "port": 8085, "path": "/"},
+    {
+        "name": "55127-dashboard",
+        "host_candidates": ["host.docker.internal", "localhost"],
+        "port": 55127,
+        "path": "/",
+    },
+    {
+        "name": "9090-catalog",
+        "host_candidates": ["host.docker.internal", "localhost"],
+        "port": 9090,
+        "path": "/",
+    },
+    {
+        "name": "7790-shield",
+        "host_candidates": ["host.docker.internal", "localhost"],
+        "port": 7790,
+        "path": "/",
+    },
+    {
+        "name": "8085-corporate",
+        "host_candidates": ["host.docker.internal", "localhost"],
+        "port": 8085,
+        "path": "/",
+    },
 ]
 HEALTH_PATHS = [("/health", 7790), ("/healthz", 8085)]
+
 
 def probe(host, port, path="/", timeout=6):
     try:
         r = urllib.request.urlopen(f"http://{host}:{port}{path}", timeout=timeout)
         b = r.read()
-        return {"up": True, "status": r.status, "bytes": len(b), "server": r.headers.get("Server", "")}
+        return {
+            "up": True,
+            "status": r.status,
+            "bytes": len(b),
+            "server": r.headers.get("Server", ""),
+        }
     except Exception as e:
         return {"up": False, "error": f"{type(e).__name__}: {e}"}
+
 
 def main():
     results = {}
@@ -44,10 +72,15 @@ def main():
     else:
         for k, v in results.items():
             state = "UP  " if v.get("up") else "DOWN"
-            detail = f"HTTP {v.get('status')} ({v.get('bytes')}B) {v.get('server','')}".strip() if v.get("up") else v.get("error", "?")
+            detail = (
+                f"HTTP {v.get('status')} ({v.get('bytes')}B) {v.get('server','')}".strip()
+                if v.get("up")
+                else v.get("error", "?")
+            )
             print(f"[{state}] {k:20s} -> {detail}")
     print(f"\nOVERALL: {'HEALTHY' if all_up else 'DEGRADED'}")
     sys.exit(0 if all_up else 1)
+
 
 if __name__ == "__main__":
     main()

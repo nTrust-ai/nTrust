@@ -14,20 +14,22 @@ from fastapi import FastAPI, Request, Response
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 import uvicorn
 
+
 # --------------------------------------------------------------------------- #
 # 🛡️ Structured Audit Logging Setup (NIST RMF / EU AI Act HITL Compliance)
 # --------------------------------------------------------------------------- #
 class JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         log_data = {
-             "timestamp": datetime.now(timezone.utc).isoformat(),
-             "level": record.levelname,
-             "message": record.getMessage(),
-             "module": record.module,
-             "function": record.funcName,
-             "line": record.lineno,
-         }
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "module": record.module,
+            "function": record.funcName,
+            "line": record.lineno,
+        }
         return super().format(str(log_data))
+
 
 audit_logger = logging.getLogger("ntrust.shield.audit")
 audit_logger.setLevel(logging.INFO)
@@ -38,8 +40,13 @@ audit_logger.addHandler(handler)
 # --------------------------------------------------------------------------- #
 # 📊 Prometheus Metrics Setup
 # --------------------------------------------------------------------------- #
-REQUEST_COUNT = Counter("ntrust_shield_requests_total", "Total requests to nTrust Shield")
-REQUEST_LATENCY = Histogram("ntrust_shield_request_latency_seconds", "Request latency in seconds")
+REQUEST_COUNT = Counter(
+    "ntrust_shield_requests_total", "Total requests to nTrust Shield"
+)
+REQUEST_LATENCY = Histogram(
+    "ntrust_shield_request_latency_seconds", "Request latency in seconds"
+)
+
 
 # --------------------------------------------------------------------------- #
 # 🧠 Application Lifecycle & State Management
@@ -50,12 +57,14 @@ async def lifespan(app: FastAPI):
     yield
     audit_logger.info("🛑 nTrust Shield MVP shutting down gracefully.")
 
+
 app = FastAPI(
     title="nTrust Shield MVP",
     description="AI-driven Incident Response Automation Platform (MVP)",
     version="0.1.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
+
 
 # --------------------------------------------------------------------------- #
 # 🛡️ Security & Compliance Middleware
@@ -63,13 +72,16 @@ app = FastAPI(
 @app.middleware("http")
 async def security_headers_middleware(request: Request, call_next):
     response: Response = await call_next(request)
-     # Enforce strict security headers per SOP compliance checklist
+    # Enforce strict security headers per SOP compliance checklist
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=31536000; includeSubDomains"
+    )
     response.headers["Content-Security-Policy"] = "default-src 'self'"
     return response
+
 
 @app.middleware("http")
 async def audit_and_metrics_middleware(request: Request, call_next):
@@ -78,9 +90,14 @@ async def audit_and_metrics_middleware(request: Request, call_next):
         response = await call_next(request)
     audit_logger.info(
         f"Incoming request: {request.method} {request.url.path}",
-         extra={"extra_data": {"client_ip": request.client.host if request.client else "unknown"}}
-     )
+        extra={
+            "extra_data": {
+                "client_ip": request.client.host if request.client else "unknown"
+            }
+        },
+    )
     return response
+
 
 # --------------------------------------------------------------------------- #
 # 🩺 Health & Readiness Endpoints
@@ -88,17 +105,19 @@ async def audit_and_metrics_middleware(request: Request, call_next):
 @app.get("/health")
 async def health_check():
     return {
-         "status": "healthy",
-         "service": "ntrust-shield-mvp",
-         "version": "0.1.0",
-         "uptime_since": datetime.now(timezone.utc).isoformat(),
-         "compliance_framework": "NIST AI RMF / EU AI Act HITL Baseline"
-     }
+        "status": "healthy",
+        "service": "ntrust-shield-mvp",
+        "version": "0.1.0",
+        "uptime_since": datetime.now(timezone.utc).isoformat(),
+        "compliance_framework": "NIST AI RMF / EU AI Act HITL Baseline",
+    }
+
 
 @app.get("/ready")
 async def readiness_check():
-     # Simulate dependency checks (DB, Cache, etc.) for Phase 1 foundation
+    # Simulate dependency checks (DB, Cache, etc.) for Phase 1 foundation
     return {"status": "ready", "dependencies_met": True}
+
 
 # --------------------------------------------------------------------------- #
 # 📈 Metrics Endpoint (Prometheus Format)
@@ -108,8 +127,9 @@ async def metrics_endpoint():
     return Response(
         content=generate_latest(),
         media_type=CONTENT_TYPE_LATEST,
-         headers={"Content-Type": CONTENT_TYPE_LATEST}
-     )
+        headers={"Content-Type": CONTENT_TYPE_LATEST},
+    )
+
 
 # --------------------------------------------------------------------------- #
 # 🚀 Entry Point (Run via: uvicorn main:app --host 0.0.0.0 --port 8000)
