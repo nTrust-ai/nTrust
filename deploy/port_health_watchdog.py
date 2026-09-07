@@ -36,7 +36,7 @@ LOG_PATH = os.environ.get(
 
 SURFACES = [
     {"name": "corporate-site", "port": 8085, "path": "/healthz", "expect": "healthy"},
-    {"name": "revenue-ops", "port": 55127, "path": "/healthz", "expect": "healthy"},
+    {"name": "revenue-ops", "port": 55127, "path": "/health", "expect": "healthy"},
     {"name": "service-catalog", "port": 9090, "path": "/health", "expect": None},
     {"name": "shield-mvp", "port": 7790, "path": "/health", "expect": "healthy"},
 ]
