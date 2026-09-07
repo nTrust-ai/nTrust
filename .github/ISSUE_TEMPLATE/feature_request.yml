@@ -1,0 +1,85 @@
+name: Feature Request
+description: Submit a feature request for an nTrust.ai product (FRTS v1.0)
+title: "[FR] "
+labels: ["feature-request"]
+body:
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      description: Which product is this feature request for?
+      options:
+        - PrivacyGuard Suite (PROD-597152)
+        - TrustAudit Engine (PROD-335E45)
+        - nTrust Shield (PROD-DCCCF5)
+        - nTrust.ai Website (PROD-71C577)
+        - Spine Engine OSS (PROD-SPINE)
+        - nTrust Core Platform (PROD-275A24)
+        - TrustGuard (PROD-DE7694)
+        - Enterprise Security Audit Service (PROD-75052F)
+        - nTrust.ai Web Dashboard MVP (PROD-BFBA88)
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One-line summary of the request.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description of the feature request.
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Business priority (P0 highest).
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+      default: 2
+    validations:
+      required: true
+  - type: input
+    id: impact
+    attributes:
+      label: Expected Impact
+      description: Business value / affected users.
+  - type: input
+    id: timeline
+    attributes:
+      label: Timeline
+      description: Desired timeline or regulatory deadline.
+  - type: dropdown
+    id: nist_category
+    attributes:
+      label: NIST AI RMF Functional Category
+      description: NIST AI RMF mapping for compliance logging.
+      options:
+        - GOVERN
+        - MAP
+        - MEASURE
+        - MANAGE
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: eu_ai_risk
+    attributes:
+      label: EU AI Act Risk Classification
+      description: EU AI Act risk class (if applicable).
+      options:
+        - MINIMAL
+        - LIMITED
+        - HIGH
+        - UNACCEPTABLE
+      default: 0
+    validations:
+      required: true
