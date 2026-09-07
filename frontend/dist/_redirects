@@ -1,2 +1,6 @@
 # nTrust.ai — canonical redirect (Cloudflare Pages)
 https://www.ntrust.ai/*  https://ntrust.ai/:splat  301
+
+# Legacy ASPM/AppSOC deep links -> consolidated Managed AppSec Services page
+/products/appsoc.html  /products/managed-appsec.html  301
+/products/aspm.html    /products/managed-appsec.html  301
