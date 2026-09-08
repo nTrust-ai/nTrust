@@ -62,7 +62,8 @@ DOCUMENTED_PHANTOM_DOC_IDS = {
     "doc_296febc7d3",  # compliance-review FP (RAID-AF7193)
     "doc_66f47a0f84", "doc_cd1e22513e",  # re-publish mis-match (RAID-A0C5F0)
     "doc_21977174c6", "doc_6845d5b432",  # CEO decision record (RAID-E6DD69),
-    "doc_e5fb58332d",  # TrustGuard MVP infra spec — phantom path mismatch (RAID-27E190)
+    "doc_e5fb58332d",  # TrustGuard MVP infra spec — phantom path mismatch (RAID-27E190),
+    "doc_4e7b1d9476",  # TrustGuard MVP Strategic Pivot — phantom path mismatch (RAID-4B8A30)
 }
 
 
