@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-09-08T08:25:55.007177Z",
+  "bare": {
+    "bytes": 10995,
+    "sha1": "feb4ff7cd40c6c351273b36d6fe29582368fd9e8",
+    "cf": "HIT",
+    "age": "110536",
+    "cc": "public, max-age=31536000, must-revalidate, immutable",
+    "tw": 0
+  },
+  "canonical": {
+    "bytes": 11797,
+    "sha1": "8751c9f6c5378bfc0f2e4679706beddfc843f6d8",
+    "cf": "MISS",
+    "tw": 3
+  },
+  "cf_api_probe": {
+    "result": "HTTP 400",
+    "body": "{\"success\":false,\"errors\":[{\"code\":6003,\"message\":\"Invalid request headers\",\"error_chain\":[{\"code\":6111,\"message\":\"Invalid format for Authorization header\"}]}],\"messages\":[],\"result\":null}"
+  },
+  "verdict": "PURGE NOT EXECUTED \u2014 credential absence (no CF token/key/deploy-hook in env_b774ca13). Owner one-click purge OR scoped token injection required.",
+  "acceptance": "bare URL -> 11,797 B / 8751c9f6 / CF-Cache-Status MISS / text-wrap:balance x3"
+}
