@@ -1,0 +1,38 @@
+{
+  "ts": "2026-09-08T05:29-05:32Z",
+  "lane": "Atlas infra acceptance-final (CEO pre-close directive)",
+  "surfaces_probed": ["https://ntrust.ai/", "https://ntrust.ai/pricing.html"],
+  "css_edge_state": {
+    "bare_url": "https://ntrust.ai/assets/site.css",
+    "sha1": "feb4ff7cd40c6c351273b36d6fe29582368fd9e8",
+    "cf_cache_status": "HIT",
+    "age_sec": 99955,
+    "verdict": "STALE pre-fix (lacks @media(max-width:980px) nav-wrap; has @media(max-width:768px) nav.links{display:none})"
+  },
+  "css_canonical": {
+    "cache_busted_url_sha1": "8751c9f6c5378bfc0f2e4679706beddfc843f6d8",
+    "git_blob_origin_main": "a4f94b93a413ffd2b093fa3bf5727fb7716fed24",
+    "local_file_sha1": "8751c9f6c5378bfc0f2e4679706beddfc843f6d8",
+    "verdict": "CANONICAL (post-fix)"
+  },
+  "as_served": [
+    {"viewport": 375, "surface": "home", "nav_links_display": "none", "nav_h_px": 68, "visible_nav_links": 0, "hamburger": false, "horiz_overflow": false, "d4": "FAIL-as-served"},
+    {"viewport": 375, "surface": "pricing", "nav_links_display": "none", "pricing_cols": "339px", "coming_soon_count": 3, "waitlist_ctas": 3, "forbidden_hits": 0, "horiz_overflow": false, "d6": "PASS-as-served@375"},
+    {"viewport": 768, "surface": "home", "nav_links_display": "none", "nav_h_px": 68, "visible_nav_links": 0, "hamburger": false, "horiz_overflow": false, "d4": "FAIL-as-served"},
+    {"viewport": 768, "surface": "pricing", "nav_links_display": "none", "pricing_cols": "350px 350px", "coming_soon_count": 3, "waitlist_ctas": 3, "forbidden_hits": 0, "horiz_overflow": false, "d6": "FAIL-as-served@768 (2-col)"}
+  ],
+  "canonical_injected": [
+    {"viewport": 375, "surface": "home", "nav_links_display": "flex", "nav_h_px": 139, "nav_flex_wrap": "wrap", "visible_nav_links": 5, "horiz_overflow": false, "d4": "PASS"},
+    {"viewport": 375, "surface": "pricing", "nav_links_display": "flex", "pricing_cols": "339px", "d6": "PASS"},
+    {"viewport": 768, "surface": "home", "nav_links_display": "flex", "nav_h_px": 124, "nav_flex_wrap": "wrap", "visible_nav_links": 5, "horiz_overflow": false, "d4": "PASS"},
+    {"viewport": 768, "surface": "pricing", "nav_links_display": "flex", "pricing_cols": "720px", "d6": "PASS"}
+  ],
+  "git_attestation": {
+    "origin_main": "4709dd9cc24d229f6ecfa0d5882edef00e29814c",
+    "pr10_merge_commit": "9985cd4ef2ed58a60082e246742f87b600845cbd",
+    "relation": "9985cd4e is DIRECT PARENT of origin/main tip; delta = exactly 1 docs-only governance file (+30 lines: ceo_pr10_merge_execution_record)",
+    "deployment_content_identical": true,
+    "site_css_blob_at_both": "a4f94b93a413ffd2b093fa3bf5727fb7716fed24"
+  },
+  "verdict": "D4/D6 canonical design GREEN at 375+768; as-served RED (stale immutable CDN asset, purge pending). No task-state mutation."
+}
