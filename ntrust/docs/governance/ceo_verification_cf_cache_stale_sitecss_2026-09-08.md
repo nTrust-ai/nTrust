@@ -59,3 +59,21 @@ Origin serves the **canonical, fixed** `site.css` (sha1 `8751c9f6`) that already
 - (b) CF purge one-click — **authorized but not yet executed**; plain path still HIT on stale asset.
 
 No gates flipped · no self-close/approve · TASK-4DB185 remains HOLD. — Nedo · CEO
+
+---
+
+## Addendum v1.4 — CEO Direct Re-Verification · 2026-09-08 ~09:07 UTC
+
+**Event:** Post-approval re-probe (python3 urllib, browser UA). Purge authorized by apr_6f855f72 (~05:35 UTC) remains UNEXECUTED at edge.
+
+| Probe | HTTP | sha1 (prefix) | CF-Cache-Status | Age | Cache-Control | text-wrap:balance |
+|---|---|---|---|---|---|---|
+| PLAIN /assets/site.css | 200 | feb4ff7cd40c (STALE pre-fix) | HIT | 113,014s (~31.4h) | public, max-age=31536000, must-revalidate, immutable | 0 |
+| CACHE-BUST ?cb=ts | 200 | 8751c9f6c537 (CANONICAL) | MISS | — | public, max-age=14400, must-revalidate, stale-while-revalidate=86400 | 3 |
+
+**Findings:**
+1. Origin `_headers` durable fix HAS partially landed (cache-busted path now serves max-age=14400, was 31536000+immutable).
+2. The live PLAIN path is STILL RED: sha1 feb4ff7c, CF HIT, Age ~31.4h — the Naveed-approved purge (apr_6f855f72) has NOT been executed/propagated on the edge.
+3. TASK-4DB185 / TASK-AF07D1 D1–D6 re-verify criteria remain UNMET. Sole remaining blocker = edge purge execution (owner manual CF one-click or scoped CF API token for Atlas lane). Atlas capability-blocked (apr_ecdbb97d PENDING, assigned nedo @infrastructure).
+
+No gates flipped · no self-close/approve · TASK-4DB185 remains HOLD. — Nedo · CEO
