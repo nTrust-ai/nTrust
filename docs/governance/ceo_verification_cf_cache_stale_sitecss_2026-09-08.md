@@ -1,0 +1,83 @@
+# CEO Verification — Cloudflare Cache Stale `site.css` (unblocks TASK-4DB185 / D1–D6)
+
+**Date:** 2026-09-08 ~05:24 UTC
+**Author:** Nedo · CEO
+**Origin:** Atlas escalation (Infrastructure & DevOps) — CF cache purge required.
+
+## 1. Empirical verification (performed this cycle from CEO sandbox)
+
+Tooling note: `curl`/`wget` absent in CEO sandbox; used Python `urllib` (read-only fetch, no CF write access). `env` grep for Cloudflare creds and `which wrangler` both EMPTY → **CEO cannot self-execute a purge** (no CF token/tooling).
+
+| Probe | HTTP | sha1 (first 12) | CF-Cache-Status | Age |
+|---|---|---|---|---|
+| `https://ntrust.ai/assets/site.css` (bare) | 200 | `feb4ff7cd40c` | HIT | ~99,835s (~27.7h) |
+| `https://ntrust.ai/assets/site.css?cb=1` (cache-busted) | 200 | `8751c9f6c537` | MISS | — |
+
+Feature presence:
+
+| Feature | bare (stale edge) | cache-busted (origin) |
+|---|---|---|
+| `text-wrap:balance` | absent | present |
+| `max-width:840px` | absent | present |
+| `letter-spacing:-.03em` | present | present |
+| `clamp(2rem,4.6vw,…)` | present | present |
+
+## 2. Root cause (confirmed)
+
+Origin serves the **canonical, fixed** `site.css` (sha1 `8751c9f6`) that already contains `.hero h1 { … text-wrap:balance; max-width:840px }`. The bare URL is pinned by `_headers` → `Cache-Control: public, max-age=31536000, immutable` on `/assets/*`, so the CF edge keeps serving the **pre-fix** asset (`feb4ff7c`) at the non-hashed `/assets/site.css` URL.
+
+**Conclusion:** No code change is needed for D1. The hero H1 widow fix (`text-wrap:balance`) is already landed in origin. The sole blocker is the stale CDN edge copy.
+
+## 3. Disposition
+
+1. **Immediate (owner one-click):** purge CF cache for `ntrust.ai` — URL `/assets/site.css` (or zone-wide). This alone makes D1/D6 live-verify green and unblocks TASK-4DB185; the code portion of TASK-AF07D1 is already satisfied.
+2. **Durable (code, needs Board approval + promotion):** drop `immutable` from `/assets/*` in `_headers`; use short `max-age` + `must-revalidate` (e.g. `Cache-Control: public, max-age=3600, must-revalidate`). Prevents recurrence on every future CSS change. Assigned to Weaver (frontend lead) to prepare.
+3. **Secondary (non-blocking):** reconcile "Open Source" canonical — nav+footer `/spine.html` (200) vs orphaned `/open-source/` (200) vs `/open-source.html` (404). Fold into TASK-F2D25F.
+
+— Nedo · CEO 🛡️
+
+---
+
+## 4. Addendum v1.1 (2026-09-08 ~05:33 UTC) — Atlas corrective amendment & closure-gate status
+
+Incorporated from Atlas doc_bfdfbff67a v4 (commit `331ee9f2`, git-vault synced), per radical-transparency discipline:
+
+1. **Doc versioning:** Atlas's acceptance evidence chain is at **v4** (v3 content preserved verbatim; increment = corrective re-run + git attestation append). No evidence-version regression.
+2. **Git attestation (exact-equality fails):** `origin/main` tip = `4709dd9c`, NOT `9985cd4e`. Relationship: `9985cd4e` is the DIRECT PARENT; delta = exactly 1 docs-only governance commit (`4709dd9c`, +30 lines, CEO PR #10 execution record); all deployment artifacts **byte-identical** (site.css blob `a4f94b93` at both; file sha1 `8751c9f6` == local tree).
+3. **Acceptance status = BLOCKED / NOT CONFIRMED (as-served):**
+   - **D4** as-served FAIL @375 & @768 — `nav.links` hidden (display:none), **no hamburger fallback** (earlier v3 "D4 PASS as-served" withdrawn as false positive: child-anchor styles read inside display:none parent).
+   - **D6** as-served PASS @375 only / **FAIL @768** (pricing 2-col 350+350).
+   - Canonical-injected runs GREEN (design correct) — but that is NOT what the live apex serves.
+   - Root cause unchanged: **stale immutable CDN edge** — bare `/assets/site.css` = sha1 `feb4ff7c` (CF HIT, age ~99,955s ≈27.8h); cache-busted = canonical `8751c9f6`. **Purge has NOT landed.**
+
+**Closure gate (recommended):** (a) Cloudflare purge lands → (b) bare `/assets/site.css` sha1 == canonical `8751c9f6` on re-verify → (c) D4/D6 PASS as-served @375 & @768. Alternative: Board may **explicitly accept the recorded as-served caveat** and close with it on record.
+
+
+---
+
+## 5. Addendum v1.2 (2026-09-08 ~05:37 UTC) — Final unblock path (deploy + purge)
+
+Fresh live probe (CEO sandbox) after purge approvals landed:
+- bare `/assets/site.css` → still 10,995 B, sha1 `feb4ff7c`, `Cache-Control: public, max-age=31536000, immutable`, age ~27.9h → **purge NOT yet landed at edge**
+- cache-busted `?cb=ver2` → 11,797 B, sha1 `8751c9f6` → **origin FIXED**
+- `site.8751c9f6.css` → 404 (content-hash rename reverted)
+- live `_headers` `/assets/*` → still `immutable` (deploy NOT landed)
+
+### Board state (verified this cycle)
+| Request | Purpose | Status |
+|---|---|---|
+| `apr_6f855f72` / `apr_d2a07320` | CF cache purge (owner one-click) | APPROVED (Naveed OOB) |
+| `apr_90b5d796` | Atlas closure-ready bundle (5 infra tasks @99%) | APPROVED (Naveed OOB) |
+| `apr_code_5b59d6a9` | `_headers` TTL fix promotion (drop immutable) | PENDING Board |
+
+### Durable fix — committed locally, NOT yet pushed to origin/main
+- Local HEAD `dc00f32c`: `_headers` `/assets/*` → `max-age=3600, stale-while-revalidate=86400`; unversioned `site.css` retained (content-hash rename reverted to align with disposition).
+- `origin/main` tip `4709dd9c` still carries `max-age=31536000, immutable`.
+
+### Remaining unblock chain
+1. Ratify `apr_code_5b59d6a9` → push main → CF Pages deploy `_headers` fix.
+2. Execute CF purge one-click for `/assets/site.css` (approved; not yet landed).
+3. Re-verify D1/D4/D6 **as-served** → close TASK-4DB185.
+
+— Nedo · CEO 🛡️
+
