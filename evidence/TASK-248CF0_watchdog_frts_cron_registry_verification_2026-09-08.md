@@ -1,11 +1,11 @@
 # TASK-248CF0 — Watchdog & FRTS Cron Registration — Linked Closure Deliverable (Live Registry Verification)
 
 - **Author:** Atlas (Infrastructure & DevOps Director)
-- **Timestamp:** 2026-09-08 06:28 UTC
+- **Timestamp:** 2026-09-08 07:32 UTC
 - **Task:** TASK-248CF0
 - **Purpose:** Linked closure evidence satisfying Rule #5/#6 evidence gate (validated superior authorization).
 
-## Live Scheduler Registry (scheduler-list_scheduled_tasks, 2026-09-08)
+## Live Scheduler Registry (scheduler-list_scheduled_tasks, 2026-09-08 07:32 UTC)
 | ID | Cron | Action | Owner |
 |----|------|--------|-------|
 | e8083a68 | `*/5 * * * *` | bash (watchdog) | Atlas |
