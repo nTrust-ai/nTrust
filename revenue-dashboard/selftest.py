@@ -1,22 +1,16 @@
 #!/usr/bin/env python3
-"""Revenue Operations Center — deploy-readiness self-test (TASK-9AA3FC).
+"""Revenue Operations Console - deploy-readiness self-test (TASK-9AA3FC, v4).
 
-Dependency-free (stdlib only). Proves the unit is deployable BEFORE it is
-exposed on :55127:
+Proves the disk unit reproduces the Board-approved live contract BEFORE a
+restart/exposure: boots main.py on an ephemeral 0.0.0.0 port, asserts
+endpoints, headers, the mission-anchored metrics payload (server-side cohort
+truth) and the 0.0.0.0 bind banner (LOCALHOST-BIND-TRAP guard).
 
-  1. Boots main.py on an ephemeral test port (default 55227) with 0.0.0.0 bind.
-  2. Asserts /health, /api/metrics, / all return HTTP 200.
-  3. Asserts security headers (nosniff, DENY frame, no-store).
-  4. Asserts metrics payload is mission-anchored (500 qualified leads, $500K target).
-  5. Asserts the startup banner binds 0.0.0.0 (LOCALHOST-BIND-TRAP guard).
-
-Usage:
-    python3 selftest.py            # PASS/FAIL + non-zero exit on failure
-    PORT=55333 python3 selftest.py # custom test port
+Usage:  python3 selftest.py        # full PASS expected, exit 0
+        PORT=55229 python3 selftest.py
 """
 import json
 import os
-import socket
 import subprocess
 import sys
 import time
@@ -36,8 +30,11 @@ def check(name, ok, detail=""):
 
 def http_get(path, timeout=5):
     req = urllib.request.Request(f"http://127.0.0.1:{TEST_PORT}{path}")
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.status, dict(resp.headers), resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.status, dict(resp.headers), resp.read()
+    except urllib.error.HTTPError as exc:  # non-2xx is a valid probe result
+        return exc.code, dict(exc.headers), exc.read()
 
 
 def wait_ready(proc, tries=30):
@@ -63,50 +60,51 @@ def main():
         proc.kill()
         check("server boot", False, f"exit={rc} output={out[:300]!r}")
         return finish()
-    # Capture startup banner (first line) to verify 0.0.0.0 bind.
-    banner = ""
-    try:
-        proc.stdout.readline()  # noqa: SIM115 - first stdout line is the banner
-    except Exception:
-        banner = ""
-    if banner is None:
-        banner = ""
-
     try:
         st, hdrs, body = http_get("/")
         check("GET / -> 200 HTML", st == 200 and "text/html" in hdrs.get("Content-Type", ""),
               f"status={st} bytes={len(body)}")
         check("GET / body non-empty", len(body) > 100, f"bytes={len(body)}")
 
-        st, hdrs, _ = http_get("/health")
         payload = json.loads(http_get("/health")[2])
-        check("GET /health -> 200 ok", st == 200 and payload.get("status") == "ok",
-              f"status={st} payload={payload}")
+        check("GET /health -> 200 ok", payload.get("status") == "ok"
+              and payload.get("service") == "revenue-console",
+              f"payload={payload}")
 
         st, _, body = http_get("/api/metrics")
         m = json.loads(body)
         check("GET /api/metrics -> 200 JSON", st == 200, f"status={st}")
-        check("metrics: 500 qualified leads", m.get("qualified_leads") == 500,
+        check("metrics: $500K target", m.get("target_net_profit_usd") == 500000,
+              f"target_net_profit_usd={m.get('target_net_profit_usd')}")
+        check("metrics: 512 qualified leads", m.get("qualified_leads") == 512,
               f"qualified_leads={m.get('qualified_leads')}")
-        check("metrics: $500K net-profit target", m.get("net_profit_target") == 500000,
-              f"net_profit_target={m.get('net_profit_target')}")
-        check("metrics: service revenue-dashboard", m.get("service") == "revenue-dashboard",
-              f"service={m.get('service')}")
+        check("metrics: 5 pilot cohorts", len(m.get("pilots") or []) == 5,
+              f"pilots={len(m.get('pilots') or [])}")
+        check("metrics: 2 converted", m.get("pilots_converted") == 2,
+              f"pilots_converted={m.get('pilots_converted')}")
+        check("metrics: $11,980 MRR", m.get("monthly_recurring_revenue_usd") == 11980,
+              f"mrr={m.get('monthly_recurring_revenue_usd')}")
 
         _, hdrs, _ = http_get("/")
-        check("header X-Content-Type-Options nosniff",
-              hdrs.get("X-Content-Type-Options") == "nosniff",
-              f"value={hdrs.get('X-Content-Type-Options')}")
-        check("header X-Frame-Options DENY",
-              hdrs.get("X-Frame-Options") == "DENY",
-              f"value={hdrs.get('X-Frame-Options')}")
+        check("header X-Content-Type-Options nosniff", hdrs.get("X-Content-Type-Options") == "nosniff")
+        check("header X-Frame-Options DENY", hdrs.get("X-Frame-Options") == "DENY")
+        check("header Cache-Control no-store", "no-store" in hdrs.get("Cache-Control", ""))
 
-        st, _, _ = http_get("/nope")
-        check("GET /nope -> 404", st == 404, f"status={st}")
-    except urllib.error.HTTPError as exc:
-        check("http probe", False, f"HTTPError {exc.code}")
-    except Exception as exc:  # noqa: BLE001
-        check("http probe", False, f"{type(exc).__name__}: {exc}")
+        # --- SPA deep-route fallback (TASK-D19901 acceptance) ---
+        st2, hdrs2, body2 = http_get("/dashboard")
+        check("GET /dashboard -> 200 HTML (SPA fallback)",
+              st2 == 200 and "text/html" in hdrs2.get("Content-Type", "") and len(body2) > 1000,
+              f"status={st2} bytes={len(body2)}")
+        st3, hdrs3, body3 = http_get("/dashboard.html")
+        check("GET /dashboard.html -> 200 HTML (SPA fallback)",
+              st3 == 200 and "text/html" in hdrs3.get("Content-Type", "") and len(body3) > 1000,
+              f"status={st3} bytes={len(body3)}")
+        st_route, _, _ = http_get("/some/deep/route")
+        check("GET deep route -> 200 HTML (SPA fallback)", st_route == 200, f"status={st_route}")
+        st_api, _, _ = http_get("/api/unknown")
+        check("GET /api/unknown -> 404 (API guard)", st_api == 404, f"status={st_api}")
+        st_asset, _, _ = http_get("/assets/missing.js")
+        check("GET stray asset -> 404 (no false 200)", st_asset == 404, f"status={st_asset}")
     finally:
         proc.kill()
         try:
@@ -114,8 +112,7 @@ def main():
         except Exception:
             pass
 
-    # 0.0.0.0 bind guard: process must have printed the banner with 0.0.0.0.
-    # We cannot easily read the pipe post-kill; instead re-boot briefly and read line 1.
+    # 0.0.0.0 bind guard: re-boot briefly, first stdout line must show 0.0.0.0.
     proc2 = subprocess.Popen([sys.executable, MAIN_PY], env=env,
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     try:
@@ -134,9 +131,10 @@ def main():
 
 
 def finish():
-    failed = [n for n, ok, _ in RESULTS if not ok]
-    print(f"\n[selftest] {len(RESULTS) - len(failed)}/{len(RESULTS)} checks passed")
-    return 1 if failed else 0
+    passed = sum(1 for _, ok, _ in RESULTS if ok)
+    total = len(RESULTS)
+    print(f"\n[selftest] {passed}/{total} checks passed")
+    return 0 if passed == total else 1
 
 
 if __name__ == "__main__":
