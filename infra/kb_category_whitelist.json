@@ -1,0 +1,55 @@
+{
+  "schema": "kb-guard-category-whitelist/v1",
+  "owner": "Atlas (Infrastructure)",
+  "task": "TASK-27E190",
+  "purpose": "Root-fix for KB anti-fragmentation detector false-positives. Dedupe/fragmentation matching is restricted to same-category content docs; governance/evidence/audit/closure/decision categories are dedupe-immune (sibling revisions are legitimate EU AI Act Art.12 traceability records).",
+  "dedupe_immune_categories": [
+    "governance",
+    "compliance",
+    "evidence",
+    "audit",
+    "closure",
+    "decision",
+    "verification",
+    "general"
+  ],
+  "dedupe_active_categories": [
+    "product",
+    "engineering",
+    "marketing",
+    "catalog",
+    "website"
+  ],
+  "similarity_threshold": 0.9,
+  "phantom_quarantine": true,
+  "documented_phantom_doc_ids": [
+    "doc_2e482a2b1d",
+    "doc_a3bc5452c7",
+    "doc_94b752e5bf",
+    "doc_038f80b53e",
+    "doc_dea46bbd13",
+    "doc_8dc1e2d0a7",
+    "doc_3e5d7aaa0a",
+    "doc_42321c23fe",
+    "doc_296febc7d3",
+    "doc_66f47a0f84",
+    "doc_cd1e22513e",
+    "doc_21977174c6",
+    "doc_6845d5b432",
+    "doc_e5fb58332d"
+  ],
+  "incident_raids": [
+    "RAID-84B69B",
+    "RAID-A48A8E",
+    "RAID-1319A5",
+    "RAID-BE1CE6",
+    "RAID-92E587",
+    "RAID-CFF099",
+    "RAID-5BE0DE",
+    "RAID-D0BADE",
+    "RAID-3B04FD",
+    "RAID-A0C5F0",
+    "RAID-E6DD69",
+    "RAID-2FF1D3"
+  ]
+}
