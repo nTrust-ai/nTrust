@@ -83,6 +83,7 @@ header {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 12px 24px;
   border-radius: 8px;
@@ -92,6 +93,7 @@ header {
   cursor: pointer;
   border: none;
   font-size: 1rem;
+  line-height: 1;
 }
 
 .btn-primary {
@@ -123,20 +125,22 @@ header {
 }
 
 .hero h1 {
-  font-size: 4rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 24px;
   background: linear-gradient(to right, #fff, #94a3b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
 }
 
 .hero p {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--text-muted);
   max-width: 600px;
   margin: 0 auto 40px;
+  text-align: center;
 }
 
 .hero-ctas {
@@ -144,6 +148,7 @@ header {
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 /* Features */
@@ -157,7 +162,7 @@ header {
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   margin-bottom: 16px;
 }
 
@@ -169,8 +174,9 @@ header {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
 .card {
@@ -179,6 +185,10 @@ header {
   border-radius: 12px;
   padding: 32px;
   transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
 }
 
 .card:hover {
@@ -201,11 +211,13 @@ header {
 .card h3 {
   font-size: 1.25rem;
   margin-bottom: 12px;
+  text-align: left;
 }
 
 .card p {
   color: var(--text-muted);
   margin-bottom: 20px;
+  flex-grow: 1;
 }
 
 .coming-soon {
@@ -232,6 +244,10 @@ header {
   border-radius: 16px;
   padding: 40px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
 .service-card h3 {
@@ -256,6 +272,7 @@ header {
   list-style: none;
   text-align: left;
   margin: 24px 0;
+  width: 100%;
 }
 
 .service-features li {
@@ -284,6 +301,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-items: stretch;
 }
 
 .form-group input,
@@ -315,7 +333,47 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero h1 { font-size: 2.5rem; }
-  .nav-links { display: none; }
-  .grid { grid-template-columns: 1fr; }
+  .hero h1 { 
+    font-size: clamp(1.75rem, 6vw, 2.5rem); 
+  }
+  
+  .nav-links { 
+    display: none; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .nav-links.open {
+    display: flex;
+  }
+  
+  .mobile-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .grid { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Fix for service cards alignment */
+.services .grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

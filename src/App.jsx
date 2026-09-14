@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
 import { Shield, Lock, Brain, Globe, CheckCircle, ArrowRight, Menu, X } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const navigate = useNavigate()
-
-  const handleNavigation = (path) => {
-    navigate(path)
-    setMobileMenuOpen(false)
-  }
 
   return (
     <div className="app">
@@ -17,14 +10,19 @@ function App() {
       <header>
         <div className="container">
           <nav className="nav">
-            <a href="/" className="logo">nTrust<span>.ai</span></a>
+            <a href="#" className="logo" aria-label="nTrust.ai Home">nTrust<span>.ai</span></a>
             <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
-              <a onClick={() => handleNavigation('/solutions')} className="cursor-pointer">Solutions</a>
-              <a onClick={() => handleNavigation('/services')} className="cursor-pointer">Services</a>
-              <a onClick={() => handleNavigation('/contact')} className="cursor-pointer">Contact</a>
-              <button onClick={() => handleNavigation('/demo')} className="btn btn-primary">Request Demo</button>
+              <a href="#features" onClick={() => setMobileMenuOpen(false)}>Solutions</a>
+              <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a>
+              <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+              <a href="#contact" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>Request Demo</a>
             </div>
-            <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <button 
+              className="mobile-toggle" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </nav>
@@ -32,22 +30,22 @@ function App() {
       </header>
 
       {/* Hero */}
-      <section className="hero">
+      <section className="hero" aria-labelledby="hero-heading">
         <div className="container">
-          <h1>Enterprise AI Security<br/>That Actually Works</h1>
+          <h1 id="hero-heading">Enterprise AI Security<br/>That Actually Works</h1>
           <p>Protect your organization with nTrust.ai's zero-trust architecture, automated compliance mapping, and proactive threat intelligence. Built for modern enterprises.</p>
           <div className="hero-ctas">
-            <button onClick={() => handleNavigation('/services')} className="btn btn-primary">Explore Services <ArrowRight size={18} /></button>
-            <button onClick={() => handleNavigation('/contact')} className="btn btn-outline">Contact Sales</button>
+            <a href="#services" className="btn btn-primary">Explore Services <ArrowRight size={18} /></a>
+            <a href="#contact" className="btn btn-outline">Contact Sales</a>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" className="features">
+      <section id="features" className="features" aria-labelledby="features-heading">
         <div className="container">
           <div className="section-header">
-            <h2>Core Capabilities</h2>
+            <h2 id="features-heading">Core Capabilities</h2>
             <p>Our platform delivers measurable security outcomes through AI-driven automation and rigorous compliance frameworks.</p>
           </div>
           <div className="grid">
@@ -55,13 +53,13 @@ function App() {
               <div className="card-icon"><Shield /></div>
               <h3>NIST Risk Modeling</h3>
               <p>Automated alignment with NIST AI RMF and SOC 2 frameworks. Continuous compliance monitoring with real-time audit trails.</p>
-              <button onClick={() => handleNavigation('/services')} className="btn btn-outline">View Details</button>
+              <a href="#services" className="btn btn-outline">View Details</a>
             </div>
             <div className="card">
               <div className="card-icon"><Lock /></div>
               <h3>Zero-Trust Architecture</h3>
               <p>Enterprise-grade identity verification, micro-segmentation, and continuous access evaluation across all endpoints.</p>
-              <button onClick={() => handleNavigation('/services')} className="btn btn-outline">View Details</button>
+              <a href="#services" className="btn btn-outline">View Details</a>
             </div>
             <div className="card">
               <div className="card-icon"><Brain /></div>
@@ -74,10 +72,10 @@ function App() {
       </section>
 
       {/* Services */}
-      <section id="services" className="services">
+      <section id="services" className="services" aria-labelledby="services-heading">
         <div className="container">
           <div className="section-header">
-            <h2>Service Tiers</h2>
+            <h2 id="services-heading">Service Tiers</h2>
             <p>Scalable security solutions designed for your organization's growth stage.</p>
           </div>
           <div className="grid">
@@ -90,7 +88,7 @@ function App() {
                 <li>Email Support</li>
                 <li>Monthly Compliance Reports</li>
               </ul>
-              <button onClick={() => handleNavigation('/contact')} className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Get Started</button>
+              <a href="#contact" className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Get Started</a>
             </div>
             <div className="service-card">
               <h3>Professional</h3>
@@ -102,7 +100,7 @@ function App() {
                 <li>Automated Audit Logging</li>
                 <li>API Integration Support</li>
               </ul>
-              <button onClick={() => handleNavigation('/contact')} className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</button>
+              <a href="#contact" className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</a>
             </div>
             <div className="service-card">
               <h3>Enterprise</h3>
@@ -114,18 +112,18 @@ function App() {
                 <li>Quarterly Penetration Testing</li>
                 <li>SLA Guaranteed Uptime</li>
               </ul>
-              <button onClick={() => handleNavigation('/contact')} className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</button>
+              <a href="#contact" className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="contact">
+      <section id="contact" className="contact" aria-labelledby="contact-heading">
         <div className="container">
-          <h2>Ready to Secure Your Enterprise?</h2>
+          <h2 id="contact-heading">Ready to Secure Your Enterprise?</h2>
           <p style={{color: 'var(--text-muted)', marginTop: '16px'}}>Our team will respond within 24 hours to schedule your personalized security assessment.</p>
-          <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert('Request submitted successfully. We will contact you shortly.'); }}>
+          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">
               <input type="text" placeholder="Full Name" required />
             </div>

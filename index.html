@@ -4,67 +4,254 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nTrust.ai — It's the numbers we trust</title>
-    <style>
-        :root { --primary: #0a2540; --accent: #00d09c; --text: #333; --bg: #f8f9fa; }
-        body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; color: var(--text); background: var(--bg); line-height: 1.6; }
-        header { background: var(--primary); color: white; padding: 2rem 1rem; text-align: center; }
-        h1 { margin: 0; font-size: 2.5rem; letter-spacing: -1px; }
-        .tagline { opacity: 0.9; margin-top: 0.5rem; font-size: 1.1rem; }
-        nav { background: #fff; padding: 1rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        nav a { margin: 0 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
-        .hero { padding: 4rem 1rem; text-align: center; max-width: 800px; margin: 0 auto; }
-        .btn { display: inline-block; background: var(--accent); color: var(--primary); padding: 0.8rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: opacity 0.2s; margin-top: 1rem; }
-        .btn:hover { opacity: 0.85; }
-        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding: 2rem 1rem; max-width: 1000px; margin: 0 auto; }
-        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .card h3 { color: var(--primary); margin-top: 0; }
-        footer { background: #1a1a1a; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; font-size: 0.9rem; }
-        footer a { color: var(--accent); text-decoration: none; }
-        .coming-soon { background: #eef5f1; color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; vertical-align: middle; margin-left: 0.5rem; }
-        .status-cta { background: #fff3cd; color: #856404; padding: 1rem; text-align: center; border-radius: 6px; margin-top: 2rem; }
-    </style>
+    <meta name="description" content="nTrust.ai delivers cutting-edge AI-driven cybersecurity solutions, NIST-based risk models, and enterprise-grade security architecture for $500K+ annual profit growth.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>nTrust.ai</h1>
-        <div class="tagline">AI Security Strategy & Architectural Hardening</div>
-    </header>
-    <nav>
-        <a href="#services">Services</a>
-        <a href="#solutions">Solutions</a>
-        <a href="#governance">Governance</a>
-        <a href="#contact">Contact</a>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container nav-container">
+            <a href="/" class="logo" aria-label="nTrust.ai Home">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">nTrust<span class="logo-accent">.ai</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="btn btn-primary">Get Started</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
-    <div class="hero">
-        <h2>Enterprise-Grade AI Security & Compliance Automation</h2>
-        <p>We replace human-led consulting with durable execution pulses and automated expert systems. Generating measurable risk reduction and profit velocity for North American enterprises.</p>
-        <a href="#services" class="btn">Explore Service Catalog</a>
-    </div>
-    <div class="services" id="services">
-        <div class="card">
-            <h3>NIST-Based Risk Models</h3>
-            <p>Automated compliance evidence packages and NIST AI RMF mapping. Designed for rapid audit readiness.</p>
-            <a href="#contact">Request Access <span class="coming-soon">Coming Soon</span></a>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Enterprise AI Security,<br><span class="gradient-text">Built for Profit.</span></h1>
+                <p class="hero-subtitle">nTrust.ai delivers NIST-aligned risk models, SUN-token NFC security, and automated compliance systems — engineered to generate measurable ROI from day one.</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary btn-large">Request a Demo</a>
+                    <a href="#services" class="btn btn-outline btn-large">Explore Services</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">$500K+</span>
+                        <span class="stat-label">Annual Net Profit Target</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">NIST</span>
+                        <span class="stat-label">AI RMF Aligned</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0.01s</span>
+                        <span class="stat-label">Response SLA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="shield-graphic"></div>
+            </div>
         </div>
-        <div class="card">
-            <h3>SUN-Token NFC Security</h3>
-            <p>Physical-digital identity verification for zero-trust collaboration environments.</p>
-            <a href="#contact">Request Access <span class="coming-soon">Coming Soon</span></a>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
+            <p class="section-subtitle">Strategic cybersecurity consulting powered by AI automation — maximizing your security posture while minimizing cost.</p>
+            <div class="services-grid">
+                <article class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>NIST Risk Assessment</h3>
+                    <p>Comprehensive NIST AI RMF-aligned risk modeling with automated evidence generation. Reduce compliance overhead by 80%.</p>
+                    <ul class="feature-list">
+                        <li>Automated control mapping</li>
+                        <li>Evidence package generation</li>
+                        <li>Real-time compliance dashboards</li>
+                    </ul>
+                </article>
+                <article class="service-card">
+                    <div class="service-icon">🔐</div>
+                    <h3>SUN-Token NFC Security</h3>
+                    <p>Hardware-backed authentication tokens with zero-knowledge proof architecture. Enterprise-grade access control.</p>
+                    <ul class="feature-list">
+                        <li>FIDO2/WebAuthn compliant</li>
+                        <li>Zero-trust access enforcement</li>
+                        <li>Biometric integration ready</li>
+                    </ul>
+                </article>
+                <article class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>AI Security Automation</h3>
+                    <p>Autonomous threat detection and response systems. Replace manual SOC with AI-powered operations.</p>
+                    <ul class="feature-list">
+                        <li>24/7 automated monitoring</li>
+                        <li>Predictive threat modeling</li>
+                        <li>Auto-remediation workflows</li>
+                    </ul>
+                </article>
+            </div>
         </div>
-        <div class="card">
-            <h3>Autonomous Governance Systems</h3>
-            <p>Real-time threat landscape mapping and high-value automation gap identification.</p>
-            <a href="#contact">Request Access <span class="coming-soon">Coming Soon</span></a>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Our <span class="gradient-text">Products</span></h2>
+            <p class="section-subtitle">Ready-to-deploy security solutions engineered for rapid ROI and measurable business outcomes.</p>
+            <div class="products-grid">
+                <article class="product-card">
+                    <div class="product-badge">Coming Soon</div>
+                    <h3>PrivacyGuard Suite</h3>
+                    <p>Automated privacy compliance engine covering GDPR, CCPA, and emerging global regulations. Deploy in hours, not months.</p>
+                    <span class="product-id">PROD-597152</span>
+                </article>
+                <article class="product-card">
+                    <div class="product-badge featured">Live</div>
+                    <h3>nTrust.ai Dashboard</h3>
+                    <p>Real-time security posture dashboard with automated reporting, risk scoring, and executive briefings.</p>
+                    <span class="product-id">PROD-BFBA88</span>
+                </article>
+                <article class="product-card">
+                    <div class="product-badge">Coming Soon</div>
+                    <h3>TrustGuard</h3>
+                    <p>Enterprise vulnerability management platform with AI-driven prioritization and automated patch orchestration.</p>
+                    <span class="product-id">PROD-DE7694</span>
+                </article>
+            </div>
         </div>
-    </div>
-    <div class="status-cta" id="contact">
-        <strong>Partner with nTrust.ai</strong><br>
-        Ready to harden your AI infrastructure? Contact our team for a strategic alignment session.<br>
-        <a href="https://ntrust.ai/contact" style="color: var(--primary); font-weight: bold;">Submit Inquiry via Form →</a>
-    </div>
-    <footer>
-        &copy; 2026 nTrust.ai — All Rights Reserved. | <a href="#governance">Governance Standards</a> | <a href="#privacy">Privacy Policy</a><br>
-        Authorized Partner: Ubaz inc. (North America)
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing <span class="gradient-text">Tiers</span></h2>
+            <p class="section-subtitle">Transparent, outcome-based pricing. Every tier designed to deliver positive ROI within 30 days.</p>
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$15<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Basic risk assessment templates</li>
+                        <li>✓ Compliance checklist generator</li>
+                        <li>✓ Email support (24h SLA)</li>
+                        <li>✓ 1 team member</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Get Started</a>
+                </article>
+                <article class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Professional</h3>
+                    <div class="price">$35<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Full NIST AI RMF assessment</li>
+                        <li>✓ Automated evidence generation</li>
+                        <li>✓ Priority support (4h SLA)</li>
+                        <li>✓ Up to 10 team members</li>
+                        <li>✓ Custom integrations</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </article>
+                <article class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$50<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Professional</li>
+                        <li>✓ SUN-token NFC deployment</li>
+                        <li>✓ Dedicated security architect</li>
+                        <li>✓ Unlimited team members</li>
+                        <li>✓ Custom SLA agreements</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Contact Sales</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Why <span class="gradient-text">nTrust.ai?</span></h2>
+                <p class="about-text">Founded on the principle that cybersecurity should drive profitability, not drain it. nTrust.ai combines cutting-edge AI with rigorous NIST-aligned frameworks to deliver security solutions that pay for themselves.</p>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <span class="about-number">$500K+</span>
+                        <span class="about-label">Annual Profit Target</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-number">100%</span>
+                        <span class="about-label">Automation Coverage</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-number">24/7</span>
+                        <span class="about-label">AI-Driven Operations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's <span class="gradient-text">Talk</span></h2>
+            <p class="section-subtitle">Request a demo or speak with our security architects about your specific needs.</p>
+            <form class="contact-form" aria-label="Contact form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email</label>
+                        <input type="email" id="email" name="email" required placeholder="john@company.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" placeholder="Acme Corp">
+                </div>
+                <div class="form-group">
+                    <label for="message">How can we help?</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your security challenges..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">nTrust<span class="logo-accent">.ai</span></span>
+                    <p>It's the numbers we trust.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#services">Services</a>
+                    <a href="#products">Products</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#about">About</a>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2026 nTrust.ai. All rights reserved.</p>
+                    <p>Partnered with Ubaz Inc. — North America</p>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
