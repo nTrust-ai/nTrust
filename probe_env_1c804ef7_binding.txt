@@ -1,0 +1,1 @@
+WRITE-lane probe 2026-09-08 22:1X UTC — code_manager write OK post-rebind to env_1c804ef7.

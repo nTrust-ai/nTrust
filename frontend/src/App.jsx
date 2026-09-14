@@ -1,110 +1,139 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
+import './index.css';
 
-const App = () => {
-  const [threatCount, setThreatCount] = useState(12)
-  const [uptime, setUptime] = useState(99.97)
-  const [complianceScore, setComplianceScore] = useState(98)
-  const [auditLogs, setAuditLogs] = useState([])
+const PRODUCTS = [
+  {
+    id: 'privacyguard',
+    name: 'PrivacyGuard Suite',
+    desc: 'Automated Privacy Compliance & Data Mapping. Enterprise-grade data governance tailored for modern regulatory landscapes.',
+    status: 'active'
+  },
+  {
+    id: 'trustaudit',
+    name: 'TrustAudit Engine',
+    desc: 'Continuous Vulnerability Scanning & Reporting. Proactive threat detection with automated remediation workflows.',
+    status: 'active'
+  },
+  {
+    id: 'ntrust-shield',
+    name: 'nTrust Shield',
+    desc: 'AI Incident Response Automation. Rapid containment and recovery powered by advanced machine learning models.',
+    status: 'active'
+  },
+  {
+    id: 'audit-service',
+    name: 'Enterprise Security Audit Service',
+    desc: 'NIST AI RMF Consulting & Implementation. Strategic gap assessments, remediation roadmaps, and full framework deployment.',
+    status: 'active'
+  },
+  {
+    id: 'trustguard',
+    name: 'TrustGuard Platform',
+    desc: 'Automated Cybersecurity & Compliance Pilot. 90-day monitored environments with SLA-backed assurance.',
+    status: 'active'
+  },
+  {
+    id: 'appsec-suite',
+    name: 'Managed AppSec Services (ASPM & AppSOC)',
+    desc: 'Consolidated Application Security Posture Management & SOC Operations. Continuous signal correlation and triage.',
+    status: 'coming-soon'
+  }
+];
 
-  useEffect(() => {
-    // Simulate real-time metrics updates
-    const interval = setInterval(() => {
-      setThreatCount(prev => Math.max(0, prev + Math.floor(Math.random() * 3) - 1))
-      setUptime(prev => Number((prev + (Math.random() * 0.02 - 0.01)).toFixed(2)))
-    }, 5000)
-
-    // Generate initial audit logs
-    const initialLogs = [
-      { time: new Date().toISOString(), message: 'Dashboard initialized', status: 'INFO' },
-      { time: new Date(Date.now() - 60000).toISOString(), message: 'Compliance check passed', status: 'SUCCESS' },
-      { time: new Date(Date.now() - 120000).toISOString(), message: 'Threat scan completed: 3 blocked', status: 'SUCCESS' }
-    ]
-    setAuditLogs(initialLogs)
-
-    return () => clearInterval(interval)
-  }, [])
+function App() {
+  const [activeSection, setActiveSection] = useState('home');
 
   return (
     <div className="app-container">
-      <aside className="sidebar">
-        <div className="logo">
-          <ShieldIcon /> nTrust.ai
+      <header className="header">
+        <div className="container header-content">
+          <div className="logo">nTrust.ai</div>
+          <nav className="nav">
+            <a href="#home" onClick={() => setActiveSection('home')}>Home</a>
+            <a href="#services" onClick={() => setActiveSection('services')}>Services</a>
+            <a href="#about" onClick={() => setActiveSection('about')}>About</a>
+            <a href="#contact" className="btn btn-primary" onClick={() => setActiveSection('contact')}>Get Started</a>
+          </nav>
         </div>
-        <nav>
-          <div className="nav-item active">Dashboard</div>
-          <div className="nav-item">Threats</div>
-          <div className="nav-item">Compliance</div>
-          <div className="nav-item">Audit Logs</div>
-          <div className="nav-item">Settings</div>
-        </nav>
-      </aside>
+      </header>
 
-      <main className="main-content">
-        <header className="dashboard-header">
-          <h1>Dashboard MVP</h1>
-          <p style={{ color: 'var(--text-secondary)' }}>
-            Enterprise Security Automation & Compliance Monitoring
-          </p>
-        </header>
-
-        <section className="metrics-grid">
-          <MetricCard 
-            label="Active Threats" 
-            value={threatCount} 
-            trend="+2 this hour" 
-            trendClass="trend-up" 
-          />
-          <MetricCard 
-            label="System Uptime" 
-            value={`${uptime}%`} 
-            trend="SLA: 99.9%" 
-            trendClass="trend-up" 
-          />
-          <MetricCard 
-            label="Compliance Score" 
-            value={`${complianceScore}%`} 
-            trend="NIST/EU AI Act" 
-            trendClass="trend-up" 
-          />
-        </section>
-
-        <section className="audit-log-section">
-          <h2>Recent Audit Events</h2>
-          <div className="log-list">
-            {auditLogs.map((log, index) => (
-              <div key={index} className="log-item">
-                <span className="log-time">{log.time.slice(0, 19).replace('T', ' ')}</span>
-                <span>{log.message}</span>
-                <span style={{ 
-                  marginLeft: 'auto', 
-                  padding: '0.25rem 0.5rem', 
-                  borderRadius: '4px', 
-                  fontSize: '0.75rem' 
-                }}>
-                  {log.status === 'INFO' && 'ℹ️'}
-                  {log.status === 'SUCCESS' && '✅'}
-                </span>
+      <main>
+        {activeSection === 'home' && (
+          <section id="home" className="hero">
+            <div className="container hero-content">
+              <h1>Enterprise AI Security & Compliance</h1>
+              <p>Secure your infrastructure with zero-trust protocols, automated compliance workflows, and elite risk modeling. It's the numbers we trust.</p>
+              <div className="hero-buttons">
+                <a href="#services" className="btn btn-primary" onClick={() => setActiveSection('services')}>Explore Solutions</a>
+                <a href="#contact" className="btn btn-secondary" onClick={() => setActiveSection('contact')}>Request Consultation</a>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
+
+        {activeSection === 'services' && (
+          <section id="services" className="services">
+            <div className="container">
+              <h2>Our Service Catalog</h2>
+              <p className="section-subtitle">Comprehensive security solutions engineered for resilience and compliance.</p>
+              <div className="product-grid">
+                {PRODUCTS.map((prod) => (
+                  <div key={prod.id} className="product-card">
+                    <div className="card-header">
+                      <h3>{prod.name}</h3>
+                      {prod.status === 'coming-soon' && <span className="badge badge-coming-soon">Coming Soon</span>}
+                    </div>
+                    <p>{prod.desc}</p>
+                    <a href="#contact" className="btn btn-outline" onClick={() => setActiveSection('contact')}>Learn More</a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {activeSection === 'about' && (
+          <section id="about" className="about">
+            <div className="container">
+              <h2>About nTrust.ai</h2>
+              <p>nTrust.ai is a for-profit cybersecurity startup delivering cutting-edge AI-driven security architecture, risk modeling, and compliance automation. We partner with ubaz inc. to bring enterprise-grade protection to the North American market.</p>
+              <div className="stats-grid">
+                <div className="stat"><h4>99.9%</h4><p>SLA Uptime</p></div>
+                <div className="stat"><h4>NIST AI RMF</h4><p>Compliant</p></div>
+                <div className="stat"><h4>Zero-Trust</h4><p>Architecture</p></div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {activeSection === 'contact' && (
+          <section id="contact" className="contact">
+            <div className="container contact-form-wrapper">
+              <h2>Contact Us</h2>
+              <p>Ready to secure your enterprise? Reach out to our team for a tailored security assessment.</p>
+              <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+                <input type="text" placeholder="Full Name" required />
+                <input type="email" placeholder="Business Email" required />
+                <select>
+                  <option value="">Select Service Interest</option>
+                  {PRODUCTS.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                </select>
+                <textarea placeholder="How can we help?" rows="5"></textarea>
+                <button type="submit" className="btn btn-primary">Send Request</button>
+              </form>
+            </div>
+          </section>
+        )}
       </main>
+
+      <footer className="footer">
+        <div className="container">
+          <p>&copy; {new Date().getFullYear()} nTrust.ai. All rights reserved.</p>
+          <p>Partner: ubaz inc. | Privacy Policy | Terms of Service</p>
+        </div>
+      </footer>
     </div>
-  )
+  );
 }
 
-const MetricCard = ({ label, value, trend, trendClass }) => (
-  <div className="metric-card">
-    <div className="metric-label">{label}</div>
-    <div className="metric-value">{value}</div>
-    <div className={`metric-trend ${trendClass}`}>{trend}</div>
-  </div>
-)
-
-const ShieldIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-  </svg>
-)
-
-export default App
+export default App;

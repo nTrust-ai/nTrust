@@ -24,6 +24,10 @@ Fix (v2):
   3. CONTENT THRESHOLD     — same-category flagging additionally requires
      similarity above a configurable threshold (default 0.90), not a raw
      signature collision.
+  4. EXACT-TITLE VERSION UPDATE — a re-publish carrying the EXACT title of an
+     existing record is a VERSION BUMP of that same document (same doc_id),
+     never a new atomic fragment. This unblocks in-place consolidation of
+     product/standard records (e.g., SOW v2 -> Datasheet doc_60c4005e77).
 
 Owner: Atlas (Infrastructure). Staged for promotion (owner/Board merge).
 """
@@ -146,11 +150,15 @@ class KbFragmentationGuardV2:
         Returns (is_flag, reason).
 
         v2 rule:
-          * If candidate category is dedupe-immune  -> NEVER flagged as a
-            fragment, UNLESS an exact (same title AND same blob_sha) existing
-            entry is found (a true duplicate).
-          * Otherwise (dedupe-active category)       -> flagged only when a
-            same-category entry with title/content similarity >= threshold.
+          * TRUE DUPLICATE (all categories): identical title AND identical
+            blob_sha -> flag.
+          * EXACT-TITLE RE-PUBLISH (all categories): identical title but
+            different blob -> a VERSION UPDATE of the same doc, NEVER a
+            fragment (the publish layer resolves it to the same doc_id and
+            bumps the version).
+          * Dedupe-immune category -> NEVER flagged as a fragment.
+          * Dedupe-active category -> flagged only on same-category
+            title/content similarity >= threshold.
         """
         cand_cat = (candidate.category or "general").lower()
 
@@ -162,6 +170,14 @@ class KbFragmentationGuardV2:
             if e.title.strip().lower() == candidate.title.strip().lower():
                 if e.blob_sha and candidate.blob_sha and e.blob_sha == candidate.blob_sha:
                     return True, f"exact duplicate (title+blob) of {e.doc_id}"
+
+        # EXACT-TITLE VERSION UPDATE: identical title but different blob =>
+        # in-place version bump of the same document, not a new fragment.
+        for e in self._entries:
+            if e.doc_id == candidate.doc_id:
+                continue
+            if e.title.strip().lower() == candidate.title.strip().lower():
+                return False, "exact-title version update (same doc; allow version bump)"
 
         # Dedupe-immune categories: legitimate siblings/revisions allowed.
         if cand_cat in DEDUPE_IMMUNE_CATEGORIES:

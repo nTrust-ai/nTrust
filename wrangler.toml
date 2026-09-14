@@ -1,0 +1,12 @@
+name = "ntrust-ai"
+compatibility_date = "2024-11-06"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"
+
+[build]
+command = "npm run build"
+working_directory = "."
+
+[vars]
+NODE_ENV = "production"
+CF_PAGES = "true"

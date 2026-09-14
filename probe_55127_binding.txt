@@ -1,0 +1,1 @@
+WRITE-lane probe 2026-09-08 22:0X UTC — code_manager write OK; bash/serve_mvp exec lane still env_7cc42ec6 offline.

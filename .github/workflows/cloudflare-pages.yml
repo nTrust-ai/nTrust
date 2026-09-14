@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  CF_PAGES_TOKEN: ${{ secrets.CF_PAGES_TOKEN }}
+  GITHUB_PAT: ${{ secrets.GITHUB_DEPLOY_KEY }}
+  NODE_VERSION: '20'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts || yarn install --frozen-lockfile || pip install -r requirements.txt
+
+      - name: Build
+        run: |
+          if [ -f "vite.config.js" ] || [ -f "vite.config.ts" ]; then
+            npm run build
+          elif [ -f "next.config.js" ] || [ -f "next.config.mjs" ]; then
+            npm run build
+          else
+            echo "No recognized build config found. Check package.json scripts."
+            exit 1
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: env.CF_PAGES_TOKEN != ''
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_PAGES_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: ${{ vars.CF_PROJECT_NAME || 'ntrust-ai' }}
+          directory: 'dist'
+          branch: ${{ github.ref_name }}
+
+      - name: Verify Deployment
+        run: |
+          echo "Deployment triggered. Check Cloudflare Pages dashboard for status."
+          if [ -z "${{ secrets.CF_PAGES_TOKEN }}" ]; then
+            echo "::warning::CF_PAGES_TOKEN not configured. Deployment skipped."
+          fi
