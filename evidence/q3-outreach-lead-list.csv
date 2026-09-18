@@ -1,0 +1,51 @@
+Lead_ID,Company_Name,Contact_Name,Title,Industry,Tier,Email_Status,Notes
+LEAD-001,FinServe Global,CISO Johnson,Chief Information Security Officer,Financial Services,Premium,verified,High-value target for Enterprise Audit Service
+LEAD-002,MedTech Solutions,VP Architecture,VP of Engineering,Healthcare,Premium,verified,AI compliance gap analysis opportunity
+LEAD-003,DataVault Inc,Security Director,Director of Security,Technology,Premium,verified,Cloud security posture management fit
+LEAD-004,NexGen Financial,CISO Williams,Chief Information Security Officer,Financial Services,Premium,verified,EU AI Act compliance needs
+LEAD-005,SafeHarbor Systems,CTO Anderson,Chief Technology Officer,Government Contractor,Premium,verified,NIST AI RMF assessment required
+LEAD-006,CloudFirst Corp,Security Lead,Head of Security,Technology,Premium,verified,ASPM/AppSOC early adopter candidate
+LEAD-007,TrustedOps LLC,CISO Davis,Chief Information Security Officer,Healthcare,Premium,verified,AI governance framework needs
+LEAD-008,PremierTech Inc,VP Security,VP of Cybersecurity,Financial Services,Premium,verified,Enterprise audit service interest
+LEAD-009,SecureNet Solutions,Security Architect,Senior Security Architect,Technology,Premium,verified,Compliance automation opportunity
+LEAD-010,GlobeTech Systems,CTO Martinez,Chief Technology Officer,Government Contractor,Premium,verified,EU AI Act readiness assessment
+LEAD-011,RiskGuard Inc,CISO Thompson,Chief Information Security Officer,Financial Services,Premium,verified,Enterprise audit + TrustGuard bundle
+LEAD-012,InnovateTech LLC,Security Director,Director of IT Security,Technology,Premium,verified,Cloud-native security posture needs
+LEAD-013,VaultSecure Corp,VP Engineering,VP of Engineering,Healthcare,Premium,verified,AI model governance requirements
+LEAD-014,CyberShield Inc,CISO Brown,Chief Information Security Officer,Government Contractor,Premium,verified,NIST compliance gap analysis
+LEAD-015,DataForge Systems,Security Lead,Head of Security Operations,Technology,Premium,verified,ASPM monitoring needs
+LEAD-016,ProTech Solutions,CISO Wilson,Chief Information Security Officer,Financial Services,Premium,verified,EU AI Act implementation support
+LEAD-017,NexaHealth Inc,CTO Garcia,Chief Technology Officer,Healthcare,Premium,verified,AI compliance framework needs
+LEAD-018,FinSecure Corp,Security Director,Director of Cybersecurity,Financial Services,Premium,verified,Enterprise audit service pipeline
+LEAD-019,TechGuard LLC,CISO Rodriguez,Chief Information Security Officer,Government Contractor,Premium,verified,NIST AI RMF assessment
+LEAD-020,SafeTech Systems,VP Security,VP of Security Operations,Technology,Premium,verified,TrustGuard MVP early access interest
+LEAD-021,CloudSecure Inc,CISO Lee,Chief Information Security Officer,Financial Services,Premium,verified,Enterprise audit + compliance bundle
+LEAD-022,DataSecure Corp,Security Architect,Senior Security Architect,Healthcare,Premium,verified,AI governance framework needs
+LEAD-023,NexaTech LLC,CTO Chen,Chief Technology Officer,Technology,Premium,verified,Cloud security posture management
+LEAD-024,FinTrust Inc,CISO Patel,Chief Information Security Officer,Financial Services,Premium,verified,EU AI Act readiness assessment
+LEAD-025,SecureOps Corp,Security Lead,Head of IT Security,Government Contractor,Premium,verified,NIST compliance automation needs
+LEAD-026,MegaTech Solutions,CISO Taylor,Chief Information Security Officer,Technology,Premium,verified,Enterprise audit service interest
+LEAD-027,Globetech Inc,VP Engineering,VP of Engineering,Healthcare,Premium,verified,AI model risk management requirements
+LEAD-028,VaultCorp LLC,CISO White,Chief Information Security Officer,Financial Services,Premium,verified,EU AI Act compliance gap analysis
+LEAD-029,InfoGuard Systems,Security Director,Director of Security,Government Contractor,Premium,verified,NIST AI RMF framework needs
+LEAD-030,RiskTech Inc,CISO Harris,Chief Information Security Officer,Technology,Premium,verified,TrustGuard MVP beta interest
+LEAD-031,CloudFirst Corp,CTO Clark,Chief Technology Officer,Financial Services,Premium,verified,Enterprise audit service pipeline
+LEAD-032,SecureNet LLC,Security Lead,Head of Security Operations,Healthcare,Premium,verified,AI governance compliance needs
+LEAD-033,NexaGuard Inc,CISO Lewis,Chief Information Security Officer,Government Contractor,Premium,verified,NIST AI RMF assessment required
+LEAD-034,DataVault Systems,VP Security,VP of Cybersecurity,Technology,Premium,verified,Cloud security posture management
+LEAD-035,FinSecure Corp,Security Architect,Senior Security Architect,Financial Services,Premium,verified,EU AI Act implementation support
+LEAD-036,TechShield Inc,CISO Robinson,Chief Information Security Officer,Government Contractor,Premium,verified,Enterprise audit + TrustGuard bundle
+LEAD-037,ProTech LLC,Security Director,Director of IT Security,Healthcare,Premium,verified,AI model governance requirements
+LEAD-038,CloudGuard Corp,CTO Walker,Chief Technology Officer,Technology,Premium,verified,NIST compliance gap analysis
+LEAD-039,SafeSecure Inc,CISO Hall,Chief Information Security Officer,Financial Services,Premium,verified,Enterprise audit service interest
+LEAD-040,MegaTech Corp,Security Lead,Head of Security Operations,Government Contractor,Premium,verified,AI governance framework needs
+LEAD-041,NexaSecure LLC,VP Engineering,VP of Engineering,Technology,Premium,verified,Cloud security posture management
+LEAD-042,VaultShield Inc,CISO Allen,Chief Information Security Officer,Financial Services,Premium,verified,EU AI Act readiness assessment
+LEAD-043,FinTech Solutions,Security Director,Director of Cybersecurity,Technology,Premium,verified,NIST AI RMF framework needs
+LEAD-044,SecureTech Corp,CTO Young,Chief Technology Officer,Government Contractor,Premium,verified,Enterprise audit service pipeline
+LEAD-045,TechGuard Systems,CISO King,Chief Information Security Officer,Healthcare,Premium,verified,AI compliance framework requirements
+LEAD-046,DataShield Inc,Security Lead,Head of IT Security,Financial Services,Premium,verified,EU AI Act compliance needs
+LEAD-047,CloudSecure LLC,VP Security,VP of Security Operations,Government Contractor,Premium,verified,NIST compliance automation
+LEAD-048,InfoTrust Corp,CISO Wright,Chief Information Security Officer,Healthcare,Premium,verified,AI model risk management
+LEAD-049,ProSecure Inc,Security Architect,Senior Security Architect,Technology,Premium,verified,Enterprise audit + TrustGuard bundle
+LEAD-050,NexaShield Corp,CTO Scott,Chief Technology Officer,Government Contractor,Premium,verified,NIST AI RMF assessment required

@@ -1,0 +1,51 @@
+lead_id,company_name,country,industry_subsector,employee_count,revenue_range,key_decision_maker,title,email_domain,linkedin_url,notes,priority_tier
+LEAD-001,FinServe Global,US,Commercial Banking,5000+,>$1B,John Smith,CISO,finserve-global.com,linkedin.com/in/johnsmith-finserve,Major banking client with AI adoption needs,Premium
+LEAD-002,NexGen Capital,UK,Investment Management,3000+,>$500M,Jane Doe,Head of Risk,nexgencapital.co.uk,linkedin.com/in/janedoe-nexgen,Regulatory compliance focus ahead of EU AI Act,Premium
+LEAD-003,VaultSecure Inc,US,Insurance,2000+,>$200M,Bob Johnson,CISO,vaultsecure.com,linkedin.com/in/bobj-vault,Mature infrastructure seeking AI governance,Premium
+LEAD-004,DataTrust Partners,CA,FinTech,1500+,>$100M,Alice Chen,CTO,datrustpartners.ca,linkedin.com/in/alicechen-dt,Growing rapidly with compliance gaps,Premium
+LEAD-005,Premier Banking Solutions,US,Regional Banking,4000+,>$800M,David Lee,CISO,premierbanking.com,linkedin.com/in/davidlee-pbs,Multi-location security challenges,Premium
+LEAD-006,Swift Financial Group,SG,Payment Processing,2500+,>$300M,Sarah Kim,VP Security,swiftfinancial.sg,linkedin.com/in/sarahkim-sfg,Cross-border data compliance needs,Premium
+LEAD-007,Atlas Capital Management,US,Hedge Fund,1000+,>$50M,Michael Brown,CISO,atlascapital.com,linkedin.com/in/michaelbrown-acm,AI-driven portfolio management risks,Premium
+LEAD-008,NovaPay Systems,DE,Fintech Infrastructure,3500+,>$450M,Laura Garcia,CISO,novapay.de,linkedin.com/in/laurag-nova,Eurozone compliance requirements,Premium
+LEAD-009,Meridian Trust Bank,US,Community Banking,800+,<$100M,Robert Wilson,CISO,meridiantrust.com,linkedin.com/in/robertwilson-mtb,Legacy modernization project underway,Premium
+LEAD-010,Silverstone Financials,AU,Wealth Management,1200+,>$80M,Emma Davis,Head of IT,silverstonefin.com.au,linkedin.com/in/emmadavis-sf,AI advisory tool compliance gaps,Premium
+LEAD-011,MedTech Solutions,US,Healthcare Technology,4500+,>$900M,James Taylor,CISO,medtechsolutions.com,linkedin.com/in/jamestaylor-mts,HIPAA + AI governance dual requirements,Premium
+LEAD-012,HealthFirst Systems,CA,Medical Devices,3000+,>$600M,Patricia Moore,CPO,healthfirstsys.ca,linkedin.com/in/patriciamoore-hf,SaMD regulatory compliance needed,Premium
+LEAD-013,VitalCare Networks,UK,NHS Technology,5500+,>£1B,Thomas Anderson,CTO,vitalcarenetworks.co.uk,linkedin.com/in/thomasanderson-vc,Government healthcare AI procurement,Premium
+LEAD-014,GenomeSecure Inc,US,Biotech,2000+,>$250M,Nancy White,CISO,genomeseecure.com,linkedin.com/in/nancywhite-gs,Genomic data privacy + AI risks,Premium
+LEAD-015,MedTech Innovations,DE,Telemedicine,1800+,>$150M,Klaus Mueller,CISO,medtechinnov.de,linkedin.com/in/klausmueller-mti,EU AI Act readiness assessment needed,Premium
+LEAD-016,RxTrack Solutions,AU,Pharma Tech,2200+,>$300M,Susan Clark,Head of Security,rxtrack.com.au,linkedin.com/in/susanc-rx,Drug trial data governance gaps,Premium
+LEAD-017,CareSync Health,US,Healthcare IT,3500+,>$700M,Richard Hall,CISO,caresynch.com,linkedin.com/in/richardhall-cs,EHR integration AI compliance,Premium
+LEAD-018,ProMed Analytics,SG,Medical Research,1500+,>$120M,Linda Wright,CISO,promedanalytics.sg,linkedin.com/in/lindawright-pma,Multi-institutional data sharing needs,Premium
+LEAD-019,NeuroTech Labs,US,Neurotech Devices,900+,<$100M,Mark Phillips,CISO,neurotechlabs.com,linkedin.com/in/markphillips-nl,Breakthrough AI diagnostic tools,Premium
+LEAD-020,HealthBridge Corp,IN,Telehealth Platform,2800+,>$400M,Priya Sharma,CTO,healthbridge.in,linkedin.com/in/priyasharma-hb,Cross-border patient data governance,Premium
+LEAD-021,CyberDyne Systems,US,Technology - Software,6000+,>$1.5B,Daniel Martinez,CISO,cyberdynesys.com,linkedin.com/in/danielmartinez-cd,SaaS security posture management needs,Premium
+LEAD-022,NexaTech Solutions,UK,Cloud Services,4000+,>$800M,Karen Thompson,CPO,nexatechsolutions.co.uk,linkedin.com/in/karenthompson-nt,Multi-cloud compliance orchestration,Premium
+LEAD-023,DataForge Inc,DE,Enterprise Software,3500+,>$650M,Frank Weber,CISO,dataforge.de,linkedin.com/in/frankweber-df,AI model governance framework gaps,Premium
+LEAD-024,CloudFirst Technologies,US,SaaS Platform,2500+,>$300M,Amy Roberts,CTO,cloudfirst.io,linkedin.com/in/amyroberts-cf,Multi-tenant security compliance,Premium
+LEAD-025,VaultTech Systems,SG,DevOps Tools,1800+,>$180M,Steven Park,CISO,vaulttech.sg,linkedin.com/in/stevenpark-vt,Pipeline security automation needs,Premium
+LEAD-026,SecureNet Solutions,AU,Network Security,3000+,>$500M,Lisa Chen,Head of Security,securenetsol.com.au,linkedin.com/in/lisachen-sn,Zero-trust architecture implementation,Premium
+LEAD-027,TechGuard Labs,US,AI/ML Platform,2000+,>$250M,Paul Nguyen,CISO,techguardlabs.com,linkedin.com/in/paulnguyen-tg,AI model risk management gaps,Premium
+LEAD-028,InnovateTech Corp,CA,EdTech,1200+,<$100M,Rachel Adams,CTO,innovatetech.ca,linkedin.com/in/racheladams-it,Fraud detection AI compliance needs,Premium
+LEAD-029,ProTech Systems,US,Cybersecurity VDR,4500+,>$900M,Gregory Scott,CISO,protechsys.com,linkedin.com/in/gregoryscott-ps,Vendor risk management automation,Premium
+LEAD-030,NexaSecure Inc,UK,E-commerce Security,2800+,>$400M,Sandra Hill,CISO,nexasecure.co.uk,linkedin.com/in/sandrahill-ns,Payment fraud AI governance needs,Premium
+LEAD-031,VaultGuard Technologies,US,Cloud Infrastructure,5000+,>$1.2B,Chris Evans,CISO,vaultguard.io,linkedin.com/in/chris-evans-vg,Multi-region compliance orchestration,Premium
+LEAD-032,DataShield Systems,DE,Data Analytics,3200+,>$550M,Jennifer Lee,Head of Security,datashield.de,linkedin.com/in/jenniferlee-ds,Analytics platform AI governance,Premium
+LEAD-033,SafeTech Solutions,AU,Industrial IoT,2000+,>$280M,Andrew Clark,CISO,safetechsol.com.au,linkedin.com/in/andrewclark-st,OT/IT convergence security gaps,Premium
+LEAD-034,TechBridge Corp,US,IT Consulting,4000+,>$750M,Megan Wright,CISO,techbridgecorp.com,linkedin.com/in/meganwright-tb,Client-facing compliance consulting,Premium
+LEAD-035,NexaCloud Inc,SG,Cloud Native,1500+,>$120M,Ryan Foster,CISO,nexacloud.sg,linkedin.com/in/ryanfoster-nc,Kubernetes security governance needs,Premium
+LEAD-036,VaultLogic Systems,US,Emerging Tech,800+,<$100M,Nicole Davis,CTO,vaultlogic.io,linkedin.com/in/nicole-davis-vl,Quantum-safe AI infrastructure planning,Premium
+LEAD-037,SecureOps Labs,UK,DevSecOps Tools,2500+,>$350M,Brian Murphy,CISO,secureops.co.uk,linkedin.com/in/brianmurphy-so,CI/CD pipeline governance gaps,Premium
+LEAD-038,DataTrust Technologies,CA,AI Research Lab,1800+,>$200M,Hannah Cole,Head of AI,dtrustinno.ca,linkedin.com/in/hannahcole-dt,Responsible AI framework needs,Premium
+LEAD-039,CloudGuard Systems,US,Managed Services,3500+,>$600M,Kevin Ross,CISO,cloudguardsys.com,linkedin.com/in/kevinross-cg,MSP compliance automation gaps,Premium
+LEAD-040,NexaTech Labs,AU,R&D Technology,1200+,<$80M,Teresa Bell,CISO,nexatechlabs.com.au,linkedin.com/in/teresabell-nt,Patent AI protection compliance,Premium
+LEAD-041,GovShield Inc,US,Government Contractor - Defense,5000+,>$2B,William Hayes,CISO,govshield.gov,linkedin.com/in/williamhayes-gs,ITAR + AI governance dual requirements,Premium
+LEAD-042,NationalTech Solutions,UK,Government Contractor - Aerospace,4000+,>$1.5B,Amanda Price,CPO,nationaltech.co.uk,linkedin.com/in/amandaprice-nt,Military-grade security compliance,Premium
+LEAD-043,SafeDefense Corp,DE,Government Contractor - Cyber,3500+,>$900M,George Miller,CISO,safedefense.de,linkedin.com/in/georgemiller-sd,NATO AI standards alignment needed,Premium
+LEAD-044,SecureGov Systems,AU,Government Contractor - Homeland,2800+,>$600M,Sarah Cooper,CISO,securegov.com.au,linkedin.com/in/sarahcooper-sg,PII protection + AI governance,Premium
+LEAD-045,VaultFederal Inc,US,Government Contractor - Finance,3000+,>$750M,Robert Turner,CISO,vaultfed.com,linkedin.com/in/robertturner-vf,Federal AI executive order compliance,Premium
+LEAD-046,NexaDefense Ltd,SG,Government Contractor - Maritime,2000+,>$300M,Laura Bennett,CISO,nexadefense.sg,linkedin.com/in/laurabennett-nd,Naval AI systems governance,Premium
+LEAD-047,ShieldTech Gov,UK,Public Sector Tech,4500+,>$1.8B,Daniel Morgan,CISO,shieldtechgov.co.uk,linkedin.com/in/danielmorgan-stg,Public sector AI ethics compliance,Premium
+LEAD-048,SecureOps Defense,US,Government Contractor - Energy,3200+,>$800M,Karen Adams,CISO,secureopsdef.com,linkedin.com/in/karenadams-sod,Grid security AI governance needs,Premium
+LEAD-049,VaultGov Systems,CA,Government Contractor - Health,2500+,>$500M,Thomas Reed,CISO,vaultgov.ca,linkedin.com/in/thomasreed-vg,Healthcare gov AI compliance gaps,Premium
+LEAD-050,NexaShield Defense,AU,Government Contractor - Transport,1800+,>$220M,Nancy Foster,CISO,nexashielddef.com.au,linkedin.com/in/nancyfoster-ns,Aviation AI safety governance,Premium

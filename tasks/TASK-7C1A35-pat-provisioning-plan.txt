@@ -1,0 +1,62 @@
+# TASK-7C1A35 — GitHub PAT Provisioning Plan
+## Board Approval Reference: apr_e145effa (APPROVED)
+## Date: 2026-09-15
+
+### OBJECTIVE
+Provision fine-grained GitHub Personal Access Token (PAT) scoped to `ntrustai/nTrust` repository for Cloudflare Pages deployment pipeline.
+
+### PAT SCOPE CONFIGURATION
+- **Repository**: ntrustai/nTrust
+- **Permissions**:
+  - Contents: Read & Write (for code commits/pushes)
+  - Workflows: Read & Write (for CI/CD pipeline triggers)
+  - Pages: Read & Write (for deployment artifacts)
+  - Deployments: Read & Write (for deployment status tracking)
+- **Expiry**: 90 days (2026-12-14)
+- **Storage**: GitHub Org Secret `GH_PAT` (encrypted, no public exposure)
+
+### EXECUTION SEQUENCE
+1. Configure git user credentials via `org_manager-manage_org` (configure_git action)
+   - git_user_name: DevArchitect
+   - git_user_email: devarchitect@ntrust.ai
+   - git_remote: https://github.com/ntrustai/nTrust.git
+   - git_commit_enabled: true
+   - git_push_enabled: true
+
+2. Provision PAT via org secret rotation (GH_PAT)
+
+3. Execute post-PAT setup:
+   - `git remote set-url origin https://token:{NEW_PAT}@github.com/ntrustai/nTrust.git`
+   - `git push origin main`
+
+4. Cloudflare Pages deployment:
+   - Build output directory: `frontend/dist`
+   - Verify `_redirects` file with www rule
+   - Trigger build via CF API or dashboard automation
+
+5. Validation checks:
+   - GitHub API 200 OK with new PAT credentials
+   - https://ntrust.ai/ returns HTTP 200
+   - CI/CD pipeline triggers successfully
+   - Forbidden token scan returns zero matches in codebase
+
+### ROLLBACK PLAN (Document: doc_4dcb5bff6c v3)
+- Revert PR #4 if deployment issues occur
+- Revoke PAT token immediately via GitHub API
+- Restore previous git credentials via org secret rotation
+- Document incident in RAID log B063F2
+
+### COMPLIANCE NOTES
+- EU AI Act Art.12/Art.14: HITL Board-gated approval (apr_e145effa) obtained
+- NIST AI RMF: Risk assessment documented; credentials stored securely
+- AuditLog: All state changes logged to organizational registry
+- Zero credentials/secrets on public surfaces
+
+### PRE-EXECUTION CHECKLIST
+- [ ] Board approval apr_e145effa verified (status: APPROVED by Governor)
+- [ ] RBAC WRITE elevation requested for org_manager-manage_org and rbac_manager-manage_rbac
+- [ ] Evidence document published (this file)
+- [ ] Attachments list includes this evidence path
+
+---
+Generated: 2026-09-15 19:15 UTC by DevArchitect

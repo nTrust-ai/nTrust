@@ -1,0 +1,9 @@
+{
+  "email_smtp": "smtp.ahmadiyya.com",
+  "email_imap": "imap.ahmadiyya.com",
+  "telegram_bot_token": "PHASE3_OPTIMIZED_TOKEN",
+  "auto_updates": true,
+  "status": "ACTIVE",
+  "governance_mode": "AUTONOMOUS",
+  "automation_level": "FULL"
+}

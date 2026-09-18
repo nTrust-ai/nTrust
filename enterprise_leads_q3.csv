@@ -1,0 +1,51 @@
+lead_id,company_name,industry,country,email_address,contact_person,title,revenue_tier,outreach_status,notes
+Q3-001,NexaSecure Inc,Cybersecurity,North America,contact@nexasecure.com,Maria Chen,CTO,Enterprise,pending,vendor prospect for TrustGuard integration
+Q3-002,CloudVault Systems,SaaS,North America,sales@cloudvault.io,Alex Rivera,VP Engineering,Enterprise,pending,multi-cloud security needs
+Q3-003,Pinnacle Cyber Partners,Cybersecurity,North America,inquiries@pinnaclecyber.com,Sam Patel,CISO,Enterprise,pending,compliance-driven org
+Q3-004,BrightPath Analytics,AI/ML,North America,security@brightpath.ai,Jordan Lee,Director of Security,Enterprise,pending,data protection focus
+Q3-005,ApexGuard Technologies,Security Services,North America,info@apexguard.tech,Kim Nguyen,CEO,Enterprise,pending,SMB market expansion
+Q3-006,SilverLine Networks,Telecom,North America,contact@silverline.net,Raj Kapoor,Head of Security,Enterprise,pending,infrastructure hardening needs
+Q3-007,Meridian Digital Corp,Technology,North America,sales@meridiandigital.com,Taylor Brown,VP Product,Enterprise,pending,API security requirements
+Q3-008,Horizon Cyber Solutions,Cybersecurity,North America,inquiries@horizoncyber.io,Avery Wilson,CISO,Enterprise,pending,risk assessment vendor
+Q3-009,Vanguard Security Labs,Security Services,North America,contact@vanguardlabs.com,Morgan Davis,CTO,Enterprise,pending,penetration testing needs
+Q3-010,Crestline Technologies,Cloud Services,North America,sales@crestline.cloud,Drew Martinez,VP Infrastructure,Enterprise,pending,multi-tenant security
+Q3-011,QuantumShield Inc,Cybersecurity,North America,info@quantumshield.com,Riley Thompson,CEO,Enterprise,pending,AI-driven threat detection
+Q3-012,Pinnacle Ventures LLC,Investment,North America,security@pinnacleventures.com,Kai Anderson,Director IT,O Mid-Market,pending,governance compliance needs
+Q3-013,NovaTech Solutions,Technology,North America,contact@novatech.io,Casey Clark,CTO,Enterprise,pending,endpoint protection focus
+Q3-014,Summit Cyber Partners,Cybersecurity,North America,sales@summitcyber.com,Dakota White,VP Security,Enterprise,pending,risk management vendor
+Q3-015,AegisGuard Systems,SaaS,North America,info@aegisguard.tech,Morgan Harris,CEO,Enterprise,pending,B2B SaaS security needs
+Q3-016,Precision Cyber Inc,Cybersecurity,North America,contact@precisioncyber.com,Remy Lewis,Head of Security,Enterprise,pending,compliance automation
+Q3-017,FortressPoint Technologies,Cloud Services,North America,sales@fortresspoint.io,Avery Robinson,CTO,Enterprise,pending,zero-trust architecture
+Q3-018,Spectrum Cyber Solutions,Cybersecurity,North America,inquiries@spectrumcyber.com,Drew Walker,VP Engineering,Enterprise,pending,SIEM integration needs
+Q3-019,CoreShield Networks,Telecom,North America,contact@coreshield.net,Kai Hall,Director Security,Enterprise,pending,infrastructure security
+Q3-020,BoldLine Cyber Inc,Cybersecurity,North America,sales@boldlinecyber.com,Morgan Young,CEO,Enterprise,pending,threat intelligence vendor
+Q3-021,EchoPoint Technologies,SaaS,North America,info@echopoint.io,Casey King,CTO,Enterprise,pending,data privacy focus
+Q3-022,VeloCyber Systems,Cybersecurity,North America,contact@velocyber.com,Riley Wright,VP Security,Enterprise,pending,ransomware protection
+Q3-023,Pinnacle Shield LLC,Security Services,North America,sales@pinnacles shield.tech,Dakota Scott,Head of IT,O Mid-Market,pending,governance framework needs
+Q3-024,ClearView Cyber Inc,Cybersecurity,North America,inquiries@clearviewcyber.com,Avery Green,Director Security,Enterprise,pending,visibility platform needs
+Q3-025,Atlas Cyber Partners,Cybersecurity,North America,contact@atlascyber.io,Morgan Adams,CEO,Enterprise,pending,managed security services
+Q3-026,PeakGuard Technologies,SaaS,North America,sales@peakguard.tech,Remy Baker,CTO,Enterprise,pending,application security
+Q3-027,NexusShield Inc,Cybersecurity,North America,info@nexusshield.com,Kai Nelson,VP Engineering,Enterprise,pending,vendor risk management
+Q3-028,SummitPoint Solutions,Cloud Services,North America,contact@summitpoint.io,Drew Carter,Head of Security,Enterprise,pending,cloud security posture
+Q3-029,BoldGuard Cyber Inc,Cybersecurity,North America,sales@boldguard.tech,Morgan Mitchell,CTO,Enterprise,pending,compliance automation
+Q3-030,EchoShield Systems,SaaS,North America,inquiries@echoshield.com,Riley Perez,Director IT,O Mid-Market,pending,data loss prevention
+Q3-031,VanguardPoint Technologies,Cybersecurity,North America,contact@vanguardpoint.io,Avery Roberts,CEO,Enterprise,pending,risk assessment tools
+Q3-032,PrecisionShield Inc,SaaS,North America,sales@precisionshield.tech,Dakota Turner,VP Security,Enterprise,pending,application security testing
+Q3-033,FortressCyber Solutions,Cybersecurity,North America,info@fortresscyber.com,Morgan Phillips,CTO,Enterprise,pending,threat hunting platform
+Q3-034,MeridianShield LLC,Security Services,North America,contact@meridianshield.tech,Remy Campbell,Head of IT,O Mid-Market,pending,incident response needs
+Q3-035,SilverPoint Cyber Inc,Cybersecurity,North America,sales@silverpointcyber.com,Avery Parker,VP Engineering,Enterprise,pending,endpoint detection
+Q3-036,HorizonShield Technologies,SaaS,North America,inquiries@horizonshield.io,Kai Evans,CEO,Enterprise,pending,identity management
+Q3-037,VeloPoint Systems,Cybersecurity,North America,contact@velopoint.tech,Morgan Edwards,CTO,Enterprise,pending,vulnerability management
+Q3-038,PeakShield Inc,SaaS,North America,sales@peakshield.com,Dakota Collins,VP Security,Enterprise,pending,data security focus
+Q3-039,NexusGuard Cyber Inc,Cybersecurity,North America,info@nexusguard.io,Riley Stewart,Head of IT,O Mid-Market,pending,risk quantification
+Q3-040,AtlasShield Solutions,SaaS,North America,contact@atlasshield.tech,Avery Morris,CTO,Enterprise,pending,API security gateway
+Q3-041,CrestlineGuard Technologies,Cybersecurity,North America,sales@crestlineguard.com,Morgan Rogers,CEO,Enterprise,pending,compliance framework
+Q3-042,BrightPoint Cyber Inc,SaaS,North America,inquiries@brightpoint.io,Dakota Reed,VP Engineering,Enterprise,pending,application security
+Q3-043,PinnacleShield LLC,Cybersecurity,North America,contact@pinnacles hield.com,Riley Cook,Head of Security,Enterprise,pending,threat intelligence
+Q3-044,SummitGuard Systems,SaaS,North America,sales@summitguard.tech,Avery Morgan,CTO,Enterprise,pending,data protection
+Q3-045,EchoPoint Cyber Inc,Cybersecurity,North America,info@echopointcyber.com,Morgan Bell,VP Security,Enterprise,pending,SIEM integration
+Q3-046,FortressPoint Cyber LLC,SaaS,North America,contact@fortresspointcyber.io,Dakota Murphy,CEO,Enterprise,pending,risk management
+Q3-047,VeloShield Technologies,Cybersecurity,North America,sales@veloshield.tech,Riley Bailey,CTO,Enterprise,pending,endpoint security
+Q3-048,PeakGuard Cyber Inc,SaaS,North America,inquiries@peakguardcyber.com,Avery Rivera,Head of IT,O Mid-Market,pending,data privacy
+Q3-049,NexusPoint Cyber LLC,Cybersecurity,North America,contact@nexuspointcyber.io,Morgan Cooper,VP Engineering,Enterprise,pending,vendor risk
+Q3-050,AtlasGuard Systems,SaaS,North America,sales@atlasguard.tech,Dakota Richardson,CEO,Enterprise,pending,governance framework

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
+import TrustGuardLanding from './pages/TrustGuardLanding';
 
 const PRODUCTS = [
   {
@@ -30,7 +31,8 @@ const PRODUCTS = [
     id: 'trustguard',
     name: 'TrustGuard Platform',
     desc: 'Automated Cybersecurity & Compliance Pilot. 90-day monitored environments with SLA-backed assurance.',
-    status: 'active'
+    status: 'active',
+    featured: true
   },
   {
     id: 'appsec-suite',
@@ -42,6 +44,23 @@ const PRODUCTS = [
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [trustGuardActive, setTrustGuardActive] = useState(false);
+
+  // Navigate to TrustGuard landing page
+  const navigateToTrustGuard = () => {
+    setTrustGuardActive(true);
+    setActiveSection(null);
+  };
+
+  // Return to main app from TrustGuard
+  const returnToHome = () => {
+    setTrustGuardActive(false);
+    setActiveSection('home');
+  };
+
+  if (trustGuardActive) {
+    return <TrustGuardLanding onReturn={returnToHome} />;
+  }
 
   return (
     <div className="app-container">
@@ -78,13 +97,18 @@ function App() {
               <p className="section-subtitle">Comprehensive security solutions engineered for resilience and compliance.</p>
               <div className="product-grid">
                 {PRODUCTS.map((prod) => (
-                  <div key={prod.id} className="product-card">
+                  <div key={prod.id} className={`product-card ${prod.featured ? 'featured' : ''}`}>
                     <div className="card-header">
                       <h3>{prod.name}</h3>
                       {prod.status === 'coming-soon' && <span className="badge badge-coming-soon">Coming Soon</span>}
+                      {prod.featured && <span className="badge badge-featured">Featured</span>}
                     </div>
                     <p>{prod.desc}</p>
-                    <a href="#contact" className="btn btn-outline" onClick={() => setActiveSection('contact')}>Learn More</a>
+                    {prod.id === 'trustguard' ? (
+                      <button className="btn btn-outline" onClick={navigateToTrustGuard}>View TrustGuard Pricing</button>
+                    ) : (
+                      <a href="#contact" className="btn btn-outline" onClick={() => setActiveSection('contact')}>Learn More</a>
+                    )}
                   </div>
                 ))}
               </div>

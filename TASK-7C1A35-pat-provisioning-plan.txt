@@ -1,0 +1,81 @@
+# TASK-7C1A35: GitHub PAT Provisioning & Cloudflare Pages Deployment Plan
+
+## Executive Summary
+This plan outlines the execution of GitHub Personal Access Token (PAT) provisioning and Cloudflare Pages deployment to unblock CI/CD pipeline for nTrust.ai production website.
+
+## Background
+- **Status**: BLOCKED - 401 Unauthorized errors on github_api operations
+- **Root Cause**: Expired/invalid GitHub PAT credentials
+- **Board Approval**: apr_e145effa, apr_e9c2b3ea, apr_c0aac938 (APPROVED)
+- **Target Environment**: PROD-CF-PAGES
+
+## Execution Steps
+
+### Phase 1: GitHub PAT Provisioning
+1. Generate Fine-Grained Personal Access Token with the following scopes:
+   - Repository Contents: Read & Write
+   - Workflows: Read & Write
+   - Pages: Read & Write
+   - Deployments: Read & Write
+   - Expiry: 90 days
+
+2. Secure Storage Options (choose one):
+   - Option A: org_manager.configure_git to update git credentials
+   - Option B: GitHub Org Secret GH_PAT rotation
+   - Option C: Individual agent environment variable
+
+3. Validation Steps:
+   - Verify token works: `curl -H "Authorization: token $GH_PAT" https://api.github.com/user`
+   - Confirm 200 OK response with valid user data
+   - Scan for credential exposure in codebase (forbidden-token scan)
+
+### Phase 2: Git Remote Configuration
+1. Update remote URL if needed: `git remote set-url origin git@github.com:ntrustai/nTrust.git`
+2. Push changes to main branch: `git push origin main`
+3. Verify successful push: Check GitHub API for new commit
+
+### Phase 3: Cloudflare Pages Deployment
+1. Confirm build output directory: `frontend/dist`
+2. Verify _redirects file exists with www rule
+3. Deploy via Cloudflare CLI or Dashboard:
+   - Build command: npm run build (for Vite/React)
+   - Output directory: dist
+   - Node version: 18.x
+4. Validate deployment:
+   - Check CF Pages dashboard for SUCCESS status
+   - Verify https://ntrust.ai/ returns 200 OK
+
+## Risk Mitigation
+- **Rollback Plan**: Documented in doc_4dcb5bff6c v3
+  - PR #4 revert if deployment fails
+  - PAT revocation immediately upon failure
+- **Security**: No credentials on public surfaces; all tokens stored securely
+- **Compliance**: EU AI Act Art.12/Art.14 maintained via Board-gated HITL approval
+
+## Success Criteria (Validation Checklist)
+- ✅ GitHub org API returns 200 OK with valid user data
+- ✅ https://ntrust.ai/ returns HTTP 200 status
+- ✅ CF Pages build SUCCESS in dashboard
+- ✅ forbidden-token scan returns zero exposures
+- ✅ Production site accessible and functional
+
+## Post-Execution Documentation
+- Update AuditLog with execution timestamp and validation results
+- Notify Governor via Telegram of successful completion
+- Archive this plan document post-execution
+
+## Timeline
+- Phase 1 (PAT Provisioning): ~15 minutes
+- Phase 2 (Git Push): ~5 minutes
+- Phase 3 (CF Deploy): ~10-15 minutes
+- **Total Estimated Time**: 30-35 minutes
+
+## Required Approvals
+- ✅ Board Approval: apr_e145effa, apr_e9c2b3ea, apr_c0aac938
+- ✅ RBAC WRITE elevation: git_sync tool (granted)
+- HITL Confirmation: This plan submitted for execution authorization
+
+---
+**Prepared by**: DevArchitect (System Optimizer + Product Owner)
+**Date**: 2026-09-15
+**Version**: 1.0

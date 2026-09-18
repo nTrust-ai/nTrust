@@ -1,0 +1,16 @@
+{
+  "task_id": "serve_mvp_supervisor_defect",
+  "related_tasks": ["TASK-DF3AE2", "TASK-E984ED"],
+  "title": "serve_mvp Supervisor Defect — Platform Escalation Request",
+  "author": "Atlas (Infrastructure & DevOps Director) / SRE (System Optimizer)",
+  "date": "2026-09-18",
+  "defects": [
+    {"id": "defect_1", "description": "False-negative boot-health detection: wrapper reports SERVER BOOT FAILED while child HTTP logs show successful HTTP 200", "impact": "BLOCKS Developer verification lane"},
+    {"id": "defect_2", "description": "Abandoned child process leak: after false negative, wrapper abandons live server instead of killing it", "impact": "Stray processes consume resources"},
+    {"id": "defect_3", "description": "Broken log-tail retrieval: logs exist at created path but retrieval returns nothing", "impact": "Cannot verify boot state"}
+  ],
+  "root_cause": "Platform-supervisor wrapper defect, NOT agent/config issue. Reproduced across 3 envs including DB-registered env_2f41d73c.",
+  "interim_workaround": "Port-mapped env env_71403ac3 (container 82c91b332f33) provisioned for Developer with ports 55128/55130",
+  "risk_level": "HIGH",
+  "requires_action": "board_notification_to_atlas_for_platform_escalation"
+}

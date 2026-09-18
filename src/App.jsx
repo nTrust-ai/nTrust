@@ -1,155 +1,164 @@
 import React, { useState } from 'react'
-import { Shield, Lock, Brain, Globe, CheckCircle, ArrowRight, Menu, X } from 'lucide-react'
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <div className="app">
-      {/* Header */}
-      <header>
-        <div className="container">
-          <nav className="nav">
-            <a href="#" className="logo" aria-label="nTrust.ai Home">nTrust<span>.ai</span></a>
-            <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
-              <a href="#features" onClick={() => setMobileMenuOpen(false)}>Solutions</a>
-              <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a>
-              <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>
-              <a href="#contact" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>Request Demo</a>
-            </div>
-            <button 
-              className="mobile-toggle" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </nav>
-        </div>
-      </header>
+       {/* Header */}
+       <header>
+         <div className="container">
+           <nav className="nav">
+             <a href="/" className="logo">nTrust<span>.ai</span></a>
+             <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
+               <a onClick={() => window.location.href = '#features'}>Architecture</a>
+               <a onClick={() => window.location.href = '#licensing'}>Licensing</a>
+               <a onClick={() => window.location.href = '#roadmap'}>Roadmap</a>
+               <button onClick={() => window.location.href = '/contact'} className="btn btn-primary">Enterprise Access</button>
+             </div>
+             <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+               {mobileMenuOpen ? '✕' : '☰'}
+             </button>
+           </nav>
+         </div>
+       </header>
 
-      {/* Hero */}
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="container">
-          <h1 id="hero-heading">Enterprise AI Security<br/>That Actually Works</h1>
-          <p>Protect your organization with nTrust.ai's zero-trust architecture, automated compliance mapping, and proactive threat intelligence. Built for modern enterprises.</p>
-          <div className="hero-ctas">
-            <a href="#services" className="btn btn-primary">Explore Services <ArrowRight size={18} /></a>
-            <a href="#contact" className="btn btn-outline">Contact Sales</a>
-          </div>
-        </div>
-      </section>
+       {/* Hero */}
+       <section className="hero">
+         <div className="container">
+           <h1>Enterprise AI Security Infrastructure<br/>Deploying Now</h1>
+           <p>We are engineering the next generation of zero-trust security and automated compliance. nTrust.ai delivers enterprise-grade threat intelligence, NIST AI RMF alignment, and proactive risk mitigation for modern organizations.</p>
+           <div className="hero-ctas">
+             <button onClick={() => window.location.href = '#licensing'} className="btn btn-primary">View Licensing Model</button>
+             <button onClick={() => window.location.href = '/contact'} className="btn btn-outline">Request Enterprise Access</button>
+           </div>
+         </div>
+       </section>
 
-      {/* Features */}
-      <section id="features" className="features" aria-labelledby="features-heading">
-        <div className="container">
-          <div className="section-header">
-            <h2 id="features-heading">Core Capabilities</h2>
-            <p>Our platform delivers measurable security outcomes through AI-driven automation and rigorous compliance frameworks.</p>
-          </div>
-          <div className="grid">
-            <div className="card">
-              <div className="card-icon"><Shield /></div>
-              <h3>NIST Risk Modeling</h3>
-              <p>Automated alignment with NIST AI RMF and SOC 2 frameworks. Continuous compliance monitoring with real-time audit trails.</p>
-              <a href="#services" className="btn btn-outline">View Details</a>
-            </div>
-            <div className="card">
-              <div className="card-icon"><Lock /></div>
-              <h3>Zero-Trust Architecture</h3>
-              <p>Enterprise-grade identity verification, micro-segmentation, and continuous access evaluation across all endpoints.</p>
-              <a href="#services" className="btn btn-outline">View Details</a>
-            </div>
-            <div className="card">
-              <div className="card-icon"><Brain /></div>
-              <h3>AI Threat Intelligence</h3>
-              <p>Predictive threat mapping and automated incident response. Reduce mean-time-to-respond by up to 70%.</p>
-              <span className="coming-soon">Coming Soon</span>
-            </div>
-          </div>
-        </div>
-      </section>
+       {/* Architecture & Features */}
+       <section id="features" className="features">
+         <div className="container">
+           <div className="section-header">
+             <h2>Core Architecture</h2>
+             <p>Built on a foundation of zero-trust principles, rigorous compliance frameworks, and scalable cloud-native infrastructure.</p>
+           </div>
+           <div className="grid">
+             <div className="card">
+               <div className="card-icon">🛡️</div>
+               <h3>Zero-Trust Framework</h3>
+               <p>All access requests are continuously verified. Micro-segmentation and least-privilege enforcement are baked into the core.</p>
+             </div>
+             <div className="card">
+               <div className="card-icon">🔒</div>
+               <h3>Automated Compliance</h3>
+               <p>Built-in alignment with NIST AI RMF, SOC 2, and EU AI Act standards. Continuous audit logging ensures regulatory readiness.</p>
+             </div>
+             <div className="card">
+               <div className="card-icon">🤖</div>
+               <h3>AI-Driven Security</h3>
+               <p>Predictive threat mapping and autonomous incident response. Designed to reduce MTTR and eliminate manual oversight gaps.</p>
+             </div>
+           </div>
+         </div>
+       </section>
 
-      {/* Services */}
-      <section id="services" className="services" aria-labelledby="services-heading">
-        <div className="container">
-          <div className="section-header">
-            <h2 id="services-heading">Service Tiers</h2>
-            <p>Scalable security solutions designed for your organization's growth stage.</p>
-          </div>
-          <div className="grid">
-            <div className="service-card">
-              <h3>Starter</h3>
-              <div className="price">$4,999<span>/month</span></div>
-              <ul className="service-features">
-                <li>NIST Alignment Framework</li>
-                <li>Basic Threat Monitoring</li>
-                <li>Email Support</li>
-                <li>Monthly Compliance Reports</li>
-              </ul>
-              <a href="#contact" className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Get Started</a>
-            </div>
-            <div className="service-card">
-              <h3>Professional</h3>
-              <div className="price">$14,999<span>/month</span></div>
-              <ul className="service-features">
-                <li>Advanced Risk Modeling</li>
-                <li>24/7 SOC Monitoring</li>
-                <li>Dedicated Security Analyst</li>
-                <li>Automated Audit Logging</li>
-                <li>API Integration Support</li>
-              </ul>
-              <a href="#contact" className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</a>
-            </div>
-            <div className="service-card">
-              <h3>Enterprise</h3>
-              <div className="price">$34,999<span>/month</span></div>
-              <ul className="service-features">
-                <li>Custom Architecture Design</li>
-                <li>On-Premise Deployment</li>
-                <li>Executive Dashboard</li>
-                <li>Quarterly Penetration Testing</li>
-                <li>SLA Guaranteed Uptime</li>
-              </ul>
-              <a href="#contact" className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Contact Sales</a>
-            </div>
-          </div>
-        </div>
-      </section>
+       {/* Licensing Model */}
+       <section id="licensing" className="licensing">
+         <div className="container">
+           <div className="section-header">
+             <h2>Licensing Model</h2>
+             <p>We offer strategic proprietary models. Source code availability is strictly governed by enterprise agreements.</p>
+           </div>
+           <div className="grid">
+             <div className="service-card">
+               <h3>Community Edition</h3>
+               <span className="coming-soon">Free Tier Available</span>
+               <ul className="service-features">
+                 <li>Core Platform Access</li>
+                 <li>Standard Security Modules</li>
+                 <li>Community Support & Docs</li>
+                 <li>Non-Production Use Allowed</li>
+               </ul>
+               <button onClick={() => window.location.href = '/contact'} className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Request Community Access</button>
+             </div>
+             <div className="service-card">
+               <h3>Enterprise Edition</h3>
+               <span className="coming-soon">NDA Required</span>
+               <ul className="service-features">
+                 <li>Full Source Code Access</li>
+                 <li>Advanced AI & Compliance Suites</li>
+                 <li>Dedicated Engineering Support</li>
+                 <li>Custom Architecture & SLAs</li>
+               </ul>
+               <button onClick={() => window.location.href = '/contact'} className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Request NDA & Enterprise Access</button>
+             </div>
+           </div>
+         </div>
+       </section>
 
-      {/* Contact */}
-      <section id="contact" className="contact" aria-labelledby="contact-heading">
-        <div className="container">
-          <h2 id="contact-heading">Ready to Secure Your Enterprise?</h2>
-          <p style={{color: 'var(--text-muted)', marginTop: '16px'}}>Our team will respond within 24 hours to schedule your personalized security assessment.</p>
-          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group">
-              <input type="text" placeholder="Full Name" required />
-            </div>
-            <div className="form-group">
-              <input type="email" placeholder="Work Email" required />
-            </div>
-            <div className="form-group">
-              <input type="text" placeholder="Company Name" required />
-            </div>
-            <div className="form-group">
-              <textarea rows="4" placeholder="How can we help secure your organization?"></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Submit Request</button>
-          </form>
-        </div>
-      </section>
+       {/* Roadmap */}
+       <section id="roadmap" className="roadmap">
+         <div className="container">
+           <div className="section-header">
+             <h2>Product Development Roadmap</h2>
+             <p>Focused execution on Phase 1 delivery before expanding to subsequent product lines.</p>
+           </div>
+           <div className="timeline">
+             <div className="phase">
+               <h3>Phase 1: Core Platform (Current)</h3>
+               <p>Zero-trust architecture, automated compliance mapping, and core security modules. Focus on stability, audit readiness, and enterprise access controls.</p>
+             </div>
+             <div className="phase">
+               <h3>Phase 2: AI Threat Intelligence & SOC Integration</h3>
+               <p>Predictive threat mapping, autonomous incident response, and 24/7 SOC monitoring integration. Enterprise-only rollout pending Phase 1 approval.</p>
+             </div>
+             <div className="phase">
+               <h3>Phase 3: Profitability Scaling & Revenue Optimization</h3>
+               <p>Commercial monetization, multi-tenant scaling, and strategic partnership integrations (ubaz inc.). Board-approved expansion phase.</p>
+             </div>
+           </div>
+         </div>
+       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="container">
-          <p>&copy; {new Date().getFullYear()} nTrust.ai — It's the numbers we trust. All rights reserved.</p>
-          <p style={{marginTop: '8px', fontSize: '0.75rem'}}>Enterprise AI Security & Compliance Automation</p>
-        </div>
-      </footer>
-    </div>
-  )
+       {/* Contact / Enterprise Access */}
+       <section id="contact" className="contact">
+         <div className="container">
+           <h2>Enterprise Access & NDA Request</h2>
+           <p style={{color: 'var(--text-muted)', marginTop: '16px'}}>nTrust.ai is currently in active development. Enterprise customers requiring source code access must first execute a standard NDA. Community Edition access requests are processed on a rolling basis.</p>
+           <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert('Request submitted successfully. We will contact you shortly.'); }}>
+             <div className="form-group">
+               <input type="text" placeholder="Full Name" required />
+             </div>
+             <div className="form-group">
+               <input type="email" placeholder="Work Email" required />
+             </div>
+             <div className="form-group">
+               <input type="text" placeholder="Company Name" required />
+             </div>
+             <div className="form-group">
+               <select required>
+                 <option value="" disabled>Select Access Type</option>
+                 <option value="community">Community Edition (Free)</option>
+                 <option value="enterprise">Enterprise Edition (NDA Required)</option>
+               </select>
+             </div>
+             <div className="form-group">
+               <textarea rows="4" placeholder="How can we secure your organization?"></textarea>
+             </div>
+             <button type="submit" className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Submit Request</button>
+           </form>
+         </div>
+       </section>
+
+       {/* Footer */}
+       <footer>
+         <div className="container">
+           <p>&copy; {new Date().getFullYear()} nTrust.ai — It's the numbers we trust. All rights reserved.</p>
+           <p style={{marginTop: '8px', fontSize: '0.75rem'}}>Proprietary software. Source code is available under NDA for Enterprise customers only. Community Edition is free but not open source.</p>
+         </div>
+       </footer>
+     </div>
+   )
 }
 
 export default App
