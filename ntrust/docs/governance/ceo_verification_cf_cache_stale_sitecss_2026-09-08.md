@@ -38,6 +38,71 @@ Origin serves the **canonical, fixed** `site.css` (sha1 `8751c9f6`) that already
 
 ---
 
+## 4. Addendum v1.1 (2026-09-08 ~05:33 UTC) — Atlas corrective amendment & closure-gate status
+
+Incorporated from Atlas doc_bfdfbff67a v4 (commit `331ee9f2`, git-vault synced), per radical-transparency discipline:
+
+1. **Doc versioning:** Atlas's acceptance evidence chain is at **v4** (v3 content preserved verbatim; increment = corrective re-run + git attestation append). No evidence-version regression.
+2. **Git attestation (exact-equality fails):** `origin/main` tip = `4709dd9c`, NOT `9985cd4e`. Relationship: `9985cd4e` is the DIRECT PARENT; delta = exactly 1 docs-only governance commit (`4709dd9c`, +30 lines, CEO PR #10 execution record); all deployment artifacts **byte-identical** (site.css blob `a4f94b93` at both; file sha1 `8751c9f6` == local tree).
+3. **Acceptance status = BLOCKED / NOT CONFIRMED (as-served):**
+   - **D4** as-served FAIL @375 & @768 — `nav.links` hidden (display:none), **no hamburger fallback** (earlier v3 "D4 PASS as-served" withdrawn as false positive: child-anchor styles read inside display:none parent).
+   - **D6** as-served PASS @375 only / **FAIL @768** (pricing 2-col 350+350).
+   - Canonical-injected runs GREEN (design correct) — but that is NOT what the live apex serves.
+   - Root cause unchanged: **stale immutable CDN edge** — bare `/assets/site.css` = sha1 `feb4ff7c` (CF HIT, age ~99,955s ≈27.8h); cache-busted = canonical `8751c9f6`. **Purge has NOT landed.**
+
+**Closure gate (recommended):** (a) Cloudflare purge lands → (b) bare `/assets/site.css` sha1 == canonical `8751c9f6` on re-verify → (c) D4/D6 PASS as-served @375 & @768. Alternative: Board may **explicitly accept the recorded as-served caveat** and close with it on record.
+
+---
+
+## 5. Addendum v1.2 (2026-09-08 ~05:36 UTC) — CEO independent re-verification & escalation filed
+
+Fresh CEO boundary re-verification (direct python fetch, ~05:36 UTC), independent of Atlas/Weaver relay:
+
+1. **Bare `/assets/site.css` still STALE:** sha1 `feb4ff7cd40c6c351273b36d6fe29582368fd9e8` (10,995 B), cf-cache-status **HIT**, age **100,330s (~27.9h)**, `Cache-Control: public, max-age=31536000, must-revalidate, immutable`. Matches Atlas v4 exactly — **purge has NOT landed**.
+2. **Cache-busted `?cb=1` FIXED:** sha1 `8751c9f6c5378bfc0f2e4679706beddfc843f6d8` (11,797 B), CF HIT age ~494s, byte-consistent with origin tree.
+3. **Apex content scan:** HTTP 200, CF DYNAMIC. Forbidden tokens = 0 (`MVP`/`Phase`/`$500`/`localhost`/`8085`/`55127`/`TASK-`/`FR-`); order-intent CTAs = 0; `Coming Soon` occurrences = 10 (compliant Coming-Soon posture intact). Visual desktop render previously confirmed (screenshot be3d83f1).
+4. **Git lineage confirmed:** HEAD `331ee9f2` → `afa2ba59` → `e2798bbd` → `4709dd9c` (PR #10 exec record) → `9985cd4e` (PR #10 merge). Atlas attestation accurate.
+
+**Escalation filed this cycle (now that this evidence file is on disk — prior submission rejections were caused by file absence at submission time):**
+- **Board approval `apr_dbf0a660`** (PENDING) — Owner one-click CF purge of `/assets/site.css` (or zone-wide), attachment = this file. Submitted successfully.
+- **Telegram digest to Board President (Naveed)** — same purge ask + digest of all pending owner HITL gates (`apr_dbf0a660`, `apr_90b5d796` 5-task closure bundle, `apr_2c997c1f` Weaver sandbox, `apr_29e84aa9` TASK-0C2EE7 record).
+
+**State mutations:** task changes 0 · approval flips 0 · closes 0 · revenue $0 recognized (SOWs 0, Pilot→Paid 0). No self-close, no self-approve, no gate flip. Post-purge live re-verify expectation: sha1 `8751c9f6` / 11,797 B / CF MISS→HIT with fresh age → then D4/D6 as-served PASS → owner one-click close.
+
+— Nedo · CEO 🛡️
+
+
+---
+
+## 5. Addendum v1.2 (2026-09-08 ~05:37 UTC) — Final unblock path (deploy + purge)
+
+Fresh live probe (CEO sandbox) after purge approvals landed:
+- bare `/assets/site.css` → still 10,995 B, sha1 `feb4ff7c`, `Cache-Control: public, max-age=31536000, immutable`, age ~27.9h → **purge NOT yet landed at edge**
+- cache-busted `?cb=ver2` → 11,797 B, sha1 `8751c9f6` → **origin FIXED**
+- `site.8751c9f6.css` → 404 (content-hash rename reverted)
+- live `_headers` `/assets/*` → still `immutable` (deploy NOT landed)
+
+### Board state (verified this cycle)
+| Request | Purpose | Status |
+|---|---|---|
+| `apr_6f855f72` / `apr_d2a07320` | CF cache purge (owner one-click) | APPROVED (Naveed OOB) |
+| `apr_90b5d796` | Atlas closure-ready bundle (5 infra tasks @99%) | APPROVED (Naveed OOB) |
+| `apr_code_5b59d6a9` | `_headers` TTL fix promotion (drop immutable) | PENDING Board |
+
+### Durable fix — committed locally, NOT yet pushed to origin/main
+- Local HEAD `dc00f32c`: `_headers` `/assets/*` → `max-age=3600, stale-while-revalidate=86400`; unversioned `site.css` retained (content-hash rename reverted to align with disposition).
+- `origin/main` tip `4709dd9c` still carries `max-age=31536000, immutable`.
+
+### Remaining unblock chain
+1. Ratify `apr_code_5b59d6a9` → push main → CF Pages deploy `_headers` fix.
+2. Execute CF purge one-click for `/assets/site.css` (approved; not yet landed).
+3. Re-verify D1/D4/D6 **as-served** → close TASK-4DB185.
+
+— Nedo · CEO 🛡️
+
+
+---
+
 ## Addendum v1.3 — CEO Direct Re-verification Post-Approval (apr_6f855f72) · 2026-09-08 ~05:35 UTC
 
 **Event:** Board approval `apr_6f855f72` (Owner CF cache purge `/assets/site.css`) marked APPROVED by Naveed ul via Telegram Out-of-Band.
