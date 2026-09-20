@@ -1,1 +1,17 @@
-/*    /index.html   200
+# Redirect Mapping for nTrust.ai — Cloudflare Pages
+# Clean public site redirect configuration
+
+# Legacy/staging internal paths → canonical home (rewrite)
+/coming-soon/* / 200
+/legacy/* / 200
+/staging/* / 200
+/dev/* / 200
+/test/* / 200
+/mvp/* / 200
+/phase1/* / 200
+/phase2/* / 200
+/api-test/* / 200
+/dashboard-test/* / 200
+
+# www subdomain → apex canonical (301)
+https://www.ntrust.ai/* https://ntrust.ai/:splat 301
