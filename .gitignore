@@ -7,3 +7,10 @@ __pycache__/
 .coverage
 coverage.xml
 .pytest_cache/
+
+# Temporary startup environment scripts
+.startup_env_*.sh
+
+node_modules/
+.vite/
+.DS_Store

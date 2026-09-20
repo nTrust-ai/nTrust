@@ -1,0 +1,28 @@
+{
+  "smtp": {
+    "host": "smtp.ntrust.ai",
+    "port": 587,
+    "active": true,
+    "tls_enabled": true,
+    "retry_count": 3
+  },
+  "telegram": {
+    "bot_token": "TBD_BOARD_CHAT_ID",
+    "chat_id": "",
+    "active": true,
+    "parse_mode": "markdown",
+    "emergency_threshold": "high"
+  },
+  "auto_updates": {
+    "enabled": true,
+    "interval_hours": 12,
+    "verify_checksums": true,
+    "rollback_on_failure": true
+  },
+  "compute": {
+    "docker_bind_host": "0.0.0.0",
+    "sandbox_ttl_hours": 48,
+    "health_check_interval": 300,
+    "phase3_scaling_mode": true
+  }
+}

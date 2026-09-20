@@ -1,2 +1,0 @@
-#!/bin/sh
-pip install requests > /dev/null 2>&1 && python3 -c "import requests; r = requests.get('http://staging.ntrust.ai', allow_redirects=True); print('HTTP Status:', r.status_code); print('Headers:', dict(r.headers)); print('Body Length:', len(r.text)); print('Sample Body:', r.text[:500])"

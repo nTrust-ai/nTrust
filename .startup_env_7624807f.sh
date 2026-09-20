@@ -1,2 +1,0 @@
-#!/bin/sh
-sh -c 'F=$(find /app /app/data -maxdepth 5 -name ntrust_web_server.py 2>/dev/null | head -1); if [ -n "$F" ]; then echo "USING $F"; exec python3 "$F" /app/data/frontend/dist 8085; else echo "WEB_SERVER_NOT_FOUND_FALLBACK_STATIC"; exec python3 -m http.server 8085 --directory /app/data/frontend/dist --bind 0.0.0.0; fi'

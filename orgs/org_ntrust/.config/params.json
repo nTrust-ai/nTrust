@@ -1,0 +1,10 @@
+{
+  "email_smtp_host": "smtp.ntrust.ai",
+  "email_smtp_port": 587,
+  "email_imap_host": "imap.ntrust.ai",
+  "email_imap_port": 993,
+  "telegram_bot_token": "PENDING_BOARD_APPROVAL",
+  "auto_updates_enabled": true,
+  "nist_compliance_mode": true,
+  "eu_ai_act_logging": true
+}

@@ -1,0 +1,20 @@
+{
+   "version": "3.0",
+   "effective_date": "2026-09-19",
+   "target_revenue_q3": "$500,000+",
+   "pricing_tiers": {
+     "starter": {"price_usd": 299, "features": ["basic_monitoring", "email_alerts"]},
+     "professional": {"price_usd": 899, "features": ["advanced_ai_guard", "sla_99.9", "dedicated_support"]},
+     "enterprise": {"price_usd": 2499, "features": ["zero_trust_mesh", "custom_compliance", "white_lable_api"]}
+   },
+   "dynamic_pricing_rules": [
+     "Volume discount > 50 licenses: -15%",
+     "Annual commitment: +10% margin retention",
+     "Compliance add-on (EU AI Act): +$199/mo"
+   ],
+   "revenue_routing": {
+     "gateway": "atlas_pay_v3",
+     "compliance_tax": "auto_calculated",
+     "profit_split_ubaz_inc": "60/40"
+   }
+}

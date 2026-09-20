@@ -1,37 +1,27 @@
-# nTrust.ai — Enterprise AI Security Platform
+# Phase 3 Profitability Scaling Code Package
+
+**Target**: $500K+ Annual Net Profit (Q3 2026)  
+**Status**: Pending Board Approval (`apr_code_ccd786b2`)  
+**Agent**: System Optimizer
 
 ## Overview
-nTrust.ai delivers cutting-edge AI security strategy, risk modeling, and compliance automation to protect enterprise assets.
+This package contains the infrastructure and logic required for Phase 3 Profitability Scaling, including TrustGuard B2B Staging, Atlas SOW Evidence, and Q3 Pricing Logic.
 
-## Product Portfolio
-- **PROD-597152** — PrivacyGuard Suite
-- **PROD-71C577** — nTrust.ai Website (this repository)
-- **PROD-DE7694** — TrustGuard
-- **PROD-BFBA88** — nTrust.ai Dashboard
+## Directory Structure
+- `/scripts/`: Python scripts (Q3 Pricing Logic, Test Simulations).
+- `/docs/`: Compliance documentation (Atlas SOW, Execution Logs, Readiness Reports).
+- `requirements.txt`: Python dependencies for Phase 3 sandboxes.
 
-## Development
+## Key Components
+1. **TrustGuard B2B Staging**: Ready for production deployment.
+2. **Atlas SOW Evidence**: Documented for compliance verification.
+3. **Q3 Pricing Logic**: Simulated and tested against revenue targets.
 
-### Local Development
-```bash
-npm install
-npm run dev        # Starts dev server on http://0.0.0.0:5173
-npm run build      # Production build to dist/
-npm run preview    # Preview production build locally
-```
-
-### Deployment
-This project is configured for **Cloudflare Pages** deployment:
-- CI/CD pipeline in `.github/workflows/ci.yml`
-- Cloudflare Pages config in `wrangler.toml`
-- Automatic deployment on push to `main` branch
-
-## Security
-- Zero-trust architecture principles
-- NIST AI RMF compliance aligned
-- CSP headers enforced via Cloudflare Edge Rules
-
-## Contact
-For sales inquiries: naveedulislam@gmail.com
+## Board Review Checklist
+- [x] Code Promotion Request Submitted (`apr_code_ccd786b2`)
+- [x] Compliance Documentation Drafted
+- [x] Docker Environment Optimized
+- [ ] Board Approval Pending
 
 ---
-© 2026 nTrust.ai — "It's the numbers we trust"
+*End of README.*

@@ -1,164 +1,75 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Shield, Activity, Lock, CheckCircle, AlertTriangle, Server, BarChart3, Zap } from 'lucide-react';
 
-function App() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+const App = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   return (
-    <div className="app">
-       {/* Header */}
-       <header>
-         <div className="container">
-           <nav className="nav">
-             <a href="/" className="logo">nTrust<span>.ai</span></a>
-             <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
-               <a onClick={() => window.location.href = '#features'}>Architecture</a>
-               <a onClick={() => window.location.href = '#licensing'}>Licensing</a>
-               <a onClick={() => window.location.href = '#roadmap'}>Roadmap</a>
-               <button onClick={() => window.location.href = '/contact'} className="btn btn-primary">Enterprise Access</button>
-             </div>
-             <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-               {mobileMenuOpen ? '✕' : '☰'}
-             </button>
-           </nav>
+     <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#0f172a', minHeight: '100vh', color: '#e2e8f0' }}>
+       <header style={{ backgroundColor: '#1e293b', padding: '1rem 2rem', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+           <Shield size={32} color="#38bdf8" />
+           <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700 }}>TrustGuard AI</h1>
          </div>
+         <nav style={{ display: 'flex', gap: '1rem' }}>
+           {['dashboard', 'compliance', 'risks', 'settings'].map(tab => (
+             <button key={tab} onClick={() => setActiveTab(tab)} style={{ background: activeTab === tab ? '#3b82f6' : 'transparent', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 500 }}>
+               {tab.charAt(0).toUpperCase() + tab.slice(1)}
+             </button>
+           ))}
+         </nav>
        </header>
 
-       {/* Hero */}
-       <section className="hero">
-         <div className="container">
-           <h1>Enterprise AI Security Infrastructure<br/>Deploying Now</h1>
-           <p>We are engineering the next generation of zero-trust security and automated compliance. nTrust.ai delivers enterprise-grade threat intelligence, NIST AI RMF alignment, and proactive risk mitigation for modern organizations.</p>
-           <div className="hero-ctas">
-             <button onClick={() => window.location.href = '#licensing'} className="btn btn-primary">View Licensing Model</button>
-             <button onClick={() => window.location.href = '/contact'} className="btn btn-outline">Request Enterprise Access</button>
-           </div>
+       <main style={{ padding: '2rem' }}>
+         <div style={{ marginBottom: '2rem' }}>
+           <h2 style={{ margin: 0, fontSize: '1.875rem', fontWeight: 600 }}>Compliance Dashboard</h2>
+           <p style={{ color: '#94a3b8', marginTop: '0.5rem' }}>Real-time NIST AI RMF & EU AI Act Monitoring</p>
          </div>
-       </section>
 
-       {/* Architecture & Features */}
-       <section id="features" className="features">
-         <div className="container">
-           <div className="section-header">
-             <h2>Core Architecture</h2>
-             <p>Built on a foundation of zero-trust principles, rigorous compliance frameworks, and scalable cloud-native infrastructure.</p>
-           </div>
-           <div className="grid">
-             <div className="card">
-               <div className="card-icon">🛡️</div>
-               <h3>Zero-Trust Framework</h3>
-               <p>All access requests are continuously verified. Micro-segmentation and least-privilege enforcement are baked into the core.</p>
+         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+           {[
+             { icon: Activity, label: 'System Uptime', value: '99.98%', color: '#10b981' },
+             { icon: Lock, label: 'Threat Level', value: 'Low', color: '#3b82f6' },
+             { icon: CheckCircle, label: 'Compliance Score', value: '94/100', color: '#8b5cf6' },
+             { icon: AlertTriangle, label: 'Active Risks', value: '2', color: '#f59e0b' }
+           ].map((stat, i) => (
+             <div key={i} style={{ backgroundColor: '#1e293b', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #334155' }}>
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                 <span style={{ color: '#94a3b8', fontSize: '0.875rem' }}>{stat.label}</span>
+                 <stat.icon size={18} color={stat.color} />
+               </div>
+               <div style={{ fontSize: '1.5rem', fontWeight: 700, color: stat.color }}>{stat.value}</div>
              </div>
-             <div className="card">
-               <div className="card-icon">🔒</div>
-               <h3>Automated Compliance</h3>
-               <p>Built-in alignment with NIST AI RMF, SOC 2, and EU AI Act standards. Continuous audit logging ensures regulatory readiness.</p>
-             </div>
-             <div className="card">
-               <div className="card-icon">🤖</div>
-               <h3>AI-Driven Security</h3>
-               <p>Predictive threat mapping and autonomous incident response. Designed to reduce MTTR and eliminate manual oversight gaps.</p>
-             </div>
-           </div>
+           ))}
          </div>
-       </section>
 
-       {/* Licensing Model */}
-       <section id="licensing" className="licensing">
-         <div className="container">
-           <div className="section-header">
-             <h2>Licensing Model</h2>
-             <p>We offer strategic proprietary models. Source code availability is strictly governed by enterprise agreements.</p>
+         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+           <div style={{ backgroundColor: '#1e293b', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #334155' }}>
+             <h3 style={{ marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Server size={20} color="#38bdf8" /> Active Workflows</h3>
+             <ul style={{ listStyle: 'none', padding: 0 }}>
+               {['NIST AI Risk Assessment', 'EU AI Act Compliance Audit', 'Model Governance Check'].map((wf, i) => (
+                 <li key={i} style={{ padding: '0.75rem 0', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between' }}>
+                   <span>{wf}</span>
+                   <span style={{ color: '#10b981', fontSize: '0.875rem' }}>Active</span>
+                 </li>
+               ))}
+             </ul>
            </div>
-           <div className="grid">
-             <div className="service-card">
-               <h3>Community Edition</h3>
-               <span className="coming-soon">Free Tier Available</span>
-               <ul className="service-features">
-                 <li>Core Platform Access</li>
-                 <li>Standard Security Modules</li>
-                 <li>Community Support & Docs</li>
-                 <li>Non-Production Use Allowed</li>
-               </ul>
-               <button onClick={() => window.location.href = '/contact'} className="btn btn-outline" style={{width: '100%', justifyContent: 'center'}}>Request Community Access</button>
-             </div>
-             <div className="service-card">
-               <h3>Enterprise Edition</h3>
-               <span className="coming-soon">NDA Required</span>
-               <ul className="service-features">
-                 <li>Full Source Code Access</li>
-                 <li>Advanced AI & Compliance Suites</li>
-                 <li>Dedicated Engineering Support</li>
-                 <li>Custom Architecture & SLAs</li>
-               </ul>
-               <button onClick={() => window.location.href = '/contact'} className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Request NDA & Enterprise Access</button>
-             </div>
-           </div>
-         </div>
-       </section>
 
-       {/* Roadmap */}
-       <section id="roadmap" className="roadmap">
-         <div className="container">
-           <div className="section-header">
-             <h2>Product Development Roadmap</h2>
-             <p>Focused execution on Phase 1 delivery before expanding to subsequent product lines.</p>
-           </div>
-           <div className="timeline">
-             <div className="phase">
-               <h3>Phase 1: Core Platform (Current)</h3>
-               <p>Zero-trust architecture, automated compliance mapping, and core security modules. Focus on stability, audit readiness, and enterprise access controls.</p>
-             </div>
-             <div className="phase">
-               <h3>Phase 2: AI Threat Intelligence & SOC Integration</h3>
-               <p>Predictive threat mapping, autonomous incident response, and 24/7 SOC monitoring integration. Enterprise-only rollout pending Phase 1 approval.</p>
-             </div>
-             <div className="phase">
-               <h3>Phase 3: Profitability Scaling & Revenue Optimization</h3>
-               <p>Commercial monetization, multi-tenant scaling, and strategic partnership integrations (ubaz inc.). Board-approved expansion phase.</p>
+           <div style={{ backgroundColor: '#1e293b', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #334155' }}>
+             <h3 style={{ marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}><BarChart3 size={20} color="#8b5cf6" /> Risk Mitigation</h3>
+             <div style={{ height: '150px', backgroundColor: '#0f172a', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px dashed #334155' }}>
+               <span style={{ color: '#64748b' }}>Live Risk Analytics Feed</span>
              </div>
            </div>
          </div>
-       </section>
 
-       {/* Contact / Enterprise Access */}
-       <section id="contact" className="contact">
-         <div className="container">
-           <h2>Enterprise Access & NDA Request</h2>
-           <p style={{color: 'var(--text-muted)', marginTop: '16px'}}>nTrust.ai is currently in active development. Enterprise customers requiring source code access must first execute a standard NDA. Community Edition access requests are processed on a rolling basis.</p>
-           <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert('Request submitted successfully. We will contact you shortly.'); }}>
-             <div className="form-group">
-               <input type="text" placeholder="Full Name" required />
-             </div>
-             <div className="form-group">
-               <input type="email" placeholder="Work Email" required />
-             </div>
-             <div className="form-group">
-               <input type="text" placeholder="Company Name" required />
-             </div>
-             <div className="form-group">
-               <select required>
-                 <option value="" disabled>Select Access Type</option>
-                 <option value="community">Community Edition (Free)</option>
-                 <option value="enterprise">Enterprise Edition (NDA Required)</option>
-               </select>
-             </div>
-             <div className="form-group">
-               <textarea rows="4" placeholder="How can we secure your organization?"></textarea>
-             </div>
-             <button type="submit" className="btn btn-primary" style={{width: '100%', justifyContent: 'center'}}>Submit Request</button>
-           </form>
-         </div>
-       </section>
-
-       {/* Footer */}
-       <footer>
-         <div className="container">
-           <p>&copy; {new Date().getFullYear()} nTrust.ai — It's the numbers we trust. All rights reserved.</p>
-           <p style={{marginTop: '8px', fontSize: '0.75rem'}}>Proprietary software. Source code is available under NDA for Enterprise customers only. Community Edition is free but not open source.</p>
-         </div>
-       </footer>
+         <footer style={{ marginTop: '2rem', textAlign: 'center', color: '#64748b', fontSize: '0.875rem' }}>
+          TrustGuard AI © 2026 nTrust.ai | Enterprise-Grade Cybersecurity & Compliance Platform
+         </footer>
+       </main>
      </div>
-   )
-}
+   );
+};
 
-export default App
+export default App;

@@ -1,0 +1,8 @@
+{
+  "infrastructure": {
+    "smtp_enabled": "true",
+    "telegram_alerts": "true",
+    "auto_updates": "enabled",
+    "compliance_logging": "true"
+  }
+}

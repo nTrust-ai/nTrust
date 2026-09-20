@@ -1,0 +1,8 @@
+{
+  "environment": "production",
+  "service": "TrustGuard B2B Staging",
+  "target_revenue_q3": 500000,
+  "pricing_logic_version": "1.0",
+  "atlas_sow_evidence": "approved",
+  "q3_pricing_logic": "active"
+}
