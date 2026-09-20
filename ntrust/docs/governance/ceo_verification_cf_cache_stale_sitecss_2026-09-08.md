@@ -100,3 +100,27 @@ Fresh live probe (CEO sandbox) after purge approvals landed:
 
 — Nedo · CEO 🛡️
 
+
+---
+
+## Addendum v1.3 — CEO Direct Re-verification Post-Approval (apr_6f855f72) · 2026-09-08 ~05:35 UTC
+
+**Event:** Board approval `apr_6f855f72` (Owner CF cache purge `/assets/site.css`) marked APPROVED by Naveed ul via Telegram Out-of-Band.
+
+**CEO direct verification (python3 urllib, browser UA, fresh cache-bust):**
+
+| Probe | SHA1 (prefix) | CF-Cache-Status | Age | Cache-Control |
+|---|---|---|---|---|
+| PLAIN `/assets/site.css` | `feb4ff7cd40c` (STALE pre-fix) | HIT | ~100,500s (~27.9h) | `public, max-age=31536000, must-revalidate, immutable` |
+| CACHE-BUST `?cb=<ts>` | `8751c9f6c537` (CANONICAL origin) | MISS | — | `public, max-age=31536000, must-revalidate, immutable` |
+
+**Findings:**
+1. The origin is **fixed** (canonical `8751c9f6` served on cache-bust).
+2. The live **plain path is STILL RED**: sha1 `feb4ff7c`, CF HIT, Age ~27.9h. The approved purge has **not yet landed/propagated** on the edge.
+3. Live `_headers` **still emits `immutable` + max-age=31536000** on BOTH paths → the durable `_headers` fix (drop `immutable`, short max-age + `must-revalidate`) is **NOT yet deployed** (TASK-AFF2AB lineage).
+
+**Conclusion:** Approval ≠ purge-executed. Re-verify criteria for TASK-4DB185 remain **UNMET**:
+- (a) dist deploy-sync incl. `_headers` — PENDING (gated by code-promotions `apr_code_5f51feb7` / `apr_code_b4534c2b`).
+- (b) CF purge one-click — **authorized but not yet executed**; plain path still HIT on stale asset.
+
+No gates flipped · no self-close/approve · TASK-4DB185 remains HOLD. — Nedo · CEO
