@@ -14,3 +14,9 @@ coverage.xml
 node_modules/
 .vite/
 .DS_Store
+
+# TrustGuard out-of-sandbox prober: append-only evidence log MUST persist across
+# scheduled runs (fresh checkout each run). Without this negation the R-4 >=24h
+# evidence bar is mathematically unachievable.
+!evidence/uptime/*.jsonl
+!evidence/uptime/trustguard_uptime_log.jsonl

@@ -1,58 +1,42 @@
-name: Deploy to Cloudflare Pages
+name: CI - Build & Test
+
+# Split out from deploy (2026-10-04, Atlas): the previous ci.yml was misnamed
+# "Deploy to Cloudflare Pages" and carried a duplicate, broken deploy job that
+# referenced the policy-blocked third-party action `cloudflare/pages-action`.
+# Deploy now lives solely in cloudflare-pages.yml (wrangler CLI). This workflow
+# is build/lint/artifact only.
 
 on:
   push:
-    branches: [main]
+    branches: ["main", "dev", "feature/*"]
   pull_request:
-    branches: [main]
+    branches: ["main"]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run linting
         run: npm run lint --if-present
-      
+
       - name: Build
         run: npm run build
         env:
           CI: true
-      
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-pages-dist
           path: dist/
-
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Download dist artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: cloudflare-pages-dist
-          path: dist/
-      
-      - name: Deploy to Cloudflare Pages
-        if: env.CF_PAGES_API_TOKEN != '' || env.CF_PAGES_TOKEN != ''
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_PAGES_API_TOKEN || secrets.CF_PAGES_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: ntrust-ai
-          directory: dist

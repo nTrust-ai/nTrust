@@ -1,17 +1,35 @@
 name: Deploy to Cloudflare Pages
 
+# ROOT-CAUSE FIX (2026-10-04, Atlas / Infrastructure & DevOps)
+# ----------------------------------------------------------------------------
+# Prior state: BOTH "Deploy to Cloudflare Pages" workflows invoked the
+# third-party action `cloudflare/pages-action@v1`. Under the org Actions policy
+# GitHub reports: "Unable to resolve actions. Cannot access repositories
+# 'cloudflare/pages-action'". The deploy job therefore died at 'Set up job',
+# so the Cloudflare Pages bundle was never refreshed and durable routes
+# (/naveed 302 -> LinkedIn, /trustguard/ + health.json) returned 404 while the
+# stale apex stayed up.
+#
+# Fix: deploy with the official `wrangler` CLI driven through `npx` (a plain
+# run-step; NO third-party action required). Uses the existing repository
+# secrets CF_PAGES_TOKEN (API token) and CF_ACCOUNT_ID (account id).
+
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: cf-pages-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
-  CF_PAGES_TOKEN: ${{ secrets.CF_PAGES_TOKEN }}
-  GITHUB_PAT: ${{ secrets.GITHUB_DEPLOY_KEY }}
   NODE_VERSION: '20'
+  CF_PROJECT_NAME: 'ntrust-ai'
 
 jobs:
   deploy:
+    name: build-and-deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,33 +46,39 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts || yarn install --frozen-lockfile || pip install -r requirements.txt
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build
+      - name: Build (vite -> dist/)
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Assert durable surfaces exist in artifact
         run: |
-          if [ -f "vite.config.js" ] || [ -f "vite.config.ts" ]; then
-            npm run build
-          elif [ -f "next.config.js" ] || [ -f "next.config.mjs" ]; then
-            npm run build
-          else
-            echo "No recognized build config found. Check package.json scripts."
-            exit 1
-          fi
+          set -euo pipefail
+          test -f dist/index.html             || { echo "::error::dist/index.html missing"; exit 1; }
+          test -f dist/_redirects             || { echo "::error::dist/_redirects missing (/naveed 302)"; exit 1; }
+          test -f dist/trustguard/index.html  || { echo "::error::dist/trustguard/index.html missing"; exit 1; }
+          test -f dist/trustguard/health.json || { echo "::error::dist/trustguard/health.json missing"; exit 1; }
+          grep -q "linkedin.com/in/naveedulislam" dist/_redirects || { echo "::error::/naveed redirect absent"; exit 1; }
+          echo "Artifact assertions PASS"
 
-      - name: Deploy to Cloudflare Pages
-        if: env.CF_PAGES_TOKEN != ''
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_PAGES_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: ${{ vars.CF_PROJECT_NAME || 'ntrust-ai' }}
-          directory: 'dist'
-          branch: ${{ github.ref_name }}
-
-      - name: Verify Deployment
+      - name: Validate Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_PAGES_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: |
-          echo "Deployment triggered. Check Cloudflare Pages dashboard for status."
-          if [ -z "${{ secrets.CF_PAGES_TOKEN }}" ]; then
-            echo "::warning::CF_PAGES_TOKEN not configured. Deployment skipped."
-          fi
+          [ -n "${CLOUDFLARE_API_TOKEN:-}" ]  || { echo "::error::CF_PAGES_TOKEN secret is not set"; exit 1; }
+          [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ] || { echo "::error::CF_ACCOUNT_ID secret is not set"; exit 1; }
+          echo "Cloudflare credentials present."
+
+      - name: Deploy to Cloudflare Pages (wrangler direct upload)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_PAGES_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@3 pages deploy dist \
+            --project-name="${CF_PROJECT_NAME}" \
+            --branch=main \
+            --commit-dirty=true
