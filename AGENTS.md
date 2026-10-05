@@ -75,8 +75,26 @@ When the Board (Naveed Ul Islam) requests an update to the website:
 
 ---
 
-## 🚀 5. Where MVP Code Belongs
+## 🚀 5. Multi-Product Hosting Architecture & Vercel Human Handoff
 
-- Autonomous products (TrustGuard, PrivacyGuard, TrustAudit) are functional software applications.
-- MVP code must reside in designated directories (e.g., `src/trustguard/`, `mvp/`, or distinct product repos/submodules).
-- MVP testing must run on dedicated staging ports or subdomains (e.g., `trustguard.ntrust.ai` or internal Docker sandboxes), **NEVER** replacing the apex marketing website at `https://ntrust.ai/`.
+### Two-Tier Hosting Architecture:
+1. **Corporate Marketing Site (`ntrust.ai`)**:
+   - **Repository**: `ntrustai/nTrust` (this repository).
+   - **Hosting**: Cloudflare Pages.
+   - **Role**: Pure static corporate presence, solutions catalog, pricing, contact, and executive biography.
+2. **Product Applications & Dashboards (`*.ntrust.ai`)**:
+   - **Hosting**: **Vercel** (following the proven architecture of `spine.ntrust.ai`).
+   - **Role**: Interactive web applications, dashboards, compliance engines, and customer portals (e.g. TrustGuard, PrivacyGuard, TrustAudit).
+   - **Repositories**: Must reside in their **own dedicated GitHub repositories** (e.g., `ntrustai/trustguard`).
+   - **NO Hard Bureaucratic Gates**: Agents do not need to halt or request administrative Board approval tickets to develop and push product code. Code with autonomy.
+
+### Vercel Connection Protocol (Human Worker Handoff):
+- Autonomous agents scaffold, develop, write unit tests for, and push product repositories to GitHub.
+- **Connecting the GitHub repository to Vercel and configuring DNS/domains is strictly performed by a human worker** (the owner/executive with administrative access to the Vercel organization).
+- Agents must NOT attempt to execute unauthenticated Vercel CLI commands or get stuck in execution loops.
+- Once a product repository is built and pushed to GitHub, the agent issues an actionable handoff request to the human worker with:
+  1. GitHub Repository URL (e.g., `https://github.com/ntrustai/trustguard`)
+  2. Production Target Subdomain (e.g., `trustguard.ntrust.ai`)
+  3. Framework Preset (e.g., Next.js / React / Vite)
+  4. Required Environment Variables (if any)
+- The human worker imports the repository in the Vercel dashboard and assigns the domain. All subsequent pushes to `main` deploy automatically via Vercel.
