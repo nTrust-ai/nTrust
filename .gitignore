@@ -14,3 +14,11 @@ coverage.xml
 node_modules/
 .vite/
 .DS_Store
+
+# 🔒 Credentials & Secrets (Zero-Trust Enforcement)
+*.key
+*.crt
+*.pem
+.env*
+secrets/
+credentials/
