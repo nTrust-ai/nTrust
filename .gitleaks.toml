@@ -1,0 +1,14 @@
+# Board-approved P0 secret-scan gate (apr_3e2f607f)
+# Zero-trust: scan all commits for leaked credentials, TLS keys, secrets
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlisted items that should not be flagged"
+paths = [
+    '''\.gitignore$''',
+    '''\.gitleaks\.toml$''',
+    '''#\s+.*secret.*site\s+key.*cloudflare.*turnstile''',
+    '''#\s+.*Invisible bot protection.*'''
+]
