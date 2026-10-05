@@ -37,4 +37,4 @@
 
 ## 📞 Contact / Intake
 **Partner with our B2B Pipeline Activation Team.**
-*Email: naveedulislam@gmail.com | Phone: [Pending Integration]*
+*Email: naveed@ntrust.ai | Phone: [Pending Integration]*
