@@ -77,6 +77,8 @@ When the Board (Naveed Ul Islam) requests an update to the website:
 
 ## 🚀 5. Multi-Product Hosting Architecture & Vercel Human Handoff
 
+> **Authoritative Specification**: All agents can read the full architecture specification via the Spine document tool: `read_document(doc_id_or_path="doc_hosting_arch_v1")` (*Product Application Hosting Architecture: Cloudflare Pages vs. Vercel & Human Handoff Protocol*).
+
 ### Two-Tier Hosting Architecture:
 1. **Corporate Marketing Site (`ntrust.ai`)**:
    - **Repository**: `ntrustai/nTrust` (this repository).
