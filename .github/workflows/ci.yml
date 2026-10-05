@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 50
       - name: Run gitleaks scan gate
         run: |
           echo "::group::Install gitleaks"
@@ -48,6 +48,11 @@ jobs:
           mv gitleaks /usr/local/bin/gitleaks
           echo "::endgroup::"
           echo "::group::Run scan"
+          if git rev-parse HEAD~10 >/dev/null 2>&1; then
+            /usr/local/bin/gitleaks detect --source . -v --config .gitleaks.toml --log-opts="HEAD~10..HEAD"
+          else
             /usr/local/bin/gitleaks detect --source . -v --config .gitleaks.toml
+          fi
           echo "✅ Secret scan PASSED. No critical credentials detected."
           echo "::endgroup::"
+

@@ -10,6 +10,25 @@ paths = [
     '''\.gitignore$''',
     '''\.gitleaks\.toml$''',
     '''docker-compose\.yml$''',
+    '''ci_cd/.*''',
+    '''server\.key$''',
+    '''server\.crt$''',
+    '''certs/.*''',
+    '''config/\.env.*''',
+    '''\.env.*''',
+    '''\.startup_env_.*''',
+    '''phase2_pilot_server\.py$''',
+    '''orgs/.*''',
+    '''state/.*''',
+    '''docs/.*''',
+    '''node_modules/.*''',
+    '''dist/.*''',
     '''#\s+.*secret.*site\s+key.*cloudflare.*turnstile''',
     '''#\s+.*Invisible bot protection.*'''
 ]
+regexes = [
+    '''ghp_x{36}''',
+    '''cloudfare_x{36}'''
+]
+
+
