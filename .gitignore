@@ -20,3 +20,15 @@ node_modules/
 # evidence bar is mathematically unachievable.
 !evidence/uptime/*.jsonl
 !evidence/uptime/trustguard_uptime_log.jsonl
+
+# Sensitive Infrastructure Credentials (P0 remediation — CEO-authorized, non-destructive)
+*.key
+*.pem
+*.crt
+*.cert
+server.crt
+private.key
+.env
+.env.*
+*.env
+**/config/.env
