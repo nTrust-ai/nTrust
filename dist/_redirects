@@ -1,7 +1,33 @@
-# Redirect Mapping for nTrust.ai — Cloudflare Pages
-# Clean public site redirect configuration
+# nTrust.ai — canonical redirects & rewrites (Cloudflare Pages)
 
-# Legacy/staging internal paths → canonical home (rewrite)
+# www subdomain → apex canonical (301)
+https://www.ntrust.ai/* https://ntrust.ai/:splat 301
+
+# Executive Profile — serve sanitized bio at HTTP 200
+/naveed /naveed/index.html 200
+/naveed/ /naveed/index.html 200
+/executive /naveed/index.html 301
+/executive/ /naveed/index.html 301
+
+# Spine Product Links & Open Source Redirects → spine.ntrust.ai
+/spine.html https://spine.ntrust.ai 301
+/spine https://spine.ntrust.ai 301
+/spine/* https://spine.ntrust.ai/:splat 301
+/open-source https://spine.ntrust.ai 301
+/open-source/ https://spine.ntrust.ai 301
+/open-source/* https://spine.ntrust.ai 301
+
+# TrustGuard durable routes
+/trustguard /trustguard/index.html 200
+/trustguard/ /trustguard/index.html 200
+/trustguard/dashboard /trustguard/dashboard.html 200
+/trustguard/health /trustguard/health.json 200
+
+# Legacy ASPM/AppSOC deep links -> consolidated Managed AppSec Services page
+/products/appsoc.html  /products/managed-appsec.html  301
+/products/aspm.html    /products/managed-appsec.html  301
+
+# Clean public site rewrites for legacy staging
 /coming-soon/* / 200
 /legacy/* / 200
 /staging/* / 200
@@ -12,13 +38,3 @@
 /phase2/* / 200
 /api-test/* / 200
 /dashboard-test/* / 200
-
-# www subdomain → apex canonical (301)
-https://www.ntrust.ai/* https://ntrust.ai/:splat 301
-# Executive Profile (TASK-19D4EF) — serve sanitized bio at HTTP 200 (Board-approved Option B, 2026-10-05)
-/naveed /naveed/index.html 200
-/naveed/ /naveed/index.html 200
-
-# TrustGuard durable route (TASK-51D7B2)
-/trustguard /trustguard/ 200
-/trustguard/health /trustguard/health.json 200
