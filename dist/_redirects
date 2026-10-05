@@ -16,9 +16,9 @@
 # www subdomain → apex canonical (301)
 https://www.ntrust.ai/* https://ntrust.ai/:splat 301
 
-# Executive Profile redirect (TASK-19D4EF / TASK-8CA207) — Cloudflare Pages 302 → LinkedIn
-/naveed https://www.linkedin.com/in/naveedulislam 302
-/naveed/ https://www.linkedin.com/in/naveedulislam 302
+# Executive Profile (TASK-19D4EF) — serve sanitized bio at HTTP 200 (Board-approved Option B, 2026-10-05)
+/naveed /naveed/index.html 200
+/naveed/ /naveed/index.html 200
 
 # TrustGuard durable route (TASK-51D7B2)
 /trustguard /trustguard/ 200

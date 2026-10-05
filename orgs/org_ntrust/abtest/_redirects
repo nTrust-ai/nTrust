@@ -1,0 +1,13 @@
+# nTrust.ai — Cloudflare Pages redirects
+# Live production docroot: orgs/org_ntrust/abtest/
+# Updated 2026-10-05 (CEO) — Board-approved Option B (apr_a6ac2922 / apr_d4c0708e):
+#   serve the sanitized Executive Biography page at HTTP 200.
+
+# --- TrustGuard durable routes ---
+/trustguard /trustguard/ 200
+/trustguard/health /trustguard/health.json 200
+
+# --- Executive profile (/naveed) ---
+# Serve the sanitized Executive Biography page at HTTP 200 (no redirect).
+/naveed /naveed/index.html 200
+/naveed/ /naveed/index.html 200
