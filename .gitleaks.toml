@@ -9,6 +9,7 @@ description = "Allowlisted items that should not be flagged"
 paths = [
     '''\.gitignore$''',
     '''\.gitleaks\.toml$''',
+    '''docker-compose\.yml$''',
     '''#\s+.*secret.*site\s+key.*cloudflare.*turnstile''',
     '''#\s+.*Invisible bot protection.*'''
 ]
