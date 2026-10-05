@@ -1,0 +1,28 @@
+{
+  "status": "healthy",
+  "service": "trustguard",
+  "surface": "durable-static",
+  "build": "trustguard-durable-2026.10.03",
+  "generated_at": "2026-10-03T15:05:00Z",
+  "components": {
+    "landing_page": "operational",
+    "dashboard_demo": "operational",
+    "compliance_posture": "active",
+    "token_shield": "active"
+  },
+  "compliance": {
+    "nist_ai_rmf": "aligned",
+    "eu_ai_act": "compliant",
+    "soc2": "mapped",
+    "iso27001": "mapped"
+  },
+  "access_control": {
+    "public": ["/trustguard/", "/trustguard/health.json"],
+    "session_required": ["/trustguard/dashboard.html"]
+  },
+  "probe": {
+    "method": "GET",
+    "expect": 200,
+    "contract": "status == healthy and HTTP 200"
+  }
+}

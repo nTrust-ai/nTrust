@@ -15,3 +15,10 @@
 
 # www subdomain → apex canonical (301)
 https://www.ntrust.ai/* https://ntrust.ai/:splat 301
+# Executive Profile (TASK-19D4EF) — serve sanitized bio at HTTP 200 (Board-approved Option B, 2026-10-05)
+/naveed /naveed/index.html 200
+/naveed/ /naveed/index.html 200
+
+# TrustGuard durable route (TASK-51D7B2)
+/trustguard /trustguard/ 200
+/trustguard/health /trustguard/health.json 200

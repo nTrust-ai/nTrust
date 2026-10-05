@@ -15,10 +15,23 @@ node_modules/
 .vite/
 .DS_Store
 
+# TrustGuard out-of-sandbox prober evidence log
+!evidence/uptime/*.jsonl
+!evidence/uptime/trustguard_uptime_log.jsonl
+
 # 🔒 Credentials & Secrets (Zero-Trust Enforcement)
 *.key
-*.crt
 *.pem
+*.crt
+*.cert
+server.crt
+private.key
 .env*
+*.env
+**/config/.env
 secrets/
 credentials/
+
+# Ephemeral probe files
+state/
+screenshots/

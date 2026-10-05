@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustGuard — AI-Native Security &amp; Compliance | nTrust.ai</title>
+<meta name="description" content="TrustGuard by nTrust.ai delivers AI-native zero-trust security and automated compliance aligned to NIST AI RMF, EU AI Act, SOC 2 and ISO 27001.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="TrustGuard — AI-Native Security &amp; Compliance">
+<meta property="og:description" content="Automated compliance evidence, continuous threat intelligence, and zero-trust architecture for modern enterprises.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ntrust.ai/trustguard/">
+<style>
+:root{--bg:#0a0e1a;--panel:#111726;--panel2:#0d1322;--accent:#00d4a0;--accent2:#3b82f6;--txt:#e6edf3;--muted:#8b97a7;--border:#1e2740;--warn:#f59e0b;--ok:#22c55e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;background:rgba(10,14,26,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:50}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:-.5px}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--muted);font-size:.95rem;font-weight:500}
+.nav-links a:hover{color:var(--txt);text-decoration:none}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:700;font-size:.95rem;transition:.2s;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#04140f}
+.btn-primary:hover{filter:brightness(1.08);text-decoration:none}
+.btn-ghost{border-color:var(--border);color:var(--txt)}
+.btn-ghost:hover{background:var(--panel);text-decoration:none}
+.hero{padding:72px 0 48px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid var(--border);background:var(--panel);padding:6px 12px;border-radius:999px;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(34,197,94,.18);display:inline-block}
+h1{font-size:2.7rem;line-height:1.12;letter-spacing:-1px;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.12rem;max-width:620px;margin-bottom:26px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+.status-card h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px}
+.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--border);font-size:.92rem}
+.kv:last-child{border-bottom:0}
+.kv b{font-weight:600}
+.kv .v{color:var(--accent);font-variant-numeric:tabular-nums}
+section{padding:44px 0}
+.sec-title{font-size:1.6rem;letter-spacing:-.4px;margin-bottom:8px}
+.sec-sub{color:var(--muted);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid.card-feature{padding:24px;border-radius:14px;background:var(--panel);border:1px solid var(--border);transition:.2s}
+.grid.card-feature:hover{border-color:var(--accent);transform:translateY(-3px)}
+.feat-ico{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04140f;margin-bottom:14px}
+.card-feature h3{font-size:1.05rem;margin-bottom:6px}
+.card-feature p{color:var(--muted);font-size:.94rem}
+.strip{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.chip{border:1px solid var(--border);background:var(--panel2);color:var(--muted);font-size:.85rem;padding:8px 14px;border-radius:999px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:22px}
+.step .n{font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:8px}
+.cta-band{background:linear-gradient(135deg,rgba(0,212,160,.12),rgba(59,130,246,.12));border:1px solid var(--border);border-radius:16px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}
+footer .frow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:48px}.grid,.steps{grid-template-columns:1fr}h1{font-size:2.1rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">nTrust<span>.</span>ai &nbsp;<span style="color:var(--muted);font-weight:500;font-size:.95rem">| TrustGuard</span></div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#how">How it works</a>
+        <a href="/trustguard/dashboard.html">Live dashboard</a>
+        <a class="btn btn-primary" href="/contact.html">Request a demo</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow"><span class="dot" id="hdot"></span> Live service status</span>
+      <h1>AI-native security &amp; compliance, <em>continuously verified</em>.</h1>
+      <p class="lead">TrustGuard unifies zero-trust protection, automated compliance evidence, and real-time threat intelligence — aligned to NIST AI RMF, EU AI Act, SOC&nbsp;2 and ISO&nbsp;27001. Delivered as a durable, edge-hosted surface you can monitor every minute.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/contact.html">Request a demo</a>
+        <a class="btn btn-ghost" href="/trustguard/dashboard.html">Open live dashboard</a>
+      </div>
+    </div>
+    <div class="card status-card">
+      <h3>Surface health</h3>
+      <div class="kv"><span>Status</span><b class="v" id="st-status">checking…</b></div>
+      <div class="kv"><span>Build</span><b class="v mono" id="st-build">—</b></div>
+      <div class="kv"><span>NIST AI RMF</span><b class="v" id="st-nist">—</b></div>
+      <div class="kv"><span>EU AI Act</span><b class="v" id="st-eu">—</b></div>
+      <div class="kv"><span>SOC 2</span><b class="v" id="st-soc2">—</b></div>
+      <div class="kv"><span>Checked</span><b class="v mono" id="st-time">—</b></div>
+      <p style="color:var(--muted);font-size:.8rem;margin-top:12px">Machine-readable posture: <a class="mono" href="/trustguard/health.json">/trustguard/health.json</a></p>
+    </div>
+  </div>
+
+  <section id="capabilities">
+    <div class="wrap">
+      <h2 class="sec-title">Capabilities</h2>
+      <p class="sec-sub">One platform for defensive depth and defensible compliance.</p>
+      <div class="grid">
+        <div class="card-feature"><div class="feat-ico">ZT</div><h3>Zero-trust architecture</h3><p>Identity-first access, least privilege, and continuous verification across every endpoint and workload.</p></div>
+        <div class="card-feature"><div class="feat-ico">CR</div><h3>Automated compliance</h3><p>Maps controls to NIST AI RMF, EU AI Act and SOC&nbsp;2 — generating audit-ready evidence without manual spreadsheets.</p></div>
+        <div class="card-feature"><div class="feat-ico">TI</div><h3>Threat intelligence</h3><p>Real-time detection and prioritisation of emerging vectors, tuned to your assets and data flows.</p></div>
+        <div class="card-feature"><div class="feat-ico">DG</div><h3>Data governance</h3><p>Policy-driven classification, lineage and retention so sensitive data never leaves its trust boundary.</p></div>
+        <div class="card-feature"><div class="feat-ico">RA</div><h3>Risk assessment</h3><p>Continuous posture scoring with prioritised remediation guidance tied to business impact.</p></div>
+        <div class="card-feature"><div class="feat-ico">AU</div><h3>Audit traceability</h3><p>Immutable activity logs and control evidence, ready for regulators, auditors and customers.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec-title">Built on recognised standards</h2>
+      <p class="sec-sub">Compliance-by-design, not bolted on after deployment.</p>
+      <div class="strip">
+        <span class="chip">NIST AI RMF</span>
+        <span class="chip">EU AI Act</span>
+        <span class="chip">SOC 2 Type II (mapped)</span>
+        <span class="chip">ISO 27001</span>
+        <span class="chip">GDPR-aligned data handling</span>
+        <span class="chip">Continuous evidence capture</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2 class="sec-title">How it works</h2>
+      <p class="sec-sub">Deploy in days, not quarters.</p>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>Connect</h3><p>Integrate identity, cloud and endpoint sources through read-only connectors — no data migration required.</p></div>
+        <div class="step"><div class="n">02</div><h3>Assess</h3><p>TrustGuard establishes a live posture baseline and maps existing controls to your target frameworks.</p></div>
+        <div class="step"><div class="n">03</div><h3>Protect &amp; prove</h3><p>Continuous enforcement, alerting and audit-ready evidence generation keep you compliant as you scale.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2 class="sec-title" style="margin-bottom:4px">See TrustGuard on your stack</h2>
+          <p class="sec-sub" style="margin-bottom:0">Book a guided walkthrough with the nTrust.ai team.</p>
+        </div>
+        <a class="btn btn-primary" href="/contact.html">Request a demo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; 2026 nTrust.ai — TrustGuard. All rights reserved.</div>
+    <div>
+      <a href="/">Home</a> · <a href="/products">Products</a> · <a href="/pricing">Pricing</a> · <a href="/trustguard/health.json">Status</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var el=function(id){return document.getElementById(id)};
+  fetch('/trustguard/health.json',{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(d){
+      el('st-status').textContent=(d.status||'unknown');
+      el('st-build').textContent=(d.build||'—');
+      var c=d.compliance||{};
+      el('st-nist').textContent=(c.nist_ai_rmf||'—');
+      el('st-eu').textContent=(c.eu_ai_act||'—');
+      el('st-soc2').textContent=(c.soc2||'—');
+      el('st-time').textContent=(d.generated_at||new Date().toISOString()).slice(0,19)+'Z';
+      var dot=el('hdot');
+      if((d.status||'').toLowerCase()==='healthy'){dot.style.background='#22c55e';}
+      else{dot.style.background='#f59e0b';}
+    })
+    .catch(function(e){
+      el('st-status').textContent='unreachable';
+      var dot=el('hdot'); dot.style.background='#ef4444';
+    });
+})();
+</script>
+</body>
+</html>

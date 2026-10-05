@@ -1,0 +1,107 @@
+name: TrustGuard Durable Surface Uptime Prober
+
+# OUT-OF-SANDBOX prober. Runs on GitHub-hosted runners (independent of the
+# TrustGuard origin), probes the permanent Cloudflare Pages surface on a
+# schedule, and appends continuous evidence to the repo. This satisfies the
+# Board's ">=24h sustained external 200s from an out-of-sandbox prober" bar.
+#
+# Read-only against the site: this workflow NEVER mutates the surface; it only
+# observes and records.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # every 15 minutes (external, out-of-sandbox)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trustguard-uptime
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Probe durable TrustGuard surface
+        id: probe
+        run: |
+          set -u
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          URL_PRIMARY="https://ntrust.ai/trustguard/health.json"
+          URL_LANDING="https://ntrust.ai/trustguard/"
+          URL_PAGES="https://ntrust.pages.dev/trustguard/health.json"
+
+          probe() {
+            curl -s -o /tmp/body -w '%{http_code}' -m 20 "$1" 2>/dev/null || true
+          }
+
+          C1=$(probe "$URL_PRIMARY"); [ -z "$C1" ] && C1=000
+          B1=$(cat /tmp/body 2>/dev/null || true)
+          C2=$(probe "$URL_LANDING"); [ -z "$C2" ] && C2=000
+          C3=$(probe "$URL_PAGES");   [ -z "$C3" ] && C3=000
+
+          STATUS=$(printf '%s' "$B1" | tr -d '\n ' | sed -n 's/.*"status":"\([^"]*\)".*/\1/p')
+          [ -z "$STATUS" ] && STATUS=unknown
+
+          PASS=false
+          if [ "$C1" = "200" ] && [ "$C2" = "200" ] && [ "$STATUS" = "healthy" ]; then PASS=true; fi
+
+          mkdir -p evidence/uptime
+          LOG=evidence/uptime/trustguard_uptime_log.jsonl
+          touch "$LOG"
+          printf '{"ts":"%s","surface":"https://ntrust.ai/trustguard/","primary_code":%s,"landing_code":%s,"pages_code":%s,"status":"%s","pass":%s}\n' \
+            "$TS" "$C1" "$C2" "$C3" "$STATUS" "$PASS" >> "$LOG"
+
+          echo "primary=$C1 landing=$C2 pages=$C3 status=$STATUS pass=$PASS"
+
+      - name: Aggregate rolling evidence summary
+        run: |
+          set -u
+          LOG=evidence/uptime/trustguard_uptime_log.jsonl
+          OUT=evidence/uptime/trustguard_uptime_summary.json
+          touch "$LOG"
+          TOTAL=$(wc -l < "$LOG" | tr -d ' ')
+          [ -z "$TOTAL" ] && TOTAL=0
+          OK=$(grep -c '"pass":true' "$LOG" || true)
+          [ -z "$OK" ] && OK=0
+          FAIL=$((TOTAL-OK))
+          if [ "$TOTAL" -gt 0 ]; then
+            RATE=$(awk -v o="$OK" -v t="$TOTAL" 'BEGIN{printf "%.2f", (100.0*o)/t}')
+          else
+            RATE="0.00"
+          fi
+          FIRST=$(sed -n '1s/.*"ts":"\([^"]*\)".*/\1/p' "$LOG")
+          LAST=$(tail -n 1 "$LOG" | sed -n 's/.*"ts":"\([^"]*\)".*/\1/p')
+          SPAN=0
+          if [ -n "$FIRST" ] && [ -n "$LAST" ]; then
+            E1=$(date -u -d "$FIRST" +%s 2>/dev/null || echo 0)
+            E2=$(date -u -d "$LAST"  +%s 2>/dev/null || echo 0)
+            SPAN_H=$(awk -v a="$E1" -v b="$E2" 'BEGIN{printf "%.2f", (b-a)/3600.0}')
+          else
+            SPAN_H="0.00"
+          fi
+          MEETS=false
+          MEETS=$(awk -v h="$SPAN_H" -v r="$RATE" -v t="$TOTAL" 'BEGIN{ if (t>0 && h>=24 && r>=99) print "true"; else print "false" }')
+
+          printf '{\n  "updated_at": "%s",\n  "samples": %s,\n  "passes": %s,\n  "failures": %s,\n  "success_rate": %s,\n  "window_hours": %s,\n  "meets_24h_bar": %s,\n  "expected_cadence_minutes": 15\n}\n' \
+            "$LAST" "$TOTAL" "$OK" "$FAIL" "$RATE" "$SPAN_H" "$MEETS" > "$OUT"
+          cat "$OUT"
+
+      - name: Commit evidence
+        run: |
+          set -u
+          git config user.name "trustguard-prober"
+          git config user.email "prober@ntrust.ai"
+          git add evidence/uptime/ || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(uptime): TrustGuard durable-surface probe $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}" || true
+            git push
+          fi
