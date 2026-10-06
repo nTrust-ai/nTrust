@@ -34,7 +34,7 @@ export async function onRequestPost(context) {
     const contentType = request.headers.get("content-type") || "";
 
     if (contentType.includes("application/json")) {
-      const data = await request.json();
+      const data = await request.json().catch(() => ({}));
       name = (data.name || "").trim();
       email = (data.email || "").trim();
       company = (data.company || "").trim();
@@ -42,14 +42,15 @@ export async function onRequestPost(context) {
       message = (data.message || "").trim();
       honeypot = (data._gotcha || data.website || "").trim();
     } else {
-      // Form-encoded or FormData
-      const formData = await request.formData();
-      name = (formData.get("name") || "").toString().trim();
-      email = (formData.get("email") || "").toString().trim();
-      company = (formData.get("company") || "").toString().trim();
-      interest = (formData.get("interest") || "General inquiry").toString().trim();
-      message = (formData.get("message") || "").toString().trim();
-      honeypot = (formData.get("_gotcha") || formData.get("website") || "").toString().trim();
+      // Read raw text and parse as URLSearchParams to safely support all form encodings
+      const rawText = await request.text().catch(() => "");
+      const params = new URLSearchParams(rawText);
+      name = (params.get("name") || "").trim();
+      email = (params.get("email") || "").trim();
+      company = (params.get("company") || "").trim();
+      interest = (params.get("interest") || "General inquiry").trim();
+      message = (params.get("message") || "").trim();
+      honeypot = (params.get("_gotcha") || params.get("website") || "").trim();
     }
 
     // 1. Silent Bot Trap (Honeypot)
@@ -80,7 +81,7 @@ export async function onRequestPost(context) {
     }
 
     // 3. Check for SendGrid API Key
-    const sendgridApiKey = env.SENDGRID_API_KEY;
+    const sendgridApiKey = String(env.SENDGRID_API_KEY || "").trim();
     if (!sendgridApiKey) {
       console.error("SENDGRID_API_KEY is not defined in Cloudflare Pages environment variables.");
       return new Response(
@@ -94,15 +95,19 @@ export async function onRequestPost(context) {
     }
 
     // 4. Construct Email Payload
-    const receiverRaw = env.CONTACT_RECEIVER_EMAIL || "naveed@ntrust.ai,sales@ntrust.ai";
+    const receiverRaw = String(env.CONTACT_RECEIVER_EMAIL || "naveed@ntrust.ai,sales@ntrust.ai");
     const toRecipients = receiverRaw
       .split(",")
       .map((addr) => addr.trim())
-      .filter((addr) => addr.length > 0)
+      .filter((addr) => addr.length > 0 && addr.includes("@"))
       .map((addr) => ({ email: addr }));
 
-    const fromEmail = env.SENDGRID_FROM_EMAIL || "noreply@ntrust.ai";
-    const fromName = env.SENDGRID_FROM_NAME || "nTrust.ai Website Contact";
+    if (toRecipients.length === 0) {
+      toRecipients.push({ email: "naveed@ntrust.ai" });
+    }
+
+    const fromEmail = String(env.SENDGRID_FROM_EMAIL || "noreply@ntrust.ai").trim();
+    const fromName = String(env.SENDGRID_FROM_NAME || "nTrust.ai Website Contact").trim();
 
     const clientIp = request.headers.get("cf-connecting-ip") || "Unknown";
     const clientCountry = request.headers.get("cf-ipcountry") || "Unknown";
@@ -215,15 +220,16 @@ ${message}
         { status: 200, headers: corsHeaders }
       );
     } else {
-      const errText = await sgResponse.text();
+      const errText = await sgResponse.text().catch(() => "");
       console.error(`SendGrid API error (${sgResponse.status}):`, errText);
       return new Response(
         JSON.stringify({
           ok: false,
-          error: "Failed to deliver email through SendGrid. Please email sales@ntrust.ai directly.",
-          status: sgResponse.status
+          error: "SendGrid delivery failed.",
+          sendgrid_status: sgResponse.status,
+          sendgrid_details: errText
         }),
-        { status: 502, headers: corsHeaders }
+        { status: 400, headers: corsHeaders }
       );
     }
   } catch (err) {
@@ -231,7 +237,8 @@ ${message}
     return new Response(
       JSON.stringify({
         ok: false,
-        error: "An internal server error occurred while processing your request."
+        error: "An internal server error occurred while processing your request.",
+        details: err ? err.message : String(err)
       }),
       { status: 500, headers: corsHeaders }
     );
