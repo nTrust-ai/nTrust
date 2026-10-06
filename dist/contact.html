@@ -47,7 +47,8 @@
       <div class="info-card">
         <div class="form-ok" id="formOk">&#10003; Thank you &mdash; your message has been received. Our team will respond within two business days.</div>
         <div class="form-err" id="formErr">We could not submit the form right now. Please email sales@ntrust.ai and we will get back to you shortly.</div>
-        <form id="contactForm" novalidate>
+        <form id="contactForm" method="POST" action="/api/contact">
+          <input type="text" name="_gotcha" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="field"><label for="fname">Full name *</label><input id="fname" name="name" type="text" required autocomplete="name" placeholder="Jane Smith"></div>
           <div class="field"><label for="femail">Work email *</label><input id="femail" name="email" type="email" required autocomplete="email" placeholder="jane@company.com"></div>
           <div class="field"><label for="fcompany">Company *</label><input id="fcompany" name="company" type="text" required placeholder="Company Inc."></div>
@@ -67,7 +68,7 @@
           </div>
           <div class="field"><label for="fmsg">How can we help? *</label><textarea id="fmsg" name="message" required placeholder="Describe your environment, timelines, or questions..."></textarea><div class="hint">All information you share is treated as confidential. We can sign an NDA on request.</div></div>
           <div class="field check-field"><input id="fconsent" name="consent" type="checkbox" required><label for="fconsent" style="font-weight:400;color:var(--muted);">I agree to be contacted about my inquiry and accept the nTrust.ai privacy policy. *</label></div>
-          <button class="btn btn-primary btn-lg" type="submit" style="width:100%;">Send Message</button>
+          <button id="submitBtn" class="btn btn-primary btn-lg" type="submit" style="width:100%;">Send Message</button>
         </form>
       </div>
       <div>
@@ -91,16 +92,56 @@
   </section>
   <script>
   (function(){
-    var form=document.getElementById('contactForm');
-    form.addEventListener('submit',function(ev){
+    var form = document.getElementById('contactForm');
+    var btn = document.getElementById('submitBtn');
+    var ok = document.getElementById('formOk');
+    var err = document.getElementById('formErr');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function(ev) {
       ev.preventDefault();
-      var ok=document.getElementById('formOk'), err=document.getElementById('formErr');
-      ok.style.display='none'; err.style.display='none';
-      var body=new URLSearchParams(new FormData(form)).toString();
-      fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body})
-        .then(function(r){if(!r.ok)throw new Error('bad');return r.json();})
-        .then(function(d){if(d.ok){ok.style.display='block';form.reset();}else throw new Error('nok');})
-        .catch(function(){err.style.display='block';});
+      ok.style.display = 'none';
+      err.style.display = 'none';
+
+      var origBtnText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending message...';
+
+      var body = new URLSearchParams(new FormData(form)).toString();
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+      })
+      .then(function(r) {
+        return r.json().then(function(data) {
+          if (!r.ok || !data.ok) {
+            throw new Error(data.error || 'Server error occurred');
+          }
+          return data;
+        });
+      })
+      .then(function(d) {
+        ok.style.display = 'block';
+        ok.textContent = d.message || '✓ Thank you — your message has been received. Our team will respond within two business days.';
+        form.reset();
+        ok.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      })
+      .catch(function(e) {
+        err.style.display = 'block';
+        if (e.message && e.message !== 'bad' && e.message !== 'Server error occurred') {
+          err.innerHTML = e.message + ' Please email <a href="mailto:sales@ntrust.ai">sales@ntrust.ai</a> or <a href="mailto:naveed@ntrust.ai">naveed@ntrust.ai</a>.';
+        } else {
+          err.innerHTML = 'We could not submit the form right now. Please email <a href="mailto:sales@ntrust.ai">sales@ntrust.ai</a> or <a href="mailto:naveed@ntrust.ai">naveed@ntrust.ai</a> and we will get back to you shortly.';
+        }
+        err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      })
+      .finally(function() {
+        btn.disabled = false;
+        btn.textContent = origBtnText;
+      });
     });
   })();
   </script>
