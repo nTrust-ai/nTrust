@@ -1,37 +1,16 @@
-*.db
-*.jsonl
-__pycache__/
-*.log
-
-# CI / test artifacts
-.coverage
-coverage.xml
-.pytest_cache/
-
-# Temporary startup environment scripts
-.startup_env_*.sh
-
+# Dependencies and cache
 node_modules/
-.vite/
+.cache/
 .DS_Store
-
-# TrustGuard out-of-sandbox prober evidence log
-!evidence/uptime/*.jsonl
-!evidence/uptime/trustguard_uptime_log.jsonl
-
-# 🔒 Credentials & Secrets (Zero-Trust Enforcement)
-*.key
-*.pem
-*.crt
-*.cert
-server.crt
-private.key
+*.log
 .env*
-*.env
-**/config/.env
-secrets/
-credentials/
+!.env.example
 
-# Ephemeral probe files
-state/
+# Prevent nested local directories from being tracked as submodules
+data/
+mvp/
+trustguard/
+mailboxes/
 screenshots/
+state/
+prod/
