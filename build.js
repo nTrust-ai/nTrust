@@ -215,6 +215,7 @@ const CRITICAL_FILES = [
   'sitemap.xml',
   'products/index.html',
   'products/trustguard.html',
+  'products/tokenshield.html',
   'products/enterprise-security-audit.html',
   'products/privacyguard.html',
   'products/trustaudit.html',
@@ -274,4 +275,4 @@ if (errors > 0) {
   process.exit(1);
 }
 
-console.log('🎉 [nTrust Build] All 21 critical endpoints verified successfully! Ready for Cloudflare Pages deployment.');
+console.log('🎉 [nTrust Build] All 22 critical endpoints verified successfully! Ready for Cloudflare Pages deployment.');

@@ -23,6 +23,12 @@ https://www.ntrust.ai/* https://ntrust.ai/:splat 301
 /trustguard/dashboard /trustguard/dashboard.html 200
 /trustguard/health /trustguard/health.json 200
 
+# TokenShield durable routes
+/tokenshield /products/tokenshield.html 200
+/tokenshield/ /products/tokenshield.html 200
+/products/tokenshield /products/tokenshield.html 200
+/products/tokenshield/ /products/tokenshield.html 200
+
 # Legacy ASPM/AppSOC deep links -> consolidated Managed AppSec Services page
 /products/appsoc.html  /products/managed-appsec.html  301
 /products/aspm.html    /products/managed-appsec.html  301

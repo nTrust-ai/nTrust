@@ -10,7 +10,10 @@ node_modules/
 data/
 mvp/
 trustguard/
+trustguard-mvp/
 mailboxes/
 screenshots/
 state/
 prod/
+__pycache__/
+*.pyc
