@@ -1,0 +1,2 @@
+Status: 200
+Data: {"status":"healthy","db_connected":true,"edge_ready":true,"deploy_target":"vercel"}
