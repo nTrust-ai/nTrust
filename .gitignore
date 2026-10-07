@@ -15,5 +15,6 @@ mailboxes/
 screenshots/
 state/
 prod/
+repos/
 __pycache__/
 *.pyc
