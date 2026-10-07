@@ -27,6 +27,18 @@ https://www.ntrust.ai/* https://ntrust.ai/:splat 301
 /tokenshield /products/tokenshield 301
 /tokenshield/ /products/tokenshield 301
 
+# TrustBrain durable routes
+/trustbrain https://trustbrain.ntrust.ai 301
+/trustbrain/* https://trustbrain.ntrust.ai/:splat 301
+
+# TrustAudit durable routes
+/trustaudit https://trustaudit.ntrust.ai 301
+/trustaudit/* https://trustaudit.ntrust.ai/:splat 301
+
+# Portal durable routes
+/portal https://portal.ntrust.ai 301
+/portal/* https://portal.ntrust.ai/:splat 301
+
 # Legacy ASPM/AppSOC deep links -> consolidated Managed AppSec Services page
 /products/appsoc.html  /products/managed-appsec.html  301
 /products/aspm.html    /products/managed-appsec.html  301
