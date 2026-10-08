@@ -219,6 +219,7 @@ const CRITICAL_FILES = [
   'products/enterprise-security-audit.html',
   'products/privacyguard.html',
   'products/trustaudit.html',
+  'products/trustbrain.html',
   'products/ntrust-shield.html',
   'products/sun-token.html',
   'products/managed-appsec.html',
