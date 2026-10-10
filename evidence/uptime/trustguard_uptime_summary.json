@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-10-09T21:09:04Z",
-  "samples": 22,
-  "passes": 16,
+  "updated_at": "2026-10-10T00:55:00Z",
+  "samples": 23,
+  "passes": 17,
   "failures": 6,
-  "success_rate": 72.73,
-  "window_hours": 134.34,
+  "success_rate": 73.91,
+  "window_hours": 138.10,
   "meets_24h_bar": false,
   "expected_cadence_minutes": 15
 }
